@@ -1,0 +1,1670 @@
+{
+ "search_metadata": {
+  "id": "6ac8e70c17bdbf8fe9c138ec",
+  "status": "Success",
+  "json_endpoint": "https://serpapi.com/searches/8Qd01Le7oD1FMbZ1jGG9MWkPLUfS6YAAyuooKGS0qag/6ac8e70c17bdbf8fe9c138ec.json",
+  "markdown_endpoint": "https://serpapi.com/searches/8Qd01Le7oD1FMbZ1jGG9MWkPLUfS6YAAyuooKGS0qag/6ac8e70c17bdbf8fe9c138ec.md",
+  "created_at": "2026-10-09 13:07:24 UTC",
+  "processed_at": "2026-10-09 13:07:24 UTC",
+  "amazon_url": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear",
+  "raw_html_file": "https://serpapi.com/searches/8Qd01Le7oD1FMbZ1jGG9MWkPLUfS6YAAyuooKGS0qag/6ac8e70c17bdbf8fe9c138ec.html",
+  "total_time_taken": 1.87
+ },
+ "search_information": {
+  "total_results": 1060,
+  "query_displayed": "Atomic Habits James Clear",
+  "store": "gateway",
+  "page": 1
+ },
+ "organic_results": [
+  {
+   "position": 1,
+   "asin": "9388241908",
+   "sponsored": true,
+   "badges": [
+    "Great Indian Festival"
+   ],
+   "title": "Atomic Habits (Tamil)",
+   "link": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4NTAyNTgxODkzOTU4NDk2OjE3OTE1NTEyNDU6c3BfYXRmOjMwMDA3Nzc1OTY4ODgzMjo6MDo6&url=%2FATOMIC-HABITS-James-Clear%2Fdp%2F9388241908%2Fref%3Dsr_1_1_sspa%3Fdib%3DeyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE%26dib_tag%3Dse%26keywords%3DAtomic%2BHabits%2BJames%2BClear%26qid%3D1791551245%26sr%3D8-1-spons%26aref%3DyFZmxXtEGA%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1&aref=yFZmxXtEGA&sp_cr=ZAZ",
+   "link_clean": "https://www.amazon.in/dp/9388241908/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=9388241908&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/71J6FZAn17L._AC_UY218_.jpg",
+   "rating": 4.6,
+   "reviews": 1200,
+   "price": "₹269",
+   "extracted_price": 269,
+   "old_price": "₹499",
+   "extracted_old_price": 499,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "FREE delivery Mon, 12 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹269",
+     "extracted_primary_price": 269,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹499",
+     "extracted_old_primary_price": 499
+    }
+   ]
+  },
+  {
+   "position": 2,
+   "asin": "9390085543",
+   "sponsored": true,
+   "badges": [
+    "Great Indian Festival"
+   ],
+   "title": "Atomic Habits (Telugu)",
+   "link": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4NTAyNTgxODkzOTU4NDk2OjE3OTE1NTEyNDU6c3BfYXRmOjMwMDA5MTkyMjQ3MTMzMjo6MDo6&url=%2FAtomic-Habits-Telugu%2Fdp%2F9390085543%2Fref%3Dsr_1_2_sspa%3Fdib%3DeyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE%26dib_tag%3Dse%26keywords%3DAtomic%2BHabits%2BJames%2BClear%26qid%3D1791551245%26sr%3D8-2-spons%26aref%3DA4BlS0491m%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1&aref=A4BlS0491m&sp_cr=ZAZ",
+   "link_clean": "https://www.amazon.in/dp/9390085543/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=9390085543&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/81N2Y6my2sL._AC_UY218_.jpg",
+   "rating": 4.4,
+   "reviews": 586,
+   "price": "₹295",
+   "extracted_price": 295,
+   "old_price": "₹499",
+   "extracted_old_price": 499,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "FREE delivery Tue, 13 Oct",
+    "Or fastest delivery Sun, 11 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹295",
+     "extracted_primary_price": 295,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹499",
+     "extracted_old_primary_price": 499
+    }
+   ]
+  },
+  {
+   "position": 3,
+   "asin": "1847941834",
+   "title": "Atomic Habits: Tiny Changes, Remarkable Results",
+   "link": "https://www.amazon.in/Atomic-Habits-James-Clear/dp/1847941834/ref=sr_1_3?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-3",
+   "link_clean": "https://www.amazon.in/Atomic-Habits-James-Clear/dp/1847941834/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=1847941834&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/817HaeblezL._AC_UY218_.jpg",
+   "rating": 4.6,
+   "reviews": 1.1,
+   "price": "₹472",
+   "extracted_price": 472,
+   "old_price": "₹899",
+   "extracted_old_price": 899,
+   "no_featured_offers_available": true,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card",
+    "Free with Audible trial"
+   ],
+   "snap_ebt_eligible": true,
+   "delivery": [
+    "FREE delivery Sun, 11 Oct",
+    "Or fastest delivery Tomorrow 8 am - 12 pm"
+   ],
+   "age_rating": "15 years and up",
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹472",
+     "extracted_primary_price": 472,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹899",
+     "extracted_old_primary_price": 899
+    },
+    {
+     "type": "Kindle Edition",
+     "primary_price": "₹303.05",
+     "extracted_primary_price": 303.05
+    },
+    {
+     "type": "Audiobook",
+     "free_with_subscription": true,
+     "primary_price": "₹0",
+     "extracted_primary_price": 0,
+     "old_primary_price": "₹504.38",
+     "extracted_old_primary_price": 504.38
+    }
+   ]
+  },
+  {
+   "position": 4,
+   "asin": "B0HM2P8V3S",
+   "title": "Atomic Habits Book Practical Behaviour Guide To Better Routines Small Daily Changes Effective Systems Consistency Habit Formation And Sustainable Improvement",
+   "link": "https://www.amazon.in/dp/B0HM2P8V3S/ref=sr_1_4?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-4",
+   "link_clean": "https://www.amazon.in/dp/B0HM2P8V3S/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=B0HM2P8V3S&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/51U+wsHHOVL._AC_UY218_.jpg",
+   "price": "₹299",
+   "extracted_price": 299,
+   "old_price": "₹799",
+   "extracted_old_price": 799,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "FREE delivery Thu, 15 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹299",
+     "extracted_primary_price": 299,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹799",
+     "extracted_old_primary_price": 799
+    }
+   ]
+  },
+  {
+   "position": 5,
+   "asin": "B0HHFXPM1M",
+   "sponsored": true,
+   "title": "Atomic Habits + The Science of Rapid Skill Acquisition: Advanced Methods to Learn, Remember, and Master New Skills and Information | Malayalam Hardback Books | Habits & Productivity | 2-Book Combo",
+   "link": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4NTAyNTgxODkzOTU4NDk2OjE3OTE1NTEyNDU6c3BfbXRmOjMwMTM1NjI5Mjg0MzIzMjo6MDo6&url=%2FAtomic-Habits-Science-Rapid-Acquisition%2Fdp%2FB0HHFXPM1M%2Fref%3Dsr_1_5_sspa%3Fdib%3DeyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE%26dib_tag%3Dse%26keywords%3DAtomic%2BHabits%2BJames%2BClear%26qid%3D1791551245%26sr%3D8-5-spons%26aref%3DH7VNobMM3w%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9tdGY%26psc%3D1&aref=H7VNobMM3w&sp_cr=ZAZ",
+   "link_clean": "https://www.amazon.in/dp/B0HHFXPM1M/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=B0HHFXPM1M&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/614v7xAILeL._AC_UY218_.jpg",
+   "price": "₹726",
+   "extracted_price": 726,
+   "old_price": "₹1,049",
+   "extracted_old_price": 1049,
+   "save_with_coupon": "You pay ₹711 with coupon",
+   "delivery": [
+    "FREE delivery Wed, 14 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Hardcover",
+     "primary_price": "₹726",
+     "extracted_primary_price": 726,
+     "old_primary_price": "₹1,049",
+     "extracted_old_primary_price": 1049
+    }
+   ]
+  },
+  {
+   "position": 6,
+   "asin": "B0HHF6Y76C",
+   "sponsored": true,
+   "title": "Atomic Habits + The 7 Habits of Highly Effective People (Telugu) | Habits & Effectiveness | Self Growth & Productivity | 2-Book Combo",
+   "link": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4NTAyNTgxODkzOTU4NDk2OjE3OTE1NTEyNDU6c3BfbXRmOjMwMTM1NjI5Mjg0NzAzMjo6MDo6&url=%2FAtomic-Habits-Effective-Effectiveness-Productivity%2Fdp%2FB0HHF6Y76C%2Fref%3Dsr_1_6_sspa%3Fdib%3DeyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE%26dib_tag%3Dse%26keywords%3DAtomic%2BHabits%2BJames%2BClear%26qid%3D1791551245%26sr%3D8-6-spons%26aref%3D8VEt4VqBQr%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9tdGY%26psc%3D1&aref=8VEt4VqBQr&sp_cr=ZAZ",
+   "link_clean": "https://www.amazon.in/dp/B0HHF6Y76C/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=B0HHF6Y76C&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/61Msihamo8L._AC_UY218_.jpg",
+   "price": "₹724",
+   "extracted_price": 724,
+   "old_price": "₹1,098",
+   "extracted_old_price": 1098,
+   "save_with_coupon": "You pay ₹709 with coupon",
+   "delivery": [
+    "FREE delivery Tue, 13 Oct",
+    "Or fastest delivery Mon, 12 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "primary_price": "₹724",
+     "extracted_primary_price": 724,
+     "old_primary_price": "₹1,098",
+     "extracted_old_primary_price": 1098
+    }
+   ]
+  },
+  {
+   "position": 7,
+   "asin": "B0HJ69ZK78",
+   "title": "Atomic Habits – Simple Strategies for Building Better Routines and Lasting Change",
+   "link": "https://www.amazon.in/Atomic-Habits-Strategies-Building-Routines/dp/B0HJ69ZK78/ref=sr_1_7?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-7",
+   "link_clean": "https://www.amazon.in/Atomic-Habits-Strategies-Building-Routines/dp/B0HJ69ZK78/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=B0HJ69ZK78&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/71hEnercPaL._AC_UY218_.jpg",
+   "price": "₹425",
+   "extracted_price": 425,
+   "old_price": "₹799",
+   "extracted_old_price": 799,
+   "save_with_coupon": "You pay ₹416 with coupon",
+   "delivery": [
+    "FREE delivery Tue, 20 Oct"
+   ],
+   "age_rating": "11+ years, from publishers",
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "primary_price": "₹425",
+     "extracted_primary_price": 425,
+     "old_primary_price": "₹799",
+     "extracted_old_primary_price": 799
+    }
+   ]
+  },
+  {
+   "position": 8,
+   "asin": "B0HLVMF9BB",
+   "title": "Atomic Habits Transform your life with tiny changes in behaviour, starting now.",
+   "link": "https://www.amazon.in/Atomic-Transform-changes-behaviour-starting/dp/B0HLVMF9BB/ref=sr_1_8?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-8",
+   "link_clean": "https://www.amazon.in/Atomic-Transform-changes-behaviour-starting/dp/B0HLVMF9BB/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=B0HLVMF9BB&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/61tR76idWbL._AC_UY218_.jpg",
+   "price": "₹299",
+   "extracted_price": 299,
+   "old_price": "₹999",
+   "extracted_old_price": 999,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "FREE delivery Tue, 20 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹299",
+     "extracted_primary_price": 299,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹999",
+     "extracted_old_primary_price": 999
+    }
+   ]
+  },
+  {
+   "position": 9,
+   "asin": "9355436513",
+   "sponsored": true,
+   "badges": [
+    "Great Indian Festival"
+   ],
+   "title": "Atomic Habits (Punjabi)",
+   "link": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4NTAyNTgxODkzOTU4NDk2OjE3OTE1NTEyNDU6c3BfbXRmOjMwMDE4OTQ0ODY5MzMzMjo6MDo6&url=%2FAtomic-Habits-Punjabi-James-Clear%2Fdp%2F9355436513%2Fref%3Dsr_1_9_sspa%3Fdib%3DeyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE%26dib_tag%3Dse%26keywords%3DAtomic%2BHabits%2BJames%2BClear%26qid%3D1791551245%26sr%3D8-9-spons%26aref%3DVdhtYW0kgv%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9tdGY%26psc%3D1&aref=VdhtYW0kgv&sp_cr=ZAZ",
+   "link_clean": "https://www.amazon.in/dp/9355436513/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=9355436513&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/81uVcHzsV6L._AC_UY218_.jpg",
+   "rating": 4.6,
+   "reviews": 92,
+   "price": "₹268",
+   "extracted_price": 268,
+   "old_price": "₹499",
+   "extracted_old_price": 499,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "FREE delivery Sun, 11 Oct",
+    "Or fastest delivery Tomorrow, 10 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹268",
+     "extracted_primary_price": 268,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹499",
+     "extracted_old_primary_price": 499
+    }
+   ]
+  },
+  {
+   "position": 10,
+   "asin": "9390085403",
+   "badges": [
+    "Great Indian Festival"
+   ],
+   "title": "Atomic Habits (Marathi)",
+   "link": "https://www.amazon.in/Atomic-Habits-Marathi-James-Clear/dp/9390085403/ref=sr_1_10?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-10",
+   "link_clean": "https://www.amazon.in/Atomic-Habits-Marathi-James-Clear/dp/9390085403/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=9390085403&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/81A4-h5mnKL._AC_UY218_.jpg",
+   "rating": 4.5,
+   "reviews": 1500,
+   "price": "₹277",
+   "extracted_price": 277,
+   "old_price": "₹499",
+   "extracted_old_price": 499,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "FREE delivery Sun, 11 Oct",
+    "Or fastest delivery Tomorrow, 10 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹277",
+     "extracted_primary_price": 277,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹499",
+     "extracted_old_primary_price": 499
+    },
+    {
+     "type": "Kindle Edition",
+     "primary_price": "₹173.46",
+     "extracted_primary_price": 173.46
+    },
+    {
+     "type": "Hardcover",
+     "free_with_subscription": true,
+     "primary_price": "₹412",
+     "extracted_primary_price": 412,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹599",
+     "extracted_old_primary_price": 599,
+     "more_buying_choices": "₹400 (2 new offers)",
+     "more_buying_choices_link": "https://www.amazon.in/gp/offer-listing/9355435517/ref=sr_1_10_olp?keywords=Atomic+Habits+James+Clear&dib_tag=se&dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&qid=1791551245&sr=8-10"
+    }
+   ]
+  },
+  {
+   "position": 11,
+   "asin": "9355437072",
+   "badges": [
+    "Great Indian Festival"
+   ],
+   "title": "Atomic Habits: Chote Badlav, Asadharan Parinaam (Hindi)",
+   "link": "https://www.amazon.in/Atomic-Habits-Badlav-Asadharan-Parinaam/dp/9355437072/ref=sr_1_11?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-11",
+   "link_clean": "https://www.amazon.in/Atomic-Habits-Badlav-Asadharan-Parinaam/dp/9355437072/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=9355437072&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/71d375NROiL._AC_UY218_.jpg",
+   "rating": 4.5,
+   "reviews": 5100,
+   "price": "₹390.45",
+   "extracted_price": 390.45,
+   "old_price": "₹599",
+   "extracted_old_price": 599,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card",
+    "Free with Audible trial"
+   ],
+   "delivery": [
+    "FREE delivery Wed, 14 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Hardcover",
+     "free_with_subscription": true,
+     "primary_price": "₹390.45",
+     "extracted_primary_price": 390.45,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹599",
+     "extracted_old_primary_price": 599
+    },
+    {
+     "type": "Kindle Edition",
+     "primary_price": "₹173.46",
+     "extracted_primary_price": 173.46
+    },
+    {
+     "type": "Audiobook",
+     "free_with_subscription": true,
+     "primary_price": "₹0",
+     "extracted_primary_price": 0,
+     "old_primary_price": "₹671.06",
+     "extracted_old_primary_price": 671.06
+    }
+   ]
+  },
+  {
+   "position": 12,
+   "asin": "B0HMGWJPRX",
+   "title": "Atomic Habits by James Clear, Paperback",
+   "link": "https://www.amazon.in/dp/B0HMGWJPRX/ref=sr_1_12?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-12",
+   "link_clean": "https://www.amazon.in/dp/B0HMGWJPRX/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=B0HMGWJPRX&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/716SHV7ZZ5L._AC_UY218_.jpg",
+   "price": "₹279",
+   "extracted_price": 279,
+   "old_price": "₹999",
+   "extracted_old_price": 999,
+   "save_with_coupon": "You pay ₹273 with coupon",
+   "delivery": [
+    "FREE delivery Thu, 15 Oct"
+   ],
+   "age_rating": "10+ years, from publishers",
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "primary_price": "₹279",
+     "extracted_primary_price": 279,
+     "old_primary_price": "₹999",
+     "extracted_old_primary_price": 999
+    }
+   ]
+  },
+  {
+   "position": 13,
+   "asin": "1529981239",
+   "title": "The Atomic Habits Workbook: Official Companion To Atomic Habits by James Clear | Guided Journal, Habit Tracker, Daily Routine Planner: Official Companion to the #1 Worldwide Bestseller",
+   "link": "https://www.amazon.in/Atomic-Habits-Workbook-Companion-Bestseller/dp/1529981239/ref=sr_1_13?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-13",
+   "link_clean": "https://www.amazon.in/Atomic-Habits-Workbook-Companion-Bestseller/dp/1529981239/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=1529981239&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/813lkFoLOXL._AC_UY218_.jpg",
+   "rating": 4.6,
+   "reviews": 344,
+   "price": "₹589",
+   "extracted_price": 589,
+   "old_price": "₹1,099",
+   "extracted_old_price": 1099,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card",
+    "Free with Audible trial"
+   ],
+   "delivery": [
+    "FREE delivery Sun, 11 Oct",
+    "Or fastest delivery Tomorrow, 10 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹589",
+     "extracted_primary_price": 589,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹1,099",
+     "extracted_old_primary_price": 1099
+    },
+    {
+     "type": "Kindle Edition",
+     "primary_price": "₹559.55",
+     "extracted_primary_price": 559.55
+    },
+    {
+     "type": "Audiobook",
+     "free_with_subscription": true,
+     "primary_price": "₹0",
+     "extracted_primary_price": 0,
+     "old_primary_price": "₹444.83",
+     "extracted_old_primary_price": 444.83
+    }
+   ]
+  },
+  {
+   "position": 14,
+   "asin": "0033478503",
+   "title": "Atomic Habits Tiny Changes, Remarkable Results Paperback",
+   "link": "https://www.amazon.in/Atomic-Changes-Remarkable-Results-Paperback/dp/0033478503/ref=sr_1_14?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-14",
+   "link_clean": "https://www.amazon.in/Atomic-Changes-Remarkable-Results-Paperback/dp/0033478503/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=0033478503&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/41Ty7ifoEkL._AC_UY218_.jpg",
+   "price": "₹349",
+   "extracted_price": 349,
+   "old_price": "₹599",
+   "extracted_old_price": 599,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "FREE delivery Wed, 21 Oct"
+   ],
+   "age_rating": "11+ years, from publishers",
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹349",
+     "extracted_primary_price": 349,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹599",
+     "extracted_old_primary_price": 599
+    }
+   ]
+  },
+  {
+   "position": 15,
+   "asin": "9390085543",
+   "badges": [
+    "Great Indian Festival"
+   ],
+   "title": "Atomic Habits (Telugu)",
+   "link": "https://www.amazon.in/Atomic-Habits-Telugu/dp/9390085543/ref=sr_1_15?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-15",
+   "link_clean": "https://www.amazon.in/Atomic-Habits-Telugu/dp/9390085543/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=9390085543&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/81N2Y6my2sL._AC_UY218_.jpg",
+   "rating": 4.4,
+   "reviews": 586,
+   "price": "₹295",
+   "extracted_price": 295,
+   "old_price": "₹499",
+   "extracted_old_price": 499,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "FREE delivery Tue, 13 Oct",
+    "Or fastest delivery Sun, 11 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹295",
+     "extracted_primary_price": 295,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹499",
+     "extracted_old_primary_price": 499
+    }
+   ]
+  },
+  {
+   "position": 16,
+   "asin": "9388241908",
+   "badges": [
+    "Great Indian Festival"
+   ],
+   "title": "Atomic Habits (Tamil)",
+   "link": "https://www.amazon.in/ATOMIC-HABITS-James-Clear/dp/9388241908/ref=sr_1_16?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-16",
+   "link_clean": "https://www.amazon.in/ATOMIC-HABITS-James-Clear/dp/9388241908/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=9388241908&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/71J6FZAn17L._AC_UY218_.jpg",
+   "rating": 4.6,
+   "reviews": 1200,
+   "price": "₹269",
+   "extracted_price": 269,
+   "old_price": "₹499",
+   "extracted_old_price": 499,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "FREE delivery Mon, 12 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹269",
+     "extracted_primary_price": 269,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹499",
+     "extracted_old_primary_price": 499
+    },
+    {
+     "type": "Kindle Edition",
+     "primary_price": "₹202.37",
+     "extracted_primary_price": 202.37
+    },
+    {
+     "type": "Hardcover",
+     "free_with_subscription": true,
+     "primary_price": "₹428",
+     "extracted_primary_price": 428,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹599",
+     "extracted_old_primary_price": 599
+    }
+   ]
+  },
+  {
+   "position": 17,
+   "asin": "B0H94YYF6C",
+   "badges": [
+    "Great Indian Festival"
+   ],
+   "title": "Atomic Habits + The Psychology of Money | James Clear & Morgan Housel | Set of 2 Bestselling Self-Help & Personal Finance Books | Hindi Paperback Combo",
+   "link": "https://www.amazon.in/Psychology-Bestselling-Self-Help-Personal-Paperback/dp/B0H94YYF6C/ref=sr_1_17?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-17",
+   "link_clean": "https://www.amazon.in/Psychology-Bestselling-Self-Help-Personal-Paperback/dp/B0H94YYF6C/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=B0H94YYF6C&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/51F4slI7gEL._AC_UY218_.jpg",
+   "rating": 4.2,
+   "reviews": 4,
+   "price": "₹270",
+   "extracted_price": 270,
+   "old_price": "₹699",
+   "extracted_old_price": 699,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "FREE delivery Tue, 20 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹270",
+     "extracted_primary_price": 270,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹699",
+     "extracted_old_primary_price": 699
+    }
+   ]
+  },
+  {
+   "position": 18,
+   "asin": "B0HMC6NMNS",
+   "title": "Atomic Habits + Protocols: An Operating Manual for the Human Body ( 2 Book ) #International Bestseller",
+   "link": "https://www.amazon.in/dp/B0HMC6NMNS/ref=sr_1_18?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-18",
+   "link_clean": "https://www.amazon.in/dp/B0HMC6NMNS/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=B0HMC6NMNS&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/71TT-DO5uBL._AC_UY218_.jpg",
+   "price": "₹699",
+   "extracted_price": 699,
+   "old_price": "₹1,999",
+   "extracted_old_price": 1999,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "FREE delivery Thu, 15 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Mass Market Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹699",
+     "extracted_primary_price": 699,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹1,999",
+     "extracted_old_primary_price": 1999
+    }
+   ]
+  },
+  {
+   "position": 19,
+   "asin": "9391242758",
+   "title": "Atomic Habits (Gujarati)",
+   "link": "https://www.amazon.in/Atomic-Habits-Gujarati-James-Clear/dp/9391242758/ref=sr_1_19?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-19",
+   "link_clean": "https://www.amazon.in/Atomic-Habits-Gujarati-James-Clear/dp/9391242758/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=9391242758&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/81Z5BBMYmcL._AC_UY218_.jpg",
+   "rating": 4.6,
+   "reviews": 541,
+   "price": "₹449",
+   "extracted_price": 449,
+   "old_price": "₹499",
+   "extracted_old_price": 499,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "₹45 delivery 16 - 18 Oct",
+    "Or fastest delivery 15 - 17 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹449",
+     "extracted_primary_price": 449,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹499",
+     "extracted_old_primary_price": 499
+    },
+    {
+     "type": "Kindle Edition",
+     "primary_price": "₹231.28",
+     "extracted_primary_price": 231.28
+    }
+   ]
+  },
+  {
+   "position": 20,
+   "asin": "9355436378",
+   "badges": [
+    "Great Indian Festival"
+   ],
+   "title": "Atomic Habits (Bengali)",
+   "link": "https://www.amazon.in/Atomic-Habits-Bengali-James-Clear/dp/9355436378/ref=sr_1_20?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-20",
+   "link_clean": "https://www.amazon.in/Atomic-Habits-Bengali-James-Clear/dp/9355436378/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=9355436378&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/81uW-CLV0tL._AC_UY218_.jpg",
+   "rating": 4.7,
+   "reviews": 109,
+   "price": "₹259",
+   "extracted_price": 259,
+   "old_price": "₹499",
+   "extracted_old_price": 499,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "FREE delivery Tue, 13 Oct",
+    "Or fastest delivery Sun, 11 Oct"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹259",
+     "extracted_primary_price": 259,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹499",
+     "extracted_old_primary_price": 499
+    }
+   ]
+  },
+  {
+   "position": 21,
+   "asin": "9391242669",
+   "title": "Atomic Habits (Malayalam)",
+   "link": "https://www.amazon.in/Atomic-Habits-Malayalam-James-Clear/dp/9391242669/ref=sr_1_21?dib=eyJ2IjoiMSJ9.o9eE1iPZBWNh_oXB8qeMit-8qtJeFO5KHjeD-mnNuUZhWb-sU9IET5XpMaaWBXfQPdMVtk_cgix5khK6xM7V1dOkVpa_zGunVpiTF-RiFM0ciMzRIvzT-cRpI4uNse_H96f-xxEdoSDWv0EViSrhlpgKu52ytmteYQxubtkuffZCqqtwF4Qpe68jLjYEjlRsoMQ6f6KRFHQFXVigwIexYw-u3AD4C-evSCG-_IZmDJc.TrHyHxviCHlD6nQKqbCBoNn_kqIPC9-tJJchzmStpsE&dib_tag=se&keywords=Atomic+Habits+James+Clear&qid=1791551245&sr=8-21",
+   "link_clean": "https://www.amazon.in/Atomic-Habits-Malayalam-James-Clear/dp/9391242669/",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=9391242669&device=desktop&engine=amazon_product",
+   "thumbnail": "https://m.media-amazon.com/images/I/8184lnW9t6L._AC_UY218_.jpg",
+   "rating": 4.5,
+   "reviews": 548,
+   "price": "₹321",
+   "extracted_price": 321,
+   "old_price": "₹499",
+   "extracted_old_price": 499,
+   "offers": [
+    "Up to 5% back with Amazon Pay ICICI card"
+   ],
+   "delivery": [
+    "FREE delivery Sun, 11 Oct",
+    "Or fastest delivery Tomorrow 8 am - 12 pm"
+   ],
+   "purchase_options": [
+    {
+     "type": "Paperback",
+     "free_with_subscription": true,
+     "primary_price": "₹321",
+     "extracted_primary_price": 321,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹499",
+     "extracted_old_primary_price": 499
+    },
+    {
+     "type": "Kindle Edition",
+     "primary_price": "₹231.28",
+     "extracted_primary_price": 231.28
+    },
+    {
+     "type": "Hardcover",
+     "free_with_subscription": true,
+     "primary_price": "₹412",
+     "extracted_primary_price": 412,
+     "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+     "extracted_secondary_price": 5,
+     "old_primary_price": "₹599",
+     "extracted_old_primary_price": 599
+    }
+   ]
+  }
+ ],
+ "featured_products": [
+  {
+   "title": "Trending now",
+   "products": [
+    {
+     "position": 1,
+     "asin": "1529981239",
+     "sponsored": true,
+     "title": "The Atomic Habits Workbook: Official Companion To Atomic Habits by James Clear | Guided Journal, Habit Tracker, Daily Routine Planner: Official Companion to the #1 Worldwide Bestseller",
+     "link": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MToxNjk0MTMxMzg2MTcxMjg6MTc5MTU1MTI0NTpzcF9zZWFyY2hfdGhlbWF0aWM6MzAxMDY4MDYwNzI3OTMyOjowOjo&url=%2FAtomic-Habits-Workbook-Companion-Bestseller%2Fdp%2F1529981239%2Fref%3Dsxin_14_pa_sp_search_thematic_sspa%3Fcontent-id%3Damzn1.sym.6e35d58e-d276-4d9c-918a-3d084949b530%253Aamzn1.sym.6e35d58e-d276-4d9c-918a-3d084949b530%26cv_ct_cx%3DAtomic%2BHabits%2BJames%2BClear%26keywords%3DAtomic%2BHabits%2BJames%2BClear%26pd_rd_i%3D1529981239%26pd_rd_r%3D8814b533-2d30-4a32-9aed-00a8f9bf9b77%26pd_rd_w%3DhTSAq%26pd_rd_wg%3Dj91t7%26pf_rd_p%3D6e35d58e-d276-4d9c-918a-3d084949b530%26pf_rd_r%3D3E44QZ7EG411C2FK8HWZ%26qid%3D1791551245%26sbo%3DRZvfv%252F%252FHxDF%252BO5021pAnSA%253D%253D%26sr%3D1-1-66673dcf-083f-43ba-b782-d4a436cc5cfb-spons%26aref%3D9vh5L8WLM8%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM%26psc%3D1&aref=9vh5L8WLM8&sp_cr=ZAZ",
+     "link_clean": "https://www.amazon.in/dp/1529981239/",
+     "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=1529981239&device=desktop&engine=amazon_product",
+     "thumbnail": "https://m.media-amazon.com/images/I/813lkFoLOXL._AC_UL320_.jpg",
+     "rating": 4.6,
+     "reviews": 344,
+     "price": "₹589",
+     "extracted_price": 589,
+     "old_price": "₹1,099",
+     "extracted_old_price": 1099,
+     "offers": [
+      "Up to 5% back with Amazon Pay ICICI card"
+     ],
+     "delivery": [
+      "FREE delivery Sun, 11 OctOr fastest delivery Tomorrow, 10 Oct",
+      "FREE delivery Sun, 11 Oct",
+      "Or fastest delivery Tomorrow, 10 Oct"
+     ],
+     "purchase_options": [
+      {
+       "type": "Paperback",
+       "free_with_subscription": true,
+       "primary_price": "₹589",
+       "extracted_primary_price": 589,
+       "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+       "extracted_secondary_price": 5,
+       "old_primary_price": "₹1,099",
+       "extracted_old_primary_price": 1099
+      }
+     ]
+    },
+    {
+     "position": 2,
+     "asin": "9355437072",
+     "sponsored": true,
+     "badges": [
+      "Great Indian Festival"
+     ],
+     "title": "Atomic Habits: Chote Badlav, Asadharan Parinaam (Hindi)",
+     "link": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MToxNjk0MTMxMzg2MTcxMjg6MTc5MTU1MTI0NTpzcF9zZWFyY2hfdGhlbWF0aWM6MzAwMjE2MzU1MTU5MDMyOjoxOjo&url=%2FAtomic-Habits-Badlav-Asadharan-Parinaam%2Fdp%2F9355437072%2Fref%3Dsxin_14_pa_sp_search_thematic_sspa%3Fcontent-id%3Damzn1.sym.6e35d58e-d276-4d9c-918a-3d084949b530%253Aamzn1.sym.6e35d58e-d276-4d9c-918a-3d084949b530%26cv_ct_cx%3DAtomic%2BHabits%2BJames%2BClear%26keywords%3DAtomic%2BHabits%2BJames%2BClear%26pd_rd_i%3D9355437072%26pd_rd_r%3D8814b533-2d30-4a32-9aed-00a8f9bf9b77%26pd_rd_w%3DhTSAq%26pd_rd_wg%3Dj91t7%26pf_rd_p%3D6e35d58e-d276-4d9c-918a-3d084949b530%26pf_rd_r%3D3E44QZ7EG411C2FK8HWZ%26qid%3D1791551245%26sbo%3DRZvfv%252F%252FHxDF%252BO5021pAnSA%253D%253D%26sr%3D1-2-66673dcf-083f-43ba-b782-d4a436cc5cfb-spons%26aref%3DstplUHis0H%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM%26psc%3D1&aref=stplUHis0H&sp_cr=ZAZ",
+     "link_clean": "https://www.amazon.in/dp/9355437072/",
+     "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=9355437072&device=desktop&engine=amazon_product",
+     "thumbnail": "https://m.media-amazon.com/images/I/71d375NROiL._AC_UL320_.jpg",
+     "rating": 4.5,
+     "reviews": 5100,
+     "price": "₹390.45",
+     "extracted_price": 390.45,
+     "old_price": "₹599",
+     "extracted_old_price": 599,
+     "offers": [
+      "Up to 5% back with Amazon Pay ICICI card"
+     ],
+     "delivery": [
+      "FREE delivery Wed, 14 Oct"
+     ],
+     "purchase_options": [
+      {
+       "type": "Hardcover",
+       "free_with_subscription": true,
+       "primary_price": "₹390.45",
+       "extracted_primary_price": 390.45,
+       "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+       "extracted_secondary_price": 5,
+       "old_primary_price": "₹599",
+       "extracted_old_primary_price": 599
+      }
+     ]
+    },
+    {
+     "position": 3,
+     "asin": "9353335205",
+     "sponsored": true,
+     "title": "30 DAYS: Change your habits, Change your life",
+     "link": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MToxNjk0MTMxMzg2MTcxMjg6MTc5MTU1MTI0NTpzcF9zZWFyY2hfdGhlbWF0aWM6MzAwNTkyNjUzMTczMTMyOjoyOjo&url=%2F30-DAYS-Change-your-habits%2Fdp%2F9353335205%2Fref%3Dsxin_14_pa_sp_search_thematic_sspa%3Fcontent-id%3Damzn1.sym.6e35d58e-d276-4d9c-918a-3d084949b530%253Aamzn1.sym.6e35d58e-d276-4d9c-918a-3d084949b530%26cv_ct_cx%3DAtomic%2BHabits%2BJames%2BClear%26keywords%3DAtomic%2BHabits%2BJames%2BClear%26pd_rd_i%3D9353335205%26pd_rd_r%3D8814b533-2d30-4a32-9aed-00a8f9bf9b77%26pd_rd_w%3DhTSAq%26pd_rd_wg%3Dj91t7%26pf_rd_p%3D6e35d58e-d276-4d9c-918a-3d084949b530%26pf_rd_r%3D3E44QZ7EG411C2FK8HWZ%26qid%3D1791551245%26sbo%3DRZvfv%252F%252FHxDF%252BO5021pAnSA%253D%253D%26sr%3D1-3-66673dcf-083f-43ba-b782-d4a436cc5cfb-spons%26aref%3DOVQTKpRiCv%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM%26psc%3D1&aref=OVQTKpRiCv&sp_cr=ZAZ",
+     "link_clean": "https://www.amazon.in/dp/9353335205/",
+     "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=9353335205&device=desktop&engine=amazon_product",
+     "thumbnail": "https://m.media-amazon.com/images/I/61pV8mwgUhL._AC_UL320_.jpg",
+     "rating": 4.4,
+     "reviews": 3000,
+     "price": "₹223",
+     "extracted_price": 223,
+     "old_price": "₹295",
+     "extracted_old_price": 295,
+     "save_with_coupon": "You pay ₹211.85 with coupon",
+     "delivery": [
+      "FREE delivery Sun, 11 Oct"
+     ],
+     "purchase_options": [
+      {
+       "type": "Paperback",
+       "primary_price": "₹223",
+       "extracted_primary_price": 223,
+       "old_primary_price": "₹295",
+       "extracted_old_primary_price": 295
+      }
+     ]
+    },
+    {
+     "position": 4,
+     "asin": "8183285511",
+     "sponsored": true,
+     "badges": [
+      "Great Indian Festival"
+     ],
+     "title": "Mini Habits: Smaller Habits, Bigger Results",
+     "link": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MToxNjk0MTMxMzg2MTcxMjg6MTc5MTU1MTI0NTpzcF9zZWFyY2hfdGhlbWF0aWM6MjAxNDUzMzc5ODcyOTg6OjM6Og&url=%2FMini-Habits-Smaller-habits-Results%2Fdp%2F8183285511%2Fref%3Dsxin_14_pa_sp_search_thematic_sspa%3Fcontent-id%3Damzn1.sym.6e35d58e-d276-4d9c-918a-3d084949b530%253Aamzn1.sym.6e35d58e-d276-4d9c-918a-3d084949b530%26cv_ct_cx%3DAtomic%2BHabits%2BJames%2BClear%26keywords%3DAtomic%2BHabits%2BJames%2BClear%26pd_rd_i%3D8183285511%26pd_rd_r%3D8814b533-2d30-4a32-9aed-00a8f9bf9b77%26pd_rd_w%3DhTSAq%26pd_rd_wg%3Dj91t7%26pf_rd_p%3D6e35d58e-d276-4d9c-918a-3d084949b530%26pf_rd_r%3D3E44QZ7EG411C2FK8HWZ%26qid%3D1791551245%26sbo%3DRZvfv%252F%252FHxDF%252BO5021pAnSA%253D%253D%26sr%3D1-4-66673dcf-083f-43ba-b782-d4a436cc5cfb-spons%26aref%3DAL5uLY8pfj%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM%26psc%3D1&aref=AL5uLY8pfj&sp_cr=ZAZ",
+     "link_clean": "https://www.amazon.in/dp/8183285511/",
+     "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=8183285511&device=desktop&engine=amazon_product",
+     "thumbnail": "https://m.media-amazon.com/images/I/71hC+GfCg5L._AC_UL320_.jpg",
+     "rating": 4.5,
+     "reviews": 4500,
+     "price": "₹198",
+     "extracted_price": 198,
+     "old_price": "₹295",
+     "extracted_old_price": 295,
+     "offers": [
+      "Up to 5% back with Amazon Pay ICICI card"
+     ],
+     "delivery": [
+      "FREE delivery Tue, 13 OctOr fastest delivery Sun, 11 Oct",
+      "FREE delivery Tue, 13 Oct",
+      "Or fastest delivery Sun, 11 Oct"
+     ],
+     "purchase_options": [
+      {
+       "type": "Paperback",
+       "free_with_subscription": true,
+       "primary_price": "₹198",
+       "extracted_primary_price": 198,
+       "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+       "extracted_secondary_price": 5,
+       "old_primary_price": "₹295",
+       "extracted_old_primary_price": 295
+      }
+     ]
+    },
+    {
+     "position": 5,
+     "asin": "9355437218",
+     "sponsored": true,
+     "title": "Atomic Habits (Tamil)",
+     "link": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MToxNjk0MTMxMzg2MTcxMjg6MTc5MTU1MTI0NTpzcF9zZWFyY2hfdGhlbWF0aWM6MzAwMjE2MzU1MTU4OTMyOjo0Ojo&url=%2FAtomic-Habits-Tamil-James-Clear%2Fdp%2F9355437218%2Fref%3Dsxin_14_pa_sp_search_thematic_sspa%3Fcontent-id%3Damzn1.sym.6e35d58e-d276-4d9c-918a-3d084949b530%253Aamzn1.sym.6e35d58e-d276-4d9c-918a-3d084949b530%26cv_ct_cx%3DAtomic%2BHabits%2BJames%2BClear%26keywords%3DAtomic%2BHabits%2BJames%2BClear%26pd_rd_i%3D9355437218%26pd_rd_r%3D8814b533-2d30-4a32-9aed-00a8f9bf9b77%26pd_rd_w%3DhTSAq%26pd_rd_wg%3Dj91t7%26pf_rd_p%3D6e35d58e-d276-4d9c-918a-3d084949b530%26pf_rd_r%3D3E44QZ7EG411C2FK8HWZ%26qid%3D1791551245%26sbo%3DRZvfv%252F%252FHxDF%252BO5021pAnSA%253D%253D%26sr%3D1-5-66673dcf-083f-43ba-b782-d4a436cc5cfb-spons%26aref%3DTPCA1x58an%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM%26psc%3D1&aref=TPCA1x58an&sp_cr=ZAZ",
+     "link_clean": "https://www.amazon.in/dp/9355437218/",
+     "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&asin=9355437218&device=desktop&engine=amazon_product",
+     "thumbnail": "https://m.media-amazon.com/images/I/71GOfxv3omL._AC_UL320_.jpg",
+     "rating": 4.6,
+     "reviews": 1200,
+     "price": "₹428",
+     "extracted_price": 428,
+     "old_price": "₹599",
+     "extracted_old_price": 599,
+     "offers": [
+      "Up to 5% back with Amazon Pay ICICI card"
+     ],
+     "delivery": [
+      "FREE delivery Wed, 14 Oct"
+     ],
+     "purchase_options": [
+      {
+       "type": "Hardcover",
+       "free_with_subscription": true,
+       "primary_price": "₹428",
+       "extracted_primary_price": 428,
+       "secondary_price": "Up to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI cardUp to 5% back with Amazon Pay ICICI card",
+       "extracted_secondary_price": 5,
+       "old_primary_price": "₹599",
+       "extracted_old_primary_price": 599
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "related_searches": [
+  {
+   "position": 1,
+   "query": "how to win friends and influence people",
+   "link": "https://www.amazon.in/s?k=how+to+win+friends+and+influence+people&ref=rsl_sug_0_0&pd_rd_w=CyR2q&content-id=amzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01:amzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01&pf_rd_p=c6a4c27a-40f0-4447-9435-8e917ffa1d01&pf_rd_r=3E44QZ7EG411C2FK8HWZ&pd_rd_wg=mG7fX&pd_rd_r=72e4b72f-cdba-49e6-93f4-e59fdc764993&qid=1791551245"
+  },
+  {
+   "position": 2,
+   "query": "ikigai in english",
+   "link": "https://www.amazon.in/s?k=ikigai+in+english&ref=rsl_sug_0_3&pd_rd_w=CyR2q&content-id=amzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01:amzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01&pf_rd_p=c6a4c27a-40f0-4447-9435-8e917ffa1d01&pf_rd_r=3E44QZ7EG411C2FK8HWZ&pd_rd_wg=mG7fX&pd_rd_r=72e4b72f-cdba-49e6-93f4-e59fdc764993&qid=1791551245"
+  },
+  {
+   "position": 3,
+   "query": "the intelligent investor",
+   "link": "https://www.amazon.in/s?k=the+intelligent+investor&ref=rsl_sug_0_1&pd_rd_w=CyR2q&content-id=amzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01:amzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01&pf_rd_p=c6a4c27a-40f0-4447-9435-8e917ffa1d01&pf_rd_r=3E44QZ7EG411C2FK8HWZ&pd_rd_wg=mG7fX&pd_rd_r=72e4b72f-cdba-49e6-93f4-e59fdc764993&qid=1791551245"
+  },
+  {
+   "position": 4,
+   "query": "atomic+habits+james+clear",
+   "link": "https://www.amazon.in/s?k=atomic%2Bhabits%2Bjames%2Bclear&ref=rsl_sug_0_4&pd_rd_w=CyR2q&content-id=amzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01:amzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01&pf_rd_p=c6a4c27a-40f0-4447-9435-8e917ffa1d01&pf_rd_r=3E44QZ7EG411C2FK8HWZ&pd_rd_wg=mG7fX&pd_rd_r=72e4b72f-cdba-49e6-93f4-e59fdc764993&qid=1791551245"
+  },
+  {
+   "position": 5,
+   "query": "the psychology of money book",
+   "link": "https://www.amazon.in/s?k=the+psychology+of+money+book&ref=rsl_sug_0_2&pd_rd_w=CyR2q&content-id=amzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01:amzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01&pf_rd_p=c6a4c27a-40f0-4447-9435-8e917ffa1d01&pf_rd_r=3E44QZ7EG411C2FK8HWZ&pd_rd_wg=mG7fX&pd_rd_r=72e4b72f-cdba-49e6-93f4-e59fdc764993&qid=1791551245"
+  },
+  {
+   "position": 6,
+   "query": "rich dad poor dad book",
+   "link": "https://www.amazon.in/s?k=rich+dad+poor+dad+book&ref=rsl_sug_0_5&pd_rd_w=CyR2q&content-id=amzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01:amzn1.sym.c6a4c27a-40f0-4447-9435-8e917ffa1d01&pf_rd_p=c6a4c27a-40f0-4447-9435-8e917ffa1d01&pf_rd_r=3E44QZ7EG411C2FK8HWZ&pd_rd_wg=mG7fX&pd_rd_r=72e4b72f-cdba-49e6-93f4-e59fdc764993&qid=1791551245"
+  }
+ ],
+ "sponsored_brands": {
+  "title": "Brands related to your search",
+  "brands": [
+   {
+    "position": 1,
+    "image": "https://m.media-amazon.com/images/S/al-eu-726f4d26-7fdb/023bcea3-4470-4085-90f0-08b64d44fd51._CR0,0,1599,837_SX920_CB1169409_QL70_.jpg",
+    "name": "Manjul Publishing House",
+    "headline": "Top notch tamil translation",
+    "link": "https://sponsored-ads.amazon.in/clk/?_encoding=UTF8&p=eAFdUMFu00AQVVsBJYCIcihSTlUkcihssvauHbvIQmvHSZO0bhonKO3F2tibxCWx3d1tEjj0zoErByTEgR9A4j848gf8A0eUtiDBmzk8ad7TzLxcuP3--5cfdwuPiKr0273BwMOd5qvShrK3M2ZJvApqXixi31_NT_rPDpdouL9jnpt6OGwl2OeLc7o6PfW66ZD0HqhYr2C9UjMr8GzTt0fbxO0fuL2WX3iSuxcx8VqmWeHhwOu5znHTa5259eK7jdz2ehKM5Lhwn87p2zSpxEnx6VRQwFmYzucsiaiM0wQIxhdxyIBglIdTMJLj0h2WBC1vT51fzmQMRpwmEQg5ozJeMHC7EYSURwJkNE4k4yBME8kSqeaPbCdAXf8wqLt-p3_cLRm5DZj_9eHj55-f6sX8H_f6EJSJWekxghBCTVPXhZGubrW83v6W03X2jgsv6jZxskYL1MiVfXGDCbmyT7h6Qh3yL67syXWTG1LMOxN31WwvQhLXFb7ClvptM_d1cyplJvar1eVyWfmbTFXIlDNRzeiEVbGBXKcOCdChowGMMQSG27CBQ3Rbb-gNDZray2tDwNnY8u2AQMWoqQgduTY6IgZ2PAUCAnVcUxDuNDteo9kbDOtdp5xFAY-CbDaNuCXLU0GDkAdxZMHyLAuoiBNhmcgwVKyY0HhuIk3DqIZ0_ZaaCtTWyotLxt9YRKbzONw9oKNYit02nTOx68wY5WuJmKXS-j_usoiygEbBhKeXmbWOXtUVBSFNryFcji2aiTJdP8VbbYiap-qU_AbCdt7k&v=c1&r=https%3A%2F%2Fwww.amazon.in%2Fstores%2Fpage%2F483ECD0A-60C5-4440-8EFB-CA6B6F6F5095%3Fstore_ref%3DSB_A0187233MEB3MA84CN10-A0647134KGKNFGRUXDPC%26pd_rd_plhdr%3Dt%26hsa_cr_id%3D0%26lp_asins%3D9388241908%2C9355437366%2C9355439105%26lp_query%3DAtomic%20Habits%20James%20Clear%26lp_slot%3Ddesktop-hsa-3psl%26sdp_ad_group%3D300026113356734%26i%3Daps%26aref%3DrIJ03GY2hA&ref_=sbx_be_s_3psl_mbd_mb0_bkgd&pd_rd_w=1EccB&content-id=amzn1.sym.e3b1209d-74b7-4fc9-bd01-2d594919a892%3Aamzn1.sym.e3b1209d-74b7-4fc9-bd01-2d594919a892&pf_rd_p=e3b1209d-74b7-4fc9-bd01-2d594919a892&pf_rd_r=3E44QZ7EG411C2FK8HWZ&pd_rd_wg=krsya&pd_rd_r=3355d07c-f7d4-40e3-ba5c-02f410dcbec6",
+    "logo": "https://m.media-amazon.com/images/S/al-eu-726f4d26-7fdb/bbf3fa7e-eb27-4e0c-a3ea-37cceb1d56e9._CR0,0,500,500_AC_SX278_SY200_CB1169409_QL70_.jpg"
+   },
+   {
+    "position": 2,
+    "image": "https://m.media-amazon.com/images/S/al-eu-726f4d26-7fdb/26c02e42-c61a-4039-ac69-08aaf587ae99._CR0,0,1200,628_SX920_CB1169409_QL70_.jpeg",
+    "name": "STORYMIRROR",
+    "headline": "Develop Leadership and Career",
+    "link": "https://sponsored-ads.amazon.in/clk/?_encoding=UTF8&p=eAFdUMtu00AUVVseJTxUZVGkrKpIZFGYZDx-xUUWGj-SJi15Oa1CNtbEniSjJLY7M23SLrpnAT8BLJH4C3ZskPgQvgClBSQ4uosrnXvuuffkou133z78uJd_jJHSb_ZOTlraUf20uKHs745pwlah2WKCBcFq0e0_P16qg4PdNrq6PDVn-sx1hsMlLCsz4rWXvYdIM8qaUTatMhxuBs5oG_v9Q7_XCPJPc_djKmYyzfKPTlo9323XW42h7xXebuS210w4kuP8A7IgV2lSZknh2VQQwGmULhY0iYlkaQIE5RcsokBQwqMpGMlx8S5NwkZrHy3O55KBESdJDCJOiWQXFPx2BBHhsQAZYYmkHERpImki0c5rxw3VTnAcen5w1G93imZuQ9l5__3jz09f7xR2_qjXh6iZmBefIAihqSmWhnQEDbTVaPUOttyOu9_Ov_Qc7Ga1BjDxtXN2iwm-drocdYmL_8W1M7kpfNsUdtyJv6o3LyLMPIWvNBt92cx93pxKmYmDSmW5XJb_BlMRMuVUVDIyoRWMLMfHEIOa5iOgqY4JLLOqAWhApeZhzatVnVc3gpDTsR04IYaWZejQRI7XCBT8xuii6gBgBSJLh4bVqevNoKnUcb2UxSGPw2w-jbktS1NBwoiHLLarelW3dEWBqDTPQiJYImxLrZrIsFRz8MJSq4YKdR0O1vTZOeWXNpbpgkV7h2TEpNhrkgUVe-6cEr4eEfNU2v9nXRJxFpI4nPD0PLMRhApUVF1ZrzZKzCaZKJH1R_M2U5csPWatX0263nk&v=c1&r=https%3A%2F%2Fwww.amazon.in%2Fstores%2Fpage%2FA29BEA0A-F4E2-43B7-9784-0601FDA4DF8B%3Fstore_ref%3DSB_A09965072BDIS1AY6Q28X-A10295069PG5JSJ1GAG%26pd_rd_plhdr%3Dt%26hsa_cr_id%3D8585951102%26lp_asins%3D938726937X%2C938630550X%26lp_query%3DAtomic%20Habits%20James%20Clear%26lp_slot%3Ddesktop-hsa-3psl%26sdp_ad_group%3D20010135186306%26i%3Daps%26aref%3DlOi3wioLiN&ref_=sbx_be_s_3psl_mbd_mb1_bkgd&pd_rd_w=1EccB&content-id=amzn1.sym.e3b1209d-74b7-4fc9-bd01-2d594919a892%3Aamzn1.sym.e3b1209d-74b7-4fc9-bd01-2d594919a892&pf_rd_p=e3b1209d-74b7-4fc9-bd01-2d594919a892&pf_rd_r=3E44QZ7EG411C2FK8HWZ&pd_rd_wg=krsya&pd_rd_r=3355d07c-f7d4-40e3-ba5c-02f410dcbec6",
+    "logo": "https://m.media-amazon.com/images/S/gladiator-image-upload-prod/5/A21TJRUUN4KGV/c5f45ad33ecace8cc1c79b299a26611c._CR0,0,401,401_AC_SX278_SY200_CB1169409_QL70_.png"
+   },
+   {
+    "position": 3,
+    "image": "https://m.media-amazon.com/images/S/al-eu-726f4d26-7fdb/c3deb3e6-aa57-43a5-9265-21fdd76b822b._CR0,62,2077,1088_SX920_CB1169409_QL70_.jpg",
+    "name": "Wiley",
+    "headline": "Books on Leadership",
+    "link": "https://sponsored-ads.amazon.in/clk/?_encoding=UTF8&p=eAFdUMtu00AUVcurhIeiLIqUVRWJLIommRm747jIQrbjtkmad9JCN9bYnsRDE9udmTahi-5Z8ANsK_EJ8AnsWPYL-BCUFpDg6C6uzr1H956TCzc-_bi-eVh4ZmM0ag7G447e2j8qraHtzQlL-NI3Olzy4XA5749eHS60t7ubVDg6dOn749MgNrJW-9KFo95i8ATrpKKTimFW4Mn60Ak2bG904A0aw8KL3KOIyVOVZoWn487Ac7v7ncaJVy9-XMttrCZ-oCaFx3ROL9OkwpPiy1hSIFiYzucsiajiaQIkExc8ZEAyKsIYBGpSesASv9HZxvPzmeIgEDSJQCgYVfyCgd8XQUhFJEFGeaKYAGGaKJYonG87rq_1hod-3Ru2Rt1eycit4fzN188_v32_X8z_Ua8e0TI5Kz3HEEJTJ7qJdjAk-F6jM9i95_bc7W7hdd2x3WyvAQz7yjm7w9S-cvoC96lr_4srZ3pb9l1TzLtTb7nfvAhtXkdiqVv4y3ruej1WKpO71episaj8DaYqVSqYrGZ0yqoOIXrN0SDwXAMC3TY1UDNcE3hkz0Be3YA1svPmVuALNrGGjm9DjDVkItyHXhuS1sAd60fAhiaqmYh4nWOn7cFRTxs3y1nki8jPZnEkLFWOJfVD4fPIqhkagggTiMuzzKeSJ9JyoKGdkINDhFbc2TkTHyxbpXMebh3QgCu51aRzJrfcGaNitSJnqbL-T7gso8ynkT8V6XlmYQiRhhHRNA1DUuYWzWSZrnzE46A562Z0590v_EfcqA&v=c1&r=https%3A%2F%2Fwww.amazon.in%2Fstores%2Fpage%2FB6648B30-EC70-4A93-87C9-E6F71ED70865%3Fstore_ref%3DSB_A02231912Q0EM06KRCU4V-A0918916ENWBME0TP3UJ%26pd_rd_plhdr%3Dt%26hsa_cr_id%3D8731012602%26lp_asins%3DB073Z6HL11%26lp_query%3DAtomic%20Habits%20James%20Clear%26lp_slot%3Ddesktop-hsa-3psl%26sdp_ad_group%3D20013216333206%26i%3Daps%26aref%3DhUbJlOpa5Y&ref_=sbx_be_s_3psl_mbd_mb2_bkgd&pd_rd_w=1EccB&content-id=amzn1.sym.e3b1209d-74b7-4fc9-bd01-2d594919a892%3Aamzn1.sym.e3b1209d-74b7-4fc9-bd01-2d594919a892&pf_rd_p=e3b1209d-74b7-4fc9-bd01-2d594919a892&pf_rd_r=3E44QZ7EG411C2FK8HWZ&pd_rd_wg=krsya&pd_rd_r=3355d07c-f7d4-40e3-ba5c-02f410dcbec6",
+    "logo": "https://m.media-amazon.com/images/S/al-eu-726f4d26-7fdb/6bd65de4-9f8f-46a6-9d41-f62fd2b25eb4._CR0,0,2268,1688_AC_SX278_SY200_CB1169409_QL70_.png"
+   }
+  ]
+ },
+ "categories": [
+  {
+   "position": 1,
+   "name": "Mobiles",
+   "link": "https://www.amazon.in/mobile-phones/b/?ie=UTF8&node=1389401031&ref_=nav_cs_mobiles",
+   "node": "1389401031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=1389401031"
+  },
+  {
+   "position": 2,
+   "name": "Electronics",
+   "link": "https://www.amazon.in/electronics/b/?ie=UTF8&node=976419031&ref_=nav_cs_electronics",
+   "node": "976419031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=976419031"
+  },
+  {
+   "position": 3,
+   "name": "Computers",
+   "link": "https://www.amazon.in/computers-and-accessories/b/?ie=UTF8&node=976392031&ref_=nav_cs_pc",
+   "node": "976392031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=976392031"
+  },
+  {
+   "position": 4,
+   "name": "Video Games",
+   "link": "https://www.amazon.in/video-games/b/?ie=UTF8&node=976460031&ref_=nav_cs_video_games",
+   "node": "976460031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=976460031"
+  },
+  {
+   "position": 5,
+   "name": "Home & Kitchen",
+   "link": "https://www.amazon.in/Home-Kitchen/b/?ie=UTF8&node=976442031&ref_=nav_cs_home",
+   "node": "976442031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=976442031"
+  },
+  {
+   "position": 6,
+   "name": "Baby",
+   "link": "https://www.amazon.in/Baby/b/?ie=UTF8&node=1571274031&ref_=nav_cs_baby",
+   "node": "1571274031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=1571274031"
+  },
+  {
+   "position": 7,
+   "name": "Grocery & Gourmet Foods",
+   "link": "https://www.amazon.in/Gourmet-Specialty-Foods/b/?ie=UTF8&node=2454178031&ref_=nav_cs_grocery",
+   "node": "2454178031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=2454178031"
+  },
+  {
+   "position": 8,
+   "name": "Books",
+   "link": "https://www.amazon.in/Books/b/?ie=UTF8&node=976389031&ref_=nav_cs_books",
+   "node": "976389031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=976389031"
+  },
+  {
+   "position": 9,
+   "name": "Kindle eBooks",
+   "link": "https://www.amazon.in/Kindle-eBooks/b/?ie=UTF8&node=1634753031&ref_=nav_cs_kindle_books",
+   "node": "1634753031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=1634753031"
+  },
+  {
+   "position": 10,
+   "name": "Sports, Fitness & Outdoors",
+   "link": "https://www.amazon.in/Sports/b/?ie=UTF8&node=1984443031&ref_=nav_cs_sports",
+   "node": "1984443031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=1984443031"
+  },
+  {
+   "position": 11,
+   "name": "Toys & Games",
+   "link": "https://www.amazon.in/Toys-Games/b/?ie=UTF8&node=1350380031&ref_=nav_cs_toys",
+   "node": "1350380031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=1350380031"
+  },
+  {
+   "position": 12,
+   "name": "Car & Motorbike",
+   "link": "https://www.amazon.in/Car-Motorbike-Store/b/?ie=UTF8&node=4772060031&ref_=nav_cs_automotive",
+   "node": "4772060031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=4772060031"
+  },
+  {
+   "position": 13,
+   "name": "Pet Supplies",
+   "link": "https://www.amazon.in/Pet-Supplies/b/?ie=UTF8&node=2454181031&ref_=nav_cs_pets",
+   "node": "2454181031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=2454181031"
+  },
+  {
+   "position": 14,
+   "name": "Custom Products",
+   "link": "https://www.amazon.in/Amazon-Custom/b/?ie=UTF8&node=32615889031&ref_=nav_cs_custom",
+   "node": "32615889031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=32615889031"
+  },
+  {
+   "position": 15,
+   "name": "Beauty & Personal Care",
+   "link": "https://www.amazon.in/beauty/b/?ie=UTF8&node=1355016031&ref_=nav_cs_beauty",
+   "node": "1355016031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=1355016031"
+  },
+  {
+   "position": 16,
+   "name": "Gift Cards",
+   "link": "https://www.amazon.in/gift-card-store/b/?ie=UTF8&node=3704982031&ref_=nav_cs_gc",
+   "node": "3704982031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=3704982031"
+  },
+  {
+   "position": 17,
+   "name": "Home Improvement",
+   "link": "https://www.amazon.in/Home-Improvement/b/?ie=UTF8&node=4286640031&ref_=nav_cs_hi",
+   "node": "4286640031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=4286640031"
+  },
+  {
+   "position": 18,
+   "name": "AmazonBasics",
+   "link": "https://www.amazon.in/b/?node=6637738031&ref_=nav_cs_amazonbasics",
+   "node": "6637738031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=6637738031"
+  },
+  {
+   "position": 19,
+   "name": "Audible",
+   "link": "https://www.amazon.in/Audible-Books-and-Originals/b/?ie=UTF8&node=17941593031&ref_=nav_cs_audible",
+   "node": "17941593031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=17941593031"
+  },
+  {
+   "position": 20,
+   "name": "Health, Household & Personal Care",
+   "link": "https://www.amazon.in/health-and-personal-care/b/?ie=UTF8&node=1350384031&ref_=nav_cs_hpc",
+   "node": "1350384031",
+   "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&node=1350384031"
+  }
+ ],
+ "filters": {
+  "deals_discounts": [
+   {
+    "position": 1,
+    "name": "Great Indian Festival",
+    "rh": "p_n_deal_type:26921224031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_deal_type%3A26921224031&dc&qid=1791551245&rnid=26921223031&ref=sr_nr_p_n_deal_type_1&ds=v1%3A0udi19aIlkIyUVjn0RXOeuKrEgfhg30TgQKxMxNYUfE",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_deal_type%3A26921224031"
+   }
+  ],
+  "format": [
+   {
+    "position": 1,
+    "name": "Paperback",
+    "rh": "p_n_binding_browse-bin:1318376031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A1318376031&dc&qid=1791551245&rnid=1318374031&ref=sr_nr_p_n_binding_browse-bin_1&ds=v1%3A5f5ovXjE9UDEH6l3OzrjVTcnt95VZm4JdWGegXS%2FHDM",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A1318376031"
+   },
+   {
+    "position": 2,
+    "name": "Kindle eBooks",
+    "rh": "p_n_binding_browse-bin:1634951031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A1634951031&dc&qid=1791551245&rnid=1318374031&ref=sr_nr_p_n_binding_browse-bin_2&ds=v1%3AT7xMSPT1ODCqCr9nVnL%2F7gBw6Ou%2B%2Fp1yBi3i4rJbYGE",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A1634951031"
+   },
+   {
+    "position": 3,
+    "name": "Bundle",
+    "rh": "p_n_binding_browse-bin:9839915031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A9839915031&dc&qid=1791551245&rnid=1318374031&ref=sr_nr_p_n_binding_browse-bin_3&ds=v1%3AsY%2F%2FCCMa%2Fl6Cn7K7z1rL8lXtuXP8By9ZISGQoFIb8q0",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A9839915031"
+   },
+   {
+    "position": 4,
+    "name": "Audiobook",
+    "rh": "p_n_binding_browse-bin:1318377031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A1318377031&dc&qid=1791551245&rnid=1318374031&ref=sr_nr_p_n_binding_browse-bin_4&ds=v1%3AGFHEV1epsRgKaiCCMtMOs6oNiB6pPWl%2F%2Bw2s4xfKAQU",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A1318377031"
+   },
+   {
+    "position": 5,
+    "name": "Audible Audio Edition",
+    "rh": "p_n_binding_browse-bin:16042423031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A16042423031&dc&qid=1791551245&rnid=1318374031&ref=sr_nr_p_n_binding_browse-bin_5&ds=v1%3AtZ0s5QLlsysh21nHEI5C8CwEcVqxMfTW0Mg6Q2%2FPFSY",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A16042423031"
+   },
+   {
+    "position": 6,
+    "name": "Bound",
+    "rh": "p_n_binding_browse-bin:9899878031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A9899878031&dc&qid=1791551245&rnid=1318374031&ref=sr_nr_p_n_binding_browse-bin_6&ds=v1%3AkoEn8IqeUAZ%2BrBhBxRrOm2NeTAFHHDII7lkEvw7jDng",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A9899878031"
+   },
+   {
+    "position": 7,
+    "name": "Hardcover",
+    "rh": "p_n_binding_browse-bin:1318375031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A1318375031&dc&qid=1791551245&rnid=1318374031&ref=sr_nr_p_n_binding_browse-bin_7&ds=v1%3AQea03uG8MVESkLrqYnVGhdfQrfLEK9AR5aD%2BG7FfLlY",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_binding_browse-bin%3A1318375031"
+   }
+  ],
+  "english_indian_languages": [
+   {
+    "position": 1,
+    "name": "English",
+    "rh": "p_n_feature_three_browse-bin:9141482031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9141482031&dc&qid=1791551245&rnid=9141481031&ref=sr_nr_p_n_feature_three_browse-bin_1&ds=v1%3APQZNqxJ%2BePXHgpTvINuwYEfDy4gEbeqWyaOUMkIxjWM",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9141482031"
+   },
+   {
+    "position": 2,
+    "name": "Marathi",
+    "rh": "p_n_feature_three_browse-bin:9141486031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9141486031&dc&qid=1791551245&rnid=9141481031&ref=sr_nr_p_n_feature_three_browse-bin_2&ds=v1%3AoqJgJlyFFI03JdCsXcGYFPMQlfiCV9pQ5ebP0UwAcL0",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9141486031"
+   },
+   {
+    "position": 3,
+    "name": "Hindi",
+    "rh": "p_n_feature_three_browse-bin:9141483031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9141483031&dc&qid=1791551245&rnid=9141481031&ref=sr_nr_p_n_feature_three_browse-bin_3&ds=v1%3AuFtb0Gn5LnhIQeWdMbZgr2ApbyIsM6tkffA2YWHhIH4",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9141483031"
+   },
+   {
+    "position": 4,
+    "name": "Tamil",
+    "rh": "p_n_feature_three_browse-bin:9141484031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9141484031&dc&qid=1791551245&rnid=9141481031&ref=sr_nr_p_n_feature_three_browse-bin_4&ds=v1%3Aw6vO26JeaULPEikml9EyY9GViwxeaxYF9gyQQdmoOeM",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9141484031"
+   },
+   {
+    "position": 5,
+    "name": "Telugu",
+    "rh": "p_n_feature_three_browse-bin:9141485031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9141485031&dc&qid=1791551245&rnid=9141481031&ref=sr_nr_p_n_feature_three_browse-bin_5&ds=v1%3AID0qYH2M3M%2Bni%2BFLLsxylaJR5HgHDCFUSrCYn7et53Q",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9141485031"
+   },
+   {
+    "position": 6,
+    "name": "Bengali",
+    "rh": "p_n_feature_three_browse-bin:9495760031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9495760031&dc&qid=1791551245&rnid=9141481031&ref=sr_nr_p_n_feature_three_browse-bin_6&ds=v1%3AaRwKycj0IznJyRSYaKWvNs3hkeIEgjqN5tvcpmWZTpU",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9495760031"
+   },
+   {
+    "position": 7,
+    "name": "Kannada",
+    "rh": "p_n_feature_three_browse-bin:9495762031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9495762031&dc&qid=1791551245&rnid=9141481031&ref=sr_nr_p_n_feature_three_browse-bin_7&ds=v1%3AswbKV2K77LbaZxcDPGwIiN4oqONDn%2BF80RF9vGt2qEw",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9495762031"
+   },
+   {
+    "position": 8,
+    "name": "Gujarati",
+    "rh": "p_n_feature_three_browse-bin:9495761031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9495761031&dc&qid=1791551245&rnid=9141481031&ref=sr_nr_p_n_feature_three_browse-bin_8&ds=v1%3A%2F436VqkcsZJcaHmcW2pVC%2BGo%2BUOV66NelSg6JCKqbFU",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_three_browse-bin%3A9495761031"
+   }
+  ],
+  "foreign_languages": [
+   {
+    "position": 1,
+    "name": "German",
+    "rh": "p_n_feature_browse-bin:1481631031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_browse-bin%3A1481631031&dc&qid=1791551245&rnid=1318389031&ref=sr_nr_p_n_feature_browse-bin_1&ds=v1%3AiSoXOHe%2Fg%2Fjj543mE%2FadJX3zMHeYBJrSCxFRbPddG8g",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_browse-bin%3A1481631031"
+   },
+   {
+    "position": 2,
+    "name": "Swedish",
+    "rh": "p_n_feature_browse-bin:1481686031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_browse-bin%3A1481686031&dc&qid=1791551245&rnid=1318389031&ref=sr_nr_p_n_feature_browse-bin_2&ds=v1%3AQmkDtkR%2BcflAHydE8ICXz%2FdNHLG%2B0E0AoYc8YbKyF20",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_browse-bin%3A1481686031"
+   },
+   {
+    "position": 3,
+    "name": "Spanish",
+    "rh": "p_n_feature_browse-bin:1318419031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_browse-bin%3A1318419031&dc&qid=1791551245&rnid=1318389031&ref=sr_nr_p_n_feature_browse-bin_3&ds=v1%3AIs42WKnIHcpRp4GzYBJ36LmNrNJYRxSxhs3RSsXMkZI",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_browse-bin%3A1318419031"
+   },
+   {
+    "position": 4,
+    "name": "French",
+    "rh": "p_n_feature_browse-bin:1318418031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_browse-bin%3A1318418031&dc&qid=1791551245&rnid=1318389031&ref=sr_nr_p_n_feature_browse-bin_4&ds=v1%3AvL%2FCaGDfqghXwA5AtVVovKxzmHAX%2F576gc6OCl3hENk",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_browse-bin%3A1318418031"
+   },
+   {
+    "position": 5,
+    "name": "Chinese",
+    "rh": "p_n_feature_browse-bin:1481630031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_browse-bin%3A1481630031&dc&qid=1791551245&rnid=1318389031&ref=sr_nr_p_n_feature_browse-bin_5&ds=v1%3AIVvNODJP%2BOaosF6AkbmB5IWiMD4vsV3SU5Ad7LVgtAI",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_browse-bin%3A1481630031"
+   }
+  ],
+  "customer_review": [
+   {
+    "position": 1,
+    "name": "& Up",
+    "rh": "p_72:1318476031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_72%3A1318476031&dc&qid=1791551245&rnid=1318475031&ref=sr_nr_p_72_1&ds=v1%3AAvpNK1qmuk3V%2BDoEuXUPHH5mjoTFKuZBKyNuw1Uww9k",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_72%3A1318476031"
+   }
+  ],
+  "item_condition": [
+   {
+    "position": 1,
+    "name": "New",
+    "rh": "p_n_condition-type:8609960031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_condition-type%3A8609960031&dc&qid=1791551245&rnid=8609959031&ref=sr_nr_p_n_condition-type_1&ds=v1%3AuDuylm7uh0g0UVxbjgKcpONbonfIAFTRwyloZTPVtXM",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_condition-type%3A8609960031"
+   },
+   {
+    "position": 2,
+    "name": "Used",
+    "rh": "p_n_condition-type:8609962031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_condition-type%3A8609962031&dc&qid=1791551245&rnid=8609959031&ref=sr_nr_p_n_condition-type_2&ds=v1%3AIY1Qfjdzys8%2BTl9vUfYqNpNZKEitJ9BAt8xp3q%2BjO7E",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_condition-type%3A8609962031"
+   }
+  ],
+  "author": [
+   {
+    "position": 1,
+    "name": "James Clear",
+    "rh": "p_lbr_books_authors_browse-bin:James Clear",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_lbr_books_authors_browse-bin%3AJames%2BClear&dc&qid=1791551245&rnid=7251634031&ref=sr_nr_p_lbr_books_authors_browse-bin_1&ds=v1%3A4Qvg%2Fr8g9%2FtFxmkoMqXIL%2BcYDrxfn7EddtPmfxTFEFs",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_lbr_books_authors_browse-bin%3AJames%2BClear"
+   },
+   {
+    "position": 2,
+    "name": "Renuka Gavrani",
+    "rh": "p_lbr_books_authors_browse-bin:Renuka Gavrani",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_lbr_books_authors_browse-bin%3ARenuka%2BGavrani&dc&qid=1791551245&rnid=7251634031&ref=sr_nr_p_lbr_books_authors_browse-bin_2&ds=v1%3AAMEIcpJjJj21%2FfiqZBgmwKsAKWnHNwGQUPwE8tJFj%2Fc",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_lbr_books_authors_browse-bin%3ARenuka%2BGavrani"
+   },
+   {
+    "position": 3,
+    "name": "Dr. Joseph Murphy",
+    "rh": "p_lbr_books_authors_browse-bin:Dr. Joseph Murphy",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_lbr_books_authors_browse-bin%3ADr.%2BJoseph%2BMurphy&dc&qid=1791551245&rnid=7251634031&ref=sr_nr_p_lbr_books_authors_browse-bin_3&ds=v1%3AxJFLyEPfogrrs4WpA9IIPAUSQuLc818Fw2j269winsw",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_lbr_books_authors_browse-bin%3ADr.%2BJoseph%2BMurphy"
+   },
+   {
+    "position": 4,
+    "name": "Joseph Murphy",
+    "rh": "p_lbr_books_authors_browse-bin:Joseph Murphy",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_lbr_books_authors_browse-bin%3AJoseph%2BMurphy&dc&qid=1791551245&rnid=7251634031&ref=sr_nr_p_lbr_books_authors_browse-bin_4&ds=v1%3A%2BMeN9EpCmRfsVufq5ecAeJt0niyJJ8xiHO9LQShBf2g",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_lbr_books_authors_browse-bin%3AJoseph%2BMurphy"
+   }
+  ],
+  "pay_on_delivery": [
+   {
+    "position": 1,
+    "name": "Eligible for Pay On Delivery",
+    "rh": "p_n_is_cod_eligible:4931671031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_is_cod_eligible%3A4931671031&dc&qid=1791551245&rnid=4931670031&ref=sr_nr_p_n_is_cod_eligible_1&ds=v1%3AQlcYSAM3WBKV2cxvRq3NgfqaseRTrv4XpsYFTwmo2fU",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_is_cod_eligible%3A4931671031"
+   }
+  ],
+  "discount": [
+   {
+    "position": 1,
+    "name": "10% Off or more",
+    "rh": "p_n_pct-off-with-tax:2665399031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_pct-off-with-tax%3A2665399031&dc&qid=1791551245&rnid=2665398031&ref=sr_nr_p_n_pct-off-with-tax_1&ds=v1%3AXQUtLqP6v648%2FRRu04fadGaYcLdyyiAcWuEBTON14oU",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_pct-off-with-tax%3A2665399031"
+   },
+   {
+    "position": 2,
+    "name": "25% Off or more",
+    "rh": "p_n_pct-off-with-tax:2665400031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_pct-off-with-tax%3A2665400031&dc&qid=1791551245&rnid=2665398031&ref=sr_nr_p_n_pct-off-with-tax_2&ds=v1%3AYVufRhjqgHvBb5IUh7JoKRZ5ALv3VRf8FZahS%2FrFLho",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_pct-off-with-tax%3A2665400031"
+   },
+   {
+    "position": 3,
+    "name": "35% Off or more",
+    "rh": "p_n_pct-off-with-tax:2665402031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_pct-off-with-tax%3A2665402031&dc&qid=1791551245&rnid=2665398031&ref=sr_nr_p_n_pct-off-with-tax_3&ds=v1%3AvN8IlmNIJEqEj1utXSGd4Y1RWvaOrl4FSFMuQ5B0PFI",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_pct-off-with-tax%3A2665402031"
+   },
+   {
+    "position": 4,
+    "name": "50% Off or more",
+    "rh": "p_n_pct-off-with-tax:2665401031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_pct-off-with-tax%3A2665401031&dc&qid=1791551245&rnid=2665398031&ref=sr_nr_p_n_pct-off-with-tax_4&ds=v1%3AO7ovwJlqwdiBYaglq9CeXR1QzHuY2B5GiIherPj7aSc",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_pct-off-with-tax%3A2665401031"
+   },
+   {
+    "position": 5,
+    "name": "60% Off or more",
+    "rh": "p_n_pct-off-with-tax:27060456031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_pct-off-with-tax%3A27060456031&dc&qid=1791551245&rnid=2665398031&ref=sr_nr_p_n_pct-off-with-tax_5&ds=v1%3A6upTW%2F59lcsrWrOFwqdgQNQNe%2BW%2FLOeDGXOOJAuKzG8",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_pct-off-with-tax%3A27060456031"
+   },
+   {
+    "position": 6,
+    "name": "70% Off or more",
+    "rh": "p_n_pct-off-with-tax:27060457031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_pct-off-with-tax%3A27060457031&dc&qid=1791551245&rnid=2665398031&ref=sr_nr_p_n_pct-off-with-tax_6&ds=v1%3AWLd29puZpicZmxBKbCL6Fm3lWTg70uoHRgVyiNu%2FVNY",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_pct-off-with-tax%3A27060457031"
+   }
+  ],
+  "word_wise": [
+   {
+    "position": 1,
+    "name": "Word Wise Enabled",
+    "rh": "p_n_special_occasion_browse-bin:5360681031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_special_occasion_browse-bin%3A5360681031&dc&qid=1791551245&rnid=5360680031&ref=sr_nr_p_n_special_occasion_browse-bin_1&ds=v1%3A4G2xfcQ0A%2BWplwq8pEhZeWQDBSD7DX2gKOyDkRuNcBU",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_special_occasion_browse-bin%3A5360681031"
+   }
+  ],
+  "kindle_unlimited_eligibility": [
+   {
+    "position": 1,
+    "name": "Kindle Unlimited Eligible",
+    "rh": "p_n_feature_six_browse-bin:88688314031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_feature_six_browse-bin%3A88688314031&dc&qid=1791551245&rnid=88688312031&ref=sr_nr_p_n_feature_six_browse-bin_1&ds=v1%3ATbXLDNBTUP8AhSfc9SF88zFwEEhwXYUP04DQTXumm%2FQ",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_feature_six_browse-bin%3A88688314031"
+   }
+  ],
+  "availability": [
+   {
+    "position": 1,
+    "name": "Include Out of Stock",
+    "rh": "p_n_availability:1318485031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_availability%3A1318485031&dc&qid=1791551245&rnid=1318483031&ref=sr_nr_p_n_availability_2&ds=v1%3AIJRFj9Z1yXpA5qhOzXTHGZg487ICCyWQVE6vknNs9zA",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_availability%3A1318485031"
+   }
+  ],
+  "seller": [
+   {
+    "position": 1,
+    "name": "Amazon Asia-Pacific Holdings Private Limited",
+    "rh": "p_6:A3SI5I1JWQ14PC",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_6%3AA3SI5I1JWQ14PC&dc&qid=1791551245&rnid=1318474031&ref=sr_nr_p_6_1&ds=v1%3AO4OgvAzuDoJR8MiwfuCO0Rc2GDnzPhfp9%2Fyz3h54t94",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_6%3AA3SI5I1JWQ14PC"
+   },
+   {
+    "position": 2,
+    "name": "Cocoblu Retail",
+    "rh": "p_6:A1WYWER0W24N8S",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_6%3AA1WYWER0W24N8S&dc&qid=1791551245&rnid=1318474031&ref=sr_nr_p_6_2&ds=v1%3Ao2fU7vFp5br7hTTUO%2BbvZ78rkJzf6T9Va9P2rQNEceA",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_6%3AA1WYWER0W24N8S"
+   },
+   {
+    "position": 3,
+    "name": "Repro Books-On-Demand",
+    "rh": "p_6:A15DBATYR506U3",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_6%3AA15DBATYR506U3&dc&qid=1791551245&rnid=1318474031&ref=sr_nr_p_6_3&ds=v1%3Amf%2Few1aOaTlaAEK6peC6m57j9LlLbzlL9ULQOGaBOkc",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_6%3AA15DBATYR506U3"
+   },
+   {
+    "position": 4,
+    "name": "Audible Singapore Pvt. Ltd.",
+    "rh": "p_6:AYRD2K1E2G5OI",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_6%3AAYRD2K1E2G5OI&dc&qid=1791551245&rnid=1318474031&ref=sr_nr_p_6_4&ds=v1%3A4OtEd0P3qD9WfbosK05J3Kx4qUjbSKY4T5xdo1FhPYw",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_6%3AAYRD2K1E2G5OI"
+   },
+   {
+    "position": 5,
+    "name": "Sunrise Book store",
+    "rh": "p_6:AAEHXJUTUR97E",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_6%3AAAEHXJUTUR97E&dc&qid=1791551245&rnid=1318474031&ref=sr_nr_p_6_5&ds=v1%3A8Nlx70ZCoHzRrK1HY9CvPGYns8%2BZe49nNYR2fh%2FYdAU",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_6%3AAAEHXJUTUR97E"
+   },
+   {
+    "position": 6,
+    "name": "BestSeller Books",
+    "rh": "p_6:AN9LPU4AV8P9I",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_6%3AAN9LPU4AV8P9I&dc&qid=1791551245&rnid=1318474031&ref=sr_nr_p_6_6&ds=v1%3Ao4GWVrP0FUaeh0f2F73CGsE5LgTHvaNNPZZYXgDZAEQ",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_6%3AAN9LPU4AV8P9I"
+   },
+   {
+    "position": 7,
+    "name": "SSNBooks",
+    "rh": "p_6:A3UD0B76WP6UEU",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_6%3AA3UD0B76WP6UEU&dc&qid=1791551245&rnid=1318474031&ref=sr_nr_p_6_7&ds=v1%3AVYZ9vYZ3X7ZE6l3E2pND2V%2BnBHS33olOJcFjIpPbIbo",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_6%3AA3UD0B76WP6UEU"
+   }
+  ],
+  "new_arrivals": [
+   {
+    "position": 1,
+    "name": "Last 30 days",
+    "rh": "p_n_publication_date:2684819031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_publication_date%3A2684819031&dc&qid=1791551245&rnid=2684818031&ref=sr_nr_p_n_publication_date_1&ds=v1%3AXfUa7WSQIU%2BAdLvRdargv5cD68mcIEmpUWwsyIBLjUs",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_publication_date%3A2684819031"
+   },
+   {
+    "position": 2,
+    "name": "Last 90 days",
+    "rh": "p_n_publication_date:2684820031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_publication_date%3A2684820031&dc&qid=1791551245&rnid=2684818031&ref=sr_nr_p_n_publication_date_2&ds=v1%3Aq1cdenyv5l5Mp%2BfK%2Ffz8TxIcqXo7FF%2BGOahfjh0wuxw",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_publication_date%3A2684820031"
+   },
+   {
+    "position": 3,
+    "name": "Next 90 days",
+    "rh": "p_n_publication_date:2684821031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_n_publication_date%3A2684821031&dc&qid=1791551245&rnid=2684818031&ref=sr_nr_p_n_publication_date_3&ds=v1%3AkiX7fMGLGhjucRTXwdcRyoaZOf1fzbifUIoSrIT%2F0Zc",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_n_publication_date%3A2684821031"
+   }
+  ],
+  "country_of_origin": [
+   {
+    "position": 1,
+    "name": "India",
+    "rh": "p_country_of_origin-bin:IN",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_country_of_origin-bin%3AIN&dc&qid=1791551245&rnid=215263484031&ref=sr_nr_p_country_of_origin-bin_1&ds=v1%3AL76lZqfn7tdhwuzz3T%2FXcFIgjgs3xD7s%2FuGBt%2B68I6U",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_country_of_origin-bin%3AIN"
+   },
+   {
+    "position": 2,
+    "name": "United States",
+    "rh": "p_country_of_origin-bin:US",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_country_of_origin-bin%3AUS&dc&qid=1791551245&rnid=215263484031&ref=sr_nr_p_country_of_origin-bin_2&ds=v1%3AgBUuRY0p%2Fgvt3XXumuo%2FSnaXEIoTThDUvEu7YO%2BJRY0",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_country_of_origin-bin%3AUS"
+   },
+   {
+    "position": 3,
+    "name": "United Kingdom",
+    "rh": "p_country_of_origin-bin:UK",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=p_country_of_origin-bin%3AUK&dc&qid=1791551245&rnid=215263484031&ref=sr_nr_p_country_of_origin-bin_3&ds=v1%3AG5iSktia2VbFpNKzSU0%2BOPEbkiywcqZaAR9EC3I7bXE",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=p_country_of_origin-bin%3AUK"
+   }
+  ],
+  "category": [
+   {
+    "position": 1,
+    "name": "Books",
+    "rh": "n:976389031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=n%3A976389031&dc&qid=1791551245&rnid=3576079031&ref=sr_nr_n_1&ds=v1%3AMsr1tOVxeKBwreIhtf8vbhgOREtbK7Gny23pMat9Wx0",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=n%3A976389031"
+   },
+   {
+    "position": 2,
+    "name": "Personal Transformation",
+    "rh": "n:1318132031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=n%3A976389031%2Cn%3A1318132031&dc&qid=1791551245&rnid=3576079031&ref=sr_nr_n_2&ds=v1%3ARHN9suqOppTWUvmRra6N%2Bx6HRVtsB9CDlKCyT1GqDUg",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=n%3A976389031%2Cn%3A1318132031"
+   },
+   {
+    "position": 3,
+    "name": "Self-Help for Success",
+    "rh": "n:23033708031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=n%3A976389031%2Cn%3A23033708031&dc&qid=1791551245&rnid=3576079031&ref=sr_nr_n_3&ds=v1%3Af%2BOZrSkn%2FiFAimO2Q6PYXqHoYsMUlqXBWBGyEYHFRXQ",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=n%3A976389031%2Cn%3A23033708031"
+   },
+   {
+    "position": 4,
+    "name": "Motivational Self-Help",
+    "rh": "n:23033697031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=n%3A976389031%2Cn%3A23033697031&dc&qid=1791551245&rnid=3576079031&ref=sr_nr_n_4&ds=v1%3AIMKQYUcZ9KW9Obgv00f8Faft9Yh%2Fil91F0illb6hRdI",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=n%3A976389031%2Cn%3A23033697031"
+   },
+   {
+    "position": 5,
+    "name": "Self-Help for Happiness",
+    "rh": "n:23033705031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=n%3A976389031%2Cn%3A23033705031&dc&qid=1791551245&rnid=3576079031&ref=sr_nr_n_5&ds=v1%3A7n26fEq2CJEB6awAi6N489qhvd5E8BdDDQohcHJygwY",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=n%3A976389031%2Cn%3A23033705031"
+   },
+   {
+    "position": 6,
+    "name": "Healthy Living & Wellness",
+    "rh": "n:1318130031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=n%3A976389031%2Cn%3A1318130031&dc&qid=1791551245&rnid=3576079031&ref=sr_nr_n_6&ds=v1%3AqLaYRTLhivogBr%2BgsUB65Zj9faT%2F4lV6xgmFZumUhzE",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=n%3A976389031%2Cn%3A1318130031"
+   },
+   {
+    "position": 7,
+    "name": "Kindle Store",
+    "rh": "n:1571277031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=n%3A1571277031&dc&qid=1791551245&rnid=3576079031&ref=sr_nr_n_7&ds=v1%3AdxhLpvf7eiwl2buNVsZrEWnzf6eEruC6LKqtffYtW%2Fo",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=n%3A1571277031"
+   },
+   {
+    "position": 8,
+    "name": "Motivational Self-Help eBooks",
+    "rh": "n:202413598031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=n%3A1571277031%2Cn%3A202413598031&dc&qid=1791551245&rnid=3576079031&ref=sr_nr_n_8&ds=v1%3AbaetrLcqXLX1bYXD%2FdfVc4mU7IRoG%2FWPT15KID3rRco",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=n%3A1571277031%2Cn%3A202413598031"
+   },
+   {
+    "position": 9,
+    "name": "Success eBooks",
+    "rh": "n:202413604031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=n%3A1571277031%2Cn%3A202413604031&dc&qid=1791551245&rnid=3576079031&ref=sr_nr_n_9&ds=v1%3Am%2BYSAaAzC9ViwffaN3F4wYzHz1GGu2osx4q69%2FtBYso",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=n%3A1571277031%2Cn%3A202413604031"
+   },
+   {
+    "position": 10,
+    "name": "Self-Management Self-Help eBooks",
+    "rh": "n:202413606031",
+    "link": "https://www.amazon.in/s?k=Atomic+Habits+James+Clear&rh=n%3A1571277031%2Cn%3A202413606031&dc&qid=1791551245&rnid=3576079031&ref=sr_nr_n_10&ds=v1%3AZerIvBRyVHCQBfLR725QE2KPN%2FPD2y2zGQ%2Fn61plsP4",
+    "serpapi_link": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&rh=n%3A1571277031%2Cn%3A202413606031"
+   }
+  ]
+ },
+ "serpapi_pagination": {
+  "current": 1,
+  "next": "https://serpapi.com/search.json?amazon_domain=amazon.in&device=desktop&engine=amazon&k=Atomic+Habits+James+Clear&page=2"
+ }
+}
