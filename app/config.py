@@ -50,3 +50,8 @@ NOTE_NOT_PRICED = "Not priced in this run (price limit reached); excluded from t
 # Parallel network work (catalogue + pricing are I/O bound). Lower these if a service starts returning 429.
 IDENTIFY_WORKERS = 4
 PRICE_WORKERS = 4
+
+# Frame quality checks (code, not a model). Calibrate on real frames with tools/quality_report.py.
+BLUR_MIN_VAR = 100.0      # variance of Laplacian at 640 px width; below = blurry
+GLARE_MAX_FRAC = 0.03     # share of pixels that are near-white and colourless; above = glare
+DARK_MAX_MEAN = 60.0      # mean brightness (0-255); below = too dark
