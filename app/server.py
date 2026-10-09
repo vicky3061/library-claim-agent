@@ -38,6 +38,20 @@ def is_new_view(thumb, last_thumb):
     return last_thumb is None or float(np.mean(np.abs(thumb - last_thumb))) >= config.KEYFRAME_MIN_CHANGE
 
 
+def unit_name(marker_id):
+    return chr(ord("A") + marker_id) if 0 <= marker_id < 26 else str(marker_id)
+
+
+def frame_advice(spines):
+    """What to say after reading a frame: step closer if most spines are unreadable, else what was logged."""
+    if len(spines) >= config.STEP_CLOSER_MIN_SPINES:
+        poor = sum(sp.legibility in ("partial", "unreadable") for sp in spines) / len(spines)
+        if poor >= config.STEP_CLOSER_UNREADABLE:
+            return "Most spines here are hard to read. Please step closer to this shelf."
+    readable = sum(bool(sp.text.strip()) and sp.legibility != "unreadable" for sp in spines)
+    return f"Logged {len(spines)} books here, {readable} readable." if spines else None
+
+
 def _read_in_background(sweep_id, path):
     """Vision + identification now, so Finish only has to assemble cached results."""
     s = SWEEPS[sweep_id]
@@ -50,6 +64,9 @@ def _read_in_background(sweep_id, path):
             return
         s["spines_seen"] += len(res.spines)
         s["items_seen"] += [it.category for it in res.items]
+        advice = frame_advice(res.spines)
+        if advice:
+            s["advice"].append(advice)
     for sp in res.spines:
         if sp.text.strip() and sp.legibility != "unreadable":
             _identify_pool.submit(_identify, sweep_id, sp)
@@ -74,7 +91,8 @@ def start(body: StartIn):
     os.makedirs(folder, exist_ok=True)
     SWEEPS[sweep_id] = {"country": body.country.upper(), "currency": body.currency.upper(), "folder": folder,
                         "started": time.time(), "kept": 0, "seen": 0, "last_thumb": None, "frames_read": 0,
-                        "frames_failed": 0, "spines_seen": 0, "items_seen": [], "titles": [], "futures": []}
+                        "frames_failed": 0, "spines_seen": 0, "items_seen": [], "titles": [], "futures": [],
+                        "prev_thumb": None, "advice": [], "units_seen": []}
     return {"sweep_id": sweep_id}
 
 
@@ -90,9 +108,16 @@ async def frame(sweep_id: str, file: UploadFile):
     q = quality.check_frame(image)
     s["seen"] += 1
     kept = False
+    thumb = _thumb(image)
+    too_fast = s["prev_thumb"] is not None and float(np.mean(np.abs(thumb - s["prev_thumb"]))) > config.TOO_FAST_CHANGE
+    s["prev_thumb"] = thumb
+    for m in q.get("markers", []):
+        if m["id"] < 10 and m["id"] not in s["units_seen"]:  # shelf markers 0-9 = shelving units A, B, ...
+            s["units_seen"].append(m["id"])
+            if len(s["units_seen"]) > 1:
+                s["advice"].append(f"New shelving unit {unit_name(m['id'])}. Logging it now.")
     # A frame without a marker is still useful for reading titles; only blur/dark/glare make it useless.
     usable = not any(i in q["issues"] for i in ("blurry", "dark", "glare"))
-    thumb = _thumb(image)
     if usable and is_new_view(thumb, s["last_thumb"]):
         path = os.path.join(s["folder"], f"{s['kept']:04d}.jpg")
         with open(path, "wb") as f:
@@ -101,7 +126,17 @@ async def frame(sweep_id: str, file: UploadFile):
         s["last_thumb"] = thumb
         s["futures"].append(_vision_pool.submit(_read_in_background, sweep_id, path))
         kept = True
-    return {"kept": kept, "quality": q, "hint": q["hint"], "inventory": inventory(sweep_id)}
+    # Priority: a capture problem now > moving too fast > what the background reader has to say
+    hint = q["hint"] if any(i in q["issues"] for i in ("blurry", "dark", "glare")) else None
+    if not hint and too_fast:
+        hint = "Slow down a little, I may be missing books."
+    with _lock:
+        if not hint and s["advice"]:
+            hint = s["advice"].pop(0)
+    if not hint:
+        hint = q["hint"]  # e.g. no marker in view
+    return {"kept": kept, "quality": {k: v for k, v in q.items() if k != "markers"}, "hint": hint,
+            "inventory": inventory(sweep_id)}
 
 
 @app.get("/api/sweep/{sweep_id}/inventory")
@@ -112,7 +147,8 @@ def inventory(sweep_id: str):
     with _lock:
         return {"frames_seen": s["seen"], "frames_kept": s["kept"], "frames_read": s["frames_read"],
                 "spines_seen": s["spines_seen"], "identified": len(s["titles"]), "recent_titles": s["titles"][-5:],
-                "items_seen": len(s["items_seen"]), "elapsed_s": round(time.time() - s["started"], 1)}
+                "items_seen": len(s["items_seen"]),
+                "shelving_units": [unit_name(i) for i in s["units_seen"]], "elapsed_s": round(time.time() - s["started"], 1)}
 
 
 @app.post("/api/sweep/{sweep_id}/finish")

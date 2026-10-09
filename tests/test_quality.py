@@ -34,3 +34,13 @@ def test_dark_is_detected_first():
 
 def test_missing_marker_is_reported():
     assert "no_marker" in Q.check_frame(_sharp(), need_marker=True)["issues"]
+
+    
+
+def test_marker_sheet_is_not_glare():
+    d = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
+    img = _sharp()
+    img[20:180, 20:180] = 255                                    # white paper around the marker
+    img[40:160, 40:160] = cv2.cvtColor(cv2.aruco.generateImageMarker(d, 0, 120), cv2.COLOR_GRAY2BGR)
+    r = Q.check_frame(img)
+    assert "glare" not in r["issues"] and r["markers"][0]["id"] == 0 and r["ok"]

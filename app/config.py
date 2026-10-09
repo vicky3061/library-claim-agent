@@ -66,3 +66,7 @@ VISION_USD_PER_M_INPUT = None     # e.g. Gemini Flash input price per 1M tokens
 VISION_USD_PER_M_OUTPUT = None    # output price per 1M tokens
 SERPAPI_USD_PER_SEARCH = None     # your plan price / searches per month
 PRICE_BASIS = "not set: fill from provider pricing pages (state date)"
+
+TOO_FAST_CHANGE = 60.0         # thumbnail change between two consecutive frames (2 s apart) above this = moving too fast
+STEP_CLOSER_UNREADABLE = 0.6   # share of spines in a frame that are partial/unreadable -> ask to step closer
+STEP_CLOSER_MIN_SPINES = 3     # only judge frames with at least this many spines

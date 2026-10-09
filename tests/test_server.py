@@ -49,3 +49,34 @@ def test_live_sweep_end_to_end(tmp_path, monkeypatch):
 def test_new_view_rule():
     a = S._thumb(_stripes()); b = S._thumb(_stripes(10))
     assert S.is_new_view(a, None) and not S.is_new_view(a, a) and S.is_new_view(b, a)
+
+
+
+def _with_marker(img, marker_id):
+    d = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
+    m = cv2.aruco.generateImageMarker(d, marker_id, 120)
+    out = img.copy()
+    out[20:180, 20:180] = 255                                   # white quiet zone around the marker
+    out[40:160, 40:160] = cv2.cvtColor(m, cv2.COLOR_GRAY2BGR)
+    return out
+
+
+def test_frame_advice_step_closer_and_logging():
+    sp = lambda leg, text="X": V.SpineOut(box_2d=[0, 0, 1, 1], orientation="upright", text=text, legibility=leg, cut_off=False)
+    assert "step closer" in S.frame_advice([sp("unreadable", ""), sp("partial"), sp("partial"), sp("clear")])
+    assert S.frame_advice([sp("clear"), sp("clear"), sp("partial")]) == "Logged 3 books here, 3 readable."
+    assert S.frame_advice([]) is None
+
+
+def test_live_hints_too_fast_and_new_unit(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path); (tmp_path / "runs").mkdir()
+    monkeypatch.setattr(S.vision, "analyze_frame", lambda b: (V.FrameOut(spines=[], items=[]), {}))
+    c = TestClient(S.app)
+    sid = c.post("/api/sweep/start", json={}).json()["sweep_id"]
+    post = lambda img: c.post(f"/api/sweep/{sid}/frame", files={"file": ("f.jpg", _jpg(img), "image/jpeg")}).json()
+    base = _stripes()
+    post(_with_marker(base, 0))                                  # unit A: first unit, no announcement needed
+    r = post(_with_marker(base, 1))                              # small change, new marker id -> unit B
+    assert r["hint"] == "New shelving unit B. Logging it now." and r["inventory"]["shelving_units"] == ["A", "B"]
+    r = post(_with_marker(_stripes(10), 1))                      # shelf view jumped a lot in 2 s -> too fast
+    assert r["hint"].startswith("Slow down")
