@@ -36,3 +36,6 @@ USED_CONDITION_ASSUMED = "Good: used, complete, normal wear, no major damage"
 APPRAISAL_PRICE_LIMIT = {"INR": 5000.0, "USD": 60.0}
 APPRAISAL_PUBLISHED_BEFORE = 1960
 APPRAISAL_KEYWORDS = ("signed", "autographed", "first edition", "1st edition", "limited edition", "antiquarian")
+
+# vision: tried in order; verified with `python -m tools.probe_models` on 2026-10-09
+VISION_MODELS = ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash"]

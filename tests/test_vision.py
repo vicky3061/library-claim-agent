@@ -1,0 +1,82 @@
+import os
+
+import numpy as np
+
+from app.stages import vision as V
+
+FAKE = V.FrameOut(spines=[V.SpineOut(box_2d=[100, 50, 900, 120], orientation="upright",
+                                     text="NANSEN IN NACHT UND EIS I", legibility="clear", cut_off=False)],
+                  items=[])
+
+
+def test_box_to_pixels():
+    assert V.to_pixels([100, 50, 900, 120], 1000, 500) == (50, 50, 120, 450)
+
+
+def test_overload_then_success(monkeypatch):
+    calls = []
+    def fake(model, b):
+        calls.append(model)
+        if len(calls) == 1:
+            raise RuntimeError("503 UNAVAILABLE high demand")
+        return FAKE, {"input": 1, "output": 1}
+    monkeypatch.setattr(V, "_call_model", fake)
+    monkeypatch.setattr(V.time, "sleep", lambda s: None)  # don't actually wait in tests
+    out, tel = V.analyze_frame(b"x")
+    assert out.spines[0].text.startswith("NANSEN")
+    assert len(tel["attempts"]) == 1
+
+
+def test_falls_back_to_next_model(monkeypatch):
+    def fake(model, b):
+        if model == V.config.VISION_MODELS[0]:
+            raise RuntimeError("503 UNAVAILABLE")
+        return FAKE, {}
+    monkeypatch.setattr(V, "_call_model", fake)
+    monkeypatch.setattr(V.time, "sleep", lambda s: None)
+    out, tel = V.analyze_frame(b"x")
+    assert tel["model"] == V.config.VISION_MODELS[1]
+
+
+def test_retired_model_skips_straight_to_next(monkeypatch):
+    # Real failure: gemini-2.5-flash returned 404 "no longer available to new users"
+    calls = []
+    def fake(model, b):
+        calls.append(model)
+        if model == V.config.VISION_MODELS[0]:
+            raise RuntimeError("404 NOT_FOUND no longer available")
+        return FAKE, {}
+    monkeypatch.setattr(V, "_call_model", fake)
+    monkeypatch.setattr(V.time, "sleep", lambda s: None)
+    out, tel = V.analyze_frame(b"x")
+    assert calls.count(V.config.VISION_MODELS[0]) == 1  # a 404 is not retried
+
+
+def test_total_failure_returns_none_with_every_error_recorded(monkeypatch):
+    def fake(model, b):
+        raise RuntimeError("503 UNAVAILABLE")
+    monkeypatch.setattr(V, "_call_model", fake)
+    monkeypatch.setattr(V.time, "sleep", lambda s: None)
+    out, tel = V.analyze_frame(b"x")
+    assert out is None
+    assert len(tel["attempts"]) == 3 * len(V.config.VISION_MODELS)
+
+
+def test_annotate_writes_an_image(tmp_path):
+    img = np.zeros((500, 1000, 3), np.uint8)
+    path = str(tmp_path / "annotated.jpg")
+    V.annotate(img, FAKE, path)
+    assert os.path.exists(path)
+
+def test_quota_exhausted_is_not_retried(monkeypatch):
+    # Real failure: gemini-3.8-flash returned 429 "exceeded your current quota" three times
+    calls = []
+    def fake(model, b):
+        calls.append(model)
+        if model == V.config.VISION_MODELS[0]:
+            raise RuntimeError("429 RESOURCE_EXHAUSTED You exceeded your current quota")
+        return FAKE, {}
+    monkeypatch.setattr(V, "_call_model", fake)
+    monkeypatch.setattr(V.time, "sleep", lambda s: None)
+    V.analyze_frame(b"x")
+    assert calls.count(V.config.VISION_MODELS[0]) == 1
