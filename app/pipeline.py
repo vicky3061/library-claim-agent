@@ -3,11 +3,12 @@ import os
 import re
 import shutil
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
 import cv2
 
-from app import config, serp
+from app import config, http_client, serp
 from app.report import write_report
 from app.schema import (Book, BookPrice, BookStatus, ClaimPacket, Dimensions, Item, ItemStatus,
                         Sweep, UsedPrice)
@@ -22,6 +23,7 @@ def is_art(text):
     """Whole-word match, so 'smart speaker' or 'printer' are NOT art."""
     words = set(re.findall(r"[a-z]+", (text or "").lower()))
     return any(w in words for w in ART_WORDS)
+
 
 ROMAN = {"i": 1, "ii": 2, "iii": 3, "iv": 4, "v": 5, "vi": 6, "vii": 7, "viii": 8, "ix": 9, "x": 10,
          "xi": 11, "xii": 12, "xiii": 13, "xiv": 14, "xv": 15, "xvi": 16, "xvii": 17, "xviii": 18, "xix": 19, "xx": 20}
@@ -61,6 +63,7 @@ def _year(text):
     m = re.search(r"\b(1[5-9]\d\d|20\d\d)\b", text or "")
     return int(m.group(1)) if m else None
 
+
 def _cm_per_px(image):
     """Simple scale from the frame's shelf marker (IDs 0-9). None if no shelf marker is visible."""
     shelf = [m for m in scale.detect_markers(image) if m["size_cm"] == config.SHELF_MARKER_CM]
@@ -74,55 +77,65 @@ def _book_price(p, cls):
     return cls(**fields)
 
 
-def _make_book(book_id, frame_ref, position, spine, cm_per_px, w, h, market, telemetry, price_budget):
+def _measure(spine, cm_per_px, w, h):
     x1, y1, x2, y2 = vision.to_pixels(spine.box_2d, w, h)
     long_px, short_px = (x2 - x1, y2 - y1) if spine.orientation == "flat" else (y2 - y1, x2 - x1)
-    height = round(long_px * cm_per_px, 1) if cm_per_px else None
-    thick = round(short_px * cm_per_px, 1) if cm_per_px else None
-    base = dict(id=book_id, shelf=None, position=position, frame_ref=frame_ref, spine_text_raw=spine.text or None,
-                orientation=spine.orientation, spine_height_cm=height, spine_thickness_cm=thick)
+    if not cm_per_px:
+        return None, None
+    return round(long_px * cm_per_px, 1), round(short_px * cm_per_px, 1)
 
-    if not spine.text.strip() or spine.legibility == "unreadable":
-        return Book(**base, status=BookStatus.unidentified)
 
-    t0 = time.time()
-    r = resolve.resolve_spine(spine.model_dump())
-    telemetry["identify_s"] += time.time() - t0
+def _readable(spine):
+    return bool(spine.text.strip()) and spine.legibility != "unreadable"
+
+
+def _safe_resolve(spine):
+    try:
+        return resolve.resolve_spine(spine.model_dump())
+    except Exception as e:  # one bad lookup must not sink the whole packet
+        return {"status": "unidentified", "confidence": None, "reason": "catalogue lookup failed", "errors": [str(e)]}
+
+
+def _safe_price(args):
+    title, author, market, spine_text = args
+    try:
+        # published=None on purpose: the catalogue year describes the work/an edition, not the copy on the shelf
+        return price.price_book(title, author, market, spine_text=spine_text, published=None)
+    except Exception as e:
+        return {"status": "error", "reason": str(e), "replacement": None, "used": None, "notes": []}
+
+
+def _book_fields(book_id, frame_ref, position, spine, cm_per_px, w, h, r):
+    """Everything about a book except its price. Returns (fields, status, wants_price)."""
+    height, thick = _measure(spine, cm_per_px, w, h)
+    f = dict(id=book_id, shelf=None, position=position, frame_ref=frame_ref, spine_text_raw=spine.text or None,
+             orientation=spine.orientation, spine_height_cm=height, spine_thickness_cm=thick, review_notes=[])
+    if r is None:  # not readable: counted, measured, never guessed
+        return f, BookStatus.unidentified, False
     if r["status"] != "identified":
-        return Book(**base, status=BookStatus.unidentified, id_confidence=r["confidence"])
+        f["id_confidence"] = r.get("confidence")
+        if r.get("reason") == "catalogue lookup failed":
+            f["review_notes"].append("Catalogue services unreachable for this spine; retry before closing the claim")
+        return f, BookStatus.unidentified, False
 
     m = r["match"]
     authors = clean_authors(m.get("authors"))
     volume = clean_volume(r.get("volume"))
     age_cues = [c for c in getattr(spine, "age_cues", []) if c in config.AGE_CUES]
-    book = dict(base, title=m["title"], author=", ".join(authors[:2]) or None, age_cues=age_cues,
-                edition=f"vol. {volume}" if volume else None, id_confidence=r["confidence"], review_notes=[])
+    f.update(title=m["title"], author=", ".join(authors[:2]) or None, age_cues=age_cues,
+             edition=f"vol. {volume}" if volume else None, id_confidence=r["confidence"])
     if r.get("volume") and not volume:
-        book["review_notes"].append(f"Spine number '{r['volume']}' not used as a volume (looks like a series number)")
-
+        f["review_notes"].append(f"Spine number '{r['volume']}' not used as a volume (looks like a series number)")
     reason = copy_age_reason(age_cues)
     if reason:
-        book["review_notes"].append(f"Needs appraisal: {reason}")
-        return Book(**book, status=BookStatus.needs_appraisal)
+        f["review_notes"].append(f"Needs appraisal: {reason}")
+        return f, BookStatus.needs_appraisal, False
     year = _year(m.get("published"))
     if year and year < config.APPRAISAL_PUBLISHED_BEFORE:
-        book["review_notes"].append(f"Catalogue year {year} is for the work, not this copy; no age cues on the spine, "
-                                    "so priced as a current edition. Confirm it is not an old printing")
+        f["review_notes"].append(f"Catalogue year {year} is for the work, not this copy; no age cues on the spine, "
+                                 "so priced as a current edition. Confirm it is not an old printing")
+    return f, BookStatus.identified, True
 
-    if price_budget["left"] <= 0:
-        book["review_notes"].append(config.NOTE_NOT_PRICED)
-        return Book(**book, status=BookStatus.identified)
-    price_budget["left"] -= 1
-    t0 = time.time()
-    # published=None on purpose: the catalogue year describes the work/an edition, not the copy on the shelf
-    pr = price.price_book(m["title"], authors[0] if authors else "", market, spine_text=spine.text, published=None)
-    telemetry["price_s"] += time.time() - t0
-    if pr["status"] == "needs_appraisal":
-        book["review_notes"].append(f"Needs appraisal: {pr['reason']}")
-        return Book(**book, status=BookStatus.needs_appraisal)
-    return Book(**book, status=BookStatus.identified,
-                replacement_cost=_book_price(pr["replacement"], BookPrice),
-                used_value=_book_price(pr["used"], UsedPrice))
 
 def _make_item(item_id, frame_ref, it, cm_per_px, w, h):
     x1, y1, x2, y2 = vision.to_pixels(it.box_2d, w, h)
@@ -138,21 +151,22 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
     os.makedirs(frames_out, exist_ok=True)
     telemetry = {"vision_s": 0.0, "identify_s": 0.0, "price_s": 0.0, "vision_tokens_in": 0,
                  "vision_tokens_out": 0, "vision_calls": 0, "vision_cache_hits": 0, "frames_failed": []}
-    price_budget = {"left": price_limit}
     started = time.time()
     packet = ClaimPacket(sweep=Sweep(id=sweep_id, captured_at=datetime.now(timezone.utc).isoformat(),
                                      device=device, country=country, currency=currency))
     paths = sorted(os.path.join(frames_dir, n) for n in os.listdir(frames_dir) if n.lower().endswith(IMAGE_EXT))
+
+    # Stage 1 - vision, frame by frame (free-tier quota: one call at a time).
     # NOTE: each keyframe is treated as showing different books. Cross-frame de-duplication is Layer 9.
+    spines = []  # (frame_ref, position, spine, cm_per_px, w, h)
+    t_stage = time.time()
     for fi, path in enumerate(paths):
         frame_ref = f"frames/{fi:04d}_{os.path.basename(path)}"
         shutil.copy(path, os.path.join(out_dir, frame_ref))  # every frame_ref opens
         image = cv2.imread(path)
         h, w = image.shape[:2]
-        t0 = time.time()
         with open(path, "rb") as f:
             res, tel = vision.analyze_frame(f.read())
-        telemetry["vision_s"] += time.time() - t0
         telemetry["vision_cache_hits" if tel.get("cache_hit") else "vision_calls"] += 1
         tokens = tel.get("tokens") or {}
         telemetry["vision_tokens_in"] += tokens.get("input") or 0
@@ -161,15 +175,59 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
             telemetry["frames_failed"].append({"frame": frame_ref, "errors": tel.get("attempts", [])[-2:]})
             continue
         cm_per_px = _cm_per_px(image)
-        for si, spine in enumerate(res.spines):
-            packet.books.append(_make_book(f"b{len(packet.books) + 1:03d}", frame_ref, si + 1, spine, cm_per_px,
-                                           w, h, country, telemetry, price_budget))
+        spines += [(frame_ref, si + 1, sp, cm_per_px, w, h) for si, sp in enumerate(res.spines)]
         for it in res.items:
             packet.items.append(_make_item(f"i{len(packet.items) + 1:03d}", frame_ref, it, cm_per_px, w, h))
+    telemetry["vision_s"] = time.time() - t_stage
+
+    # Stage 2 - identify every readable spine in parallel (network-bound, so threads help).
+    t_stage = time.time()
+    readable = [i for i, s in enumerate(spines) if _readable(s[2])]
+    with ThreadPoolExecutor(max_workers=config.IDENTIFY_WORKERS) as ex:
+        found = dict(zip(readable, ex.map(_safe_resolve, [spines[i][2] for i in readable])))
+    telemetry["identify_s"] = time.time() - t_stage
+
+    drafts = []
+    for i, (frame_ref, pos, sp, cm_per_px, w, h) in enumerate(spines):
+        fields, status, wants_price = _book_fields(f"b{i + 1:03d}", frame_ref, pos, sp, cm_per_px, w, h, found.get(i))
+        drafts.append([fields, status, wants_price, sp])
+
+    # Stage 3 - price in parallel. Same title+author is priced once (saves quota, avoids duplicate cache writes).
+    t_stage = time.time()
+    jobs = {}
+    for d in drafts:
+        fields, _, wants_price, sp = d
+        if not wants_price:
+            continue
+        key = (fields["title"], (fields["author"] or "").split(", ")[0], country, sp.text)
+        if key not in jobs and len(jobs) >= price_limit:
+            fields["review_notes"].append(config.NOTE_NOT_PRICED)
+            d[2] = False
+            continue
+        jobs.setdefault(key, None)
+        d.append(key)
+    with ThreadPoolExecutor(max_workers=config.PRICE_WORKERS) as ex:
+        priced = dict(zip(jobs, ex.map(_safe_price, list(jobs))))
+    telemetry["price_s"] = time.time() - t_stage
+
+    for d in drafts:
+        fields, status, wants_price, sp = d[:4]
+        if wants_price:
+            pr = priced[d[4]]
+            if pr["status"] == "needs_appraisal":
+                fields["review_notes"].append(f"Needs appraisal: {pr['reason']}")
+                status = BookStatus.needs_appraisal
+            else:
+                if pr["status"] == "error":
+                    fields["review_notes"].append(f"Pricing failed ({pr['reason'][:80]}); excluded from totals")
+                fields["replacement_cost"] = _book_price(pr["replacement"], BookPrice)
+                fields["used_value"] = _book_price(pr["used"], UsedPrice)
+        packet.books.append(Book(**fields, status=status))
 
     packet.sweep.duration_s = None  # filled by the live app from the real sweep
     telemetry.update({k: round(v, 2) for k, v in telemetry.items() if isinstance(v, float)})
     telemetry.update(serpapi_searches=serp.stats["searches"], serpapi_cache_hits=serp.stats["cache_hits"],
+                     catalogue_calls=http_client.cache_stats["calls"], catalogue_cache_hits=http_client.cache_stats["cache_hits"],
                      total_s=round(time.time() - started, 2))
     packet.telemetry = telemetry
     finalize(packet)

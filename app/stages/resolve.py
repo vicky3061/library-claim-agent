@@ -1,5 +1,3 @@
-"""Resolve what was READ on a spine to a catalogue record.
-The model never decides the title: a scored catalogue match does, or we say 'unidentified'."""
 import re
 import unicodedata
 from datetime import datetime, timezone
@@ -7,7 +5,7 @@ from datetime import datetime, timezone
 from rapidfuzz import fuzz
 
 from app import config
-from app.http_client import get_json
+from app.http_client import cached_get_json
 
 GOOGLE_BOOKS = "https://www.googleapis.com/books/v1/volumes"
 OPEN_LIBRARY = "https://openlibrary.org/search.json"
@@ -92,7 +90,7 @@ def _gb(q, max_results=5):
     if config.GOOGLE_BOOKS_API_KEY:
         params["key"] = config.GOOGLE_BOOKS_API_KEY
     out = []
-    for item in get_json(GOOGLE_BOOKS, params).get("items", []):
+    for item in cached_get_json("google_books", GOOGLE_BOOKS, params).get("items", []):
         v = item.get("volumeInfo", {})
         isbns = [i["identifier"] for i in v.get("industryIdentifiers", []) if i.get("type") in ("ISBN_13", "ISBN_10")]
         out.append({"title": v.get("title", ""), "authors": v.get("authors", []), "publisher": v.get("publisher"),
@@ -104,7 +102,7 @@ def _gb(q, max_results=5):
 def _ol(params, limit=5):
     fields = "key,title,author_name,author_alternative_name,publisher,first_publish_year,isbn,language"
     out = []
-    for d in get_json(OPEN_LIBRARY, {**params, "limit": limit, "fields": fields}).get("docs", []):
+    for d in cached_get_json("open_library", OPEN_LIBRARY, {**params, "limit": limit, "fields": fields}).get("docs", []):
         key = d.get("key")
         out.append({"title": d.get("title", ""),
                     # alternative names include pen names (e.g. Sonnleitner = Alois Tlučhoř)

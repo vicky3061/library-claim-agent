@@ -46,3 +46,7 @@ ANTIQUE_STRONG_CUES = ("blackletter", "leather_binding")  # one of these alone -
 ANTIQUE_MIN_CUES = 2  # or at least this many cues together
 MAX_VOLUME_NUMBER = 30  # "vol. 30017" is a series/catalogue number, not a volume
 NOTE_NOT_PRICED = "Not priced in this run (price limit reached); excluded from totals"
+
+# Parallel network work (catalogue + pricing are I/O bound). Lower these if a service starts returning 429.
+IDENTIFY_WORKERS = 4
+PRICE_WORKERS = 4

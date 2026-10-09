@@ -88,3 +88,10 @@ def test_old_work_year_is_not_copy_evidence_and_shared_listing_flagged(tmp_path,
     reasons = [r.reason for r in packet.review_queue]
     assert any("Catalogue year 1897" in r for r in reasons)
     assert sum("Same listing priced for 2 books" in r for r in reasons) == 2
+
+
+
+def test_same_book_is_priced_once(tmp_path, monkeypatch):
+    frame = V.FrameOut(spines=[_spine(), _spine()], items=[])   # identical spines, e.g. two copies
+    packet, calls = _run(tmp_path, monkeypatch, frame)
+    assert len(calls) == 1 and packet.totals.books_replacement_cost == 2 * 2973.0
