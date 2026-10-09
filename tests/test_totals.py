@@ -2,6 +2,7 @@ from app.schema import (
     Book, BookPrice, BookStatus, ClaimPacket, Item, ItemPrice, ItemStatus, Sweep, UsedPrice,
 )
 from app.totals import compute_totals
+from app.totals import finalize
 
 
 def make_packet(books=(), items=()):
@@ -62,3 +63,22 @@ def test_item_ranges_and_appraisal():
     assert t.items_replacement_cost_low == 1000
     assert t.items_replacement_cost_high == 2500
     assert t.excluded_from_totals == 1
+
+def test_review_queue_flags_unidentified_and_unpriced():
+    p = finalize(make_packet([make_book(1, status=BookStatus.unidentified), make_book(2)]))
+    reasons = " ".join(r.reason for r in p.review_queue)
+    assert "not readable" in reasons
+    assert "No price" in reasons
+
+
+def test_unknown_room_is_null_and_flagged():
+    p = finalize(make_packet())
+    assert p.room.floor_area_m2 is None
+    assert any(r.ref_id == "room" for r in p.review_queue)
+
+
+def test_square_feet_computed_from_square_metres():
+    p = make_packet()
+    p.room.floor_area_m2 = 10.0
+    p = finalize(p)
+    assert p.room.floor_area_ft2 == 107.64
