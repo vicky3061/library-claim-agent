@@ -1,4 +1,5 @@
 from app.stages.resolve import choose, score_candidate
+from app.stages import resolve as R
 
 ATOMIC = {"title": "Atomic Habits", "authors": ["James Clear"], "publisher": "Penguin"}
 HABITS = {"title": "Habits", "authors": ["Someone Else"]}
@@ -29,3 +30,21 @@ def test_short_title_trap_scores_low():
 def test_empty_input_is_unidentified():
     assert choose("", [ATOMIC])["status"] == "unidentified"
     assert choose("ATOMIC HABITS", [])["status"] == "unidentified"
+
+def test_lookup_failure_is_unidentified_not_a_crash(monkeypatch):
+    def broken(text):
+        raise RuntimeError("HTTP 503")
+    monkeypatch.setattr(R, "google_books_candidates", broken)
+    monkeypatch.setattr(R, "open_library_candidates", broken)
+    r = R.resolve("ATOMIC HABITS JAMES CLEAR")
+    assert r["status"] == "unidentified"
+    assert r["reason"] == "catalogue lookup failed"
+    assert len(r["errors"]) == 2
+
+
+def test_lookup_uses_candidates(monkeypatch):
+    monkeypatch.setattr(R, "google_books_candidates", lambda t: [dict(ATOMIC, source="Google Books", url="u")])
+    monkeypatch.setattr(R, "open_library_candidates", lambda t: [])
+    r = R.resolve("ATOMIC HABITS JAMES CLEAR")
+    assert r["status"] == "identified"
+    assert r["match"]["source"] == "Google Books"

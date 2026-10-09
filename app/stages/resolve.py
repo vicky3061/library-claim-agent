@@ -3,6 +3,12 @@ import re
 from rapidfuzz import fuzz
 
 from app import config
+from datetime import datetime, timezone
+from app.http_client import get_json
+
+GOOGLE_BOOKS = "https://www.googleapis.com/books/v1/volumes"
+OPEN_LIBRARY = "https://openlibrary.org/search.json"
+
 
 
 def norm(text):
@@ -36,3 +42,49 @@ def choose(spine_text, candidates):
         if norm(c["title"]) != norm(best["title"]) and s >= best_score - config.ID_AMBIGUITY_MARGIN:
             return {"status": "unidentified", "confidence": best_score, "match": None, "reason": "ambiguous"}
     return {"status": "identified", "confidence": best_score, "match": best, "reason": None}
+
+def google_books_candidates(text, max_results=5):
+    params = {"q": text, "maxResults": max_results, "printType": "books"}
+    if config.GOOGLE_BOOKS_API_KEY:
+        params["key"] = config.GOOGLE_BOOKS_API_KEY
+    data = get_json(GOOGLE_BOOKS, params)
+    out = []
+    for item in data.get("items", []):
+        v = item.get("volumeInfo", {})
+        isbns = [i["identifier"] for i in v.get("industryIdentifiers", [])
+                 if i.get("type") in ("ISBN_13", "ISBN_10")]
+        out.append({"title": v.get("title", ""), "authors": v.get("authors", []),
+                    "publisher": v.get("publisher"), "published": v.get("publishedDate"),
+                    "isbns": isbns, "source": "Google Books",
+                    "source_id": item.get("id"), "url": v.get("infoLink")})
+    return out
+
+
+def open_library_candidates(text, limit=5):
+    data = get_json(OPEN_LIBRARY, {"q": text, "limit": limit,
+                                   "fields": "key,title,author_name,publisher,first_publish_year,isbn"})
+    out = []
+    for d in data.get("docs", []):
+        key = d.get("key")
+        out.append({"title": d.get("title", ""), "authors": d.get("author_name", []),
+                    "publisher": (d.get("publisher") or [None])[0],
+                    "published": str(d.get("first_publish_year") or ""),
+                    "isbns": (d.get("isbn") or [])[:5], "source": "Open Library",
+                    "source_id": key, "url": f"https://openlibrary.org{key}" if key else None})
+    return out
+
+
+def resolve(spine_text):
+    candidates, errors = [], []
+    for fetch in (google_books_candidates, open_library_candidates):
+        try:
+            candidates += fetch(spine_text)
+        except Exception as e:
+            errors.append(f"{fetch.__name__}: {e}")
+    result = choose(spine_text, candidates)
+    if not candidates and errors:
+        result["reason"] = "catalogue lookup failed"
+    result["spine_text"] = spine_text
+    result["retrieved_at"] = datetime.now(timezone.utc).isoformat()
+    result["errors"] = errors
+    return result
