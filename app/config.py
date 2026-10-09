@@ -30,3 +30,9 @@ MARKETS = {
     "US": {"amazon_domain": "amazon.com", "currency": "USD"},
 }
 FALLBACK_MARKET = "US"
+
+# used value and appraisal (stated assumptions, see README)
+USED_CONDITION_ASSUMED = "Good: used, complete, normal wear, no major damage"
+APPRAISAL_PRICE_LIMIT = {"INR": 5000.0, "USD": 60.0}
+APPRAISAL_PUBLISHED_BEFORE = 1960
+APPRAISAL_KEYWORDS = ("signed", "autographed", "first edition", "1st edition", "limited edition", "antiquarian")

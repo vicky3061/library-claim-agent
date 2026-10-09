@@ -16,6 +16,8 @@ BUNDLE_WORDS = {"combo", "set", "pack", "bundle", "books"}
 
 NON_PHYSICAL = {"audiobook", "audible", "kindle", "ebook", "mp3", "audio"}
 
+USED_MARKERS = ("used", "pre-owned", "preowned", "second hand", "secondhand")
+
 
 def is_non_physical(listing):
     text = norm(f"{listing.get('title') or ''} {listing.get('link') or ''}")
@@ -231,3 +233,93 @@ def replacement_cost(title, author, market):
         except Exception as e:
             notes.append(f"fallback lookup failed: {e}")
     return None, notes + ["no price found in any market"]
+
+
+def _is_used(listing):
+    condition = (listing.get("second_hand_condition") or "").lower()
+    return any(m in condition for m in USED_MARKERS)
+
+
+def shopping_used_price(title, author, market, ceiling=None):
+    m = config.MARKETS[market]
+    data = serp.search({"engine": "google_shopping", "q": f"{title} {author} used".strip(),
+                        "gl": market.lower(), "hl": "en"})
+    matches = [x for x in data.get("shopping_results", [])
+               if _is_used(x) and reject_reason(x.get("title"), title) is None
+               and not is_non_physical(x) and (x.get("extracted_price") or 0) > 0
+               and (ceiling is None or x["extracted_price"] <= ceiling)]
+    if not matches:
+        return None
+    matches.sort(key=lambda x: x["extracted_price"] )
+    mid = matches[(len(matches) - 1) // 2]  # median listing: a real offer, robust to outliers
+    return {"amount": float(mid["extracted_price"]), "currency": m["currency"],
+            "source": f"Google Shopping ({market}) via SerpAPI, seller: {mid.get('source')}",
+            "url": mid.get("product_link") or mid.get("link"), "retrieved_at": _now(), "converted": False,
+            "condition_assumed": config.USED_CONDITION_ASSUMED,
+            "listing_condition": mid.get("second_hand_condition"), "used_listings_matched": len(matches),"ceiling_new_price": ceiling}
+
+def _with_fallback(fetch, title, author, market):
+    """Try the local market, then the fallback market (converted). Same rule for new and used."""
+    notes = []
+    markets = [market] + ([config.FALLBACK_MARKET] if config.FALLBACK_MARKET != market else [])
+    for mk in markets:
+        try:
+            p = fetch(title, author, mk)
+        except Exception as e:
+            notes.append(f"{mk} lookup failed: {e}")
+            continue
+        if p:
+            if mk != market:
+                p = convert(p, config.MARKETS[market]["currency"])
+                notes.append(f"no {market} listing; converted from {mk}")
+            return p, notes
+    return None, notes + ["no price found in any market"]
+
+
+def replacement_cost(title, author, market):
+    return _with_fallback(lambda t, a, mk: amazon_new_price(t, a, mk)[0], title, author, market)
+
+
+def used_value(title, author, market, new_price=None):
+    def fetch(t, a, mk):
+        ceiling = None
+        if new_price:  # never accept a used price above the new price, in that market's currency
+            ccy = config.MARKETS[mk]["currency"]
+            ceiling = round(new_price["amount"] * fx.rate(new_price["currency"], ccy)["rate"], 2)
+        return shopping_used_price(t, a, mk, ceiling)
+    return _with_fallback(fetch, title, author, market)
+
+
+def _year(published):
+    m = re.search(r"\b(1[5-9]\d\d|20\d\d)\b", str(published or ""))
+    return int(m.group(1)) if m else None
+
+
+def appraisal_reason(spine_text="", user_notes=(), published=None, replacement=None):
+    text = norm(" ".join([spine_text or "", *user_notes]))
+    for k in config.APPRAISAL_KEYWORDS:
+        if norm(k) in text:
+            return f"'{k}' noted on spine or by policyholder"
+    year = _year(published)
+    if year and year < config.APPRAISAL_PUBLISHED_BEFORE:
+        return f"published {year}, before {config.APPRAISAL_PUBLISHED_BEFORE}"
+    if replacement:
+        limit = config.APPRAISAL_PRICE_LIMIT.get(replacement["currency"])
+        if limit and replacement["amount"] > limit:
+            return f"replacement price {replacement['amount']} {replacement['currency']} above {limit}"
+    return None
+
+
+def price_book(title, author, market, spine_text="", user_notes=(), published=None):
+    """Stage entry point: appraisal checks first, then replacement cost, then used value."""
+    reason = appraisal_reason(spine_text, user_notes, published)
+    if reason:  # decided before any search: no quota spent on books we won't auto-price
+        return {"status": "needs_appraisal", "reason": reason, "replacement": None, "used": None, "notes": []}
+    repl, notes = replacement_cost(title, author, market)
+    reason = appraisal_reason(replacement=repl)
+    if reason:  # the observed price is kept as evidence, never used as the value
+        return {"status": "needs_appraisal", "reason": reason, "replacement": None, "used": None,
+                "notes": notes, "observed_price": repl}
+    used, used_notes = used_value(title, author, market, new_price=repl)
+    return {"status": "identified", "reason": None, "replacement": repl, "used": used,
+            "notes": notes + [f"used: {n}" for n in used_notes]}
