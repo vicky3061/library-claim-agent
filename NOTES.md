@@ -18,3 +18,11 @@
 - Book was still identified via Open Library: second catalogue proved its value.
 - Risk: 80 books x 7 s = 9+ minutes, breaks the 5-minute packet bar.
 - Fix: Google Books API key; later, circuit breaker to stop calling a failing service mid-sweep.
+
+## 18:27 — Google Books pricing check (country=IN)
+- Returns INR prices only for ebooks (Atomic Habits: list ₹707.11, retail ₹353.56).
+- First priced result was the TAMIL translation (₹289.10): wrong-edition price trap.
+- No used prices at all.
+- Decisions: physical new price from shopping search as primary; ebook list price as
+  labelled fallback (flagged); only price volumes matching title, author AND language;
+  used value from shopping listings.
