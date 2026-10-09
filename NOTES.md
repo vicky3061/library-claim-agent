@@ -12,3 +12,9 @@
 ## Reference app errors
 - 14x 503 "model experiencing high demand"; 2x 429 image model zero free quota.
 - Decision: retry with backoff; failed calls go to review queue; batch vision calls.
+
+## 18:19 — Google Books 429 without API key
+- Every Google Books call returned 429 (anonymous quota). Retries took ~7 s per book.
+- Book was still identified via Open Library: second catalogue proved its value.
+- Risk: 80 books x 7 s = 9+ minutes, breaks the 5-minute packet bar.
+- Fix: Google Books API key; later, circuit breaker to stop calling a failing service mid-sweep.
