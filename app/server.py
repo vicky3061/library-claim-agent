@@ -11,7 +11,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from app import config, pipeline
+from app import config, pipeline, voice
 from app.report import write_report
 from app.stages import quality, resolve, vision
 
@@ -23,6 +23,10 @@ _vision_pool = ThreadPoolExecutor(max_workers=1)  # free-tier vision quota: one 
 _identify_pool = ThreadPoolExecutor(max_workers=config.IDENTIFY_WORKERS)
 SWEEPS = {}
 _lock = threading.Lock()
+
+
+class SayIn(BaseModel):
+    text: str
 
 
 class StartIn(BaseModel):
@@ -67,6 +71,10 @@ def _read_in_background(sweep_id, path):
         advice = frame_advice(res.spines)
         if advice:
             s["advice"].append(advice)
+        art = [it for it in res.items if pipeline.is_art(f"{it.category} {it.description}")]
+        if art:  # the brief: "is that portrait an original or a print?" - only the user can answer
+            s["art_frame"] = os.path.basename(path)
+            s["advice"].append(f"Is that {art[0].description or art[0].category} an original or a print?")
     for sp in res.spines:
         if sp.text.strip() and sp.legibility != "unreadable":
             _identify_pool.submit(_identify, sweep_id, sp)
@@ -92,7 +100,9 @@ def start(body: StartIn):
     SWEEPS[sweep_id] = {"country": body.country.upper(), "currency": body.currency.upper(), "folder": folder,
                         "started": time.time(), "kept": 0, "seen": 0, "last_thumb": None, "frames_read": 0,
                         "frames_failed": 0, "spines_seen": 0, "items_seen": [], "titles": [], "futures": [],
-                        "prev_thumb": None, "advice": [], "units_seen": []}
+                        "prev_thumb": None, "advice": [], "units_seen": [], "current_unit": None, "frame_unit": {},
+                        "last_frame": None, "art_frame": None, "excluded_units": set(), "excluded_frames": set(),
+                        "book_notes": {}, "art_print": set(), "art_original": set(), "heard": []}
     return {"sweep_id": sweep_id}
 
 
@@ -112,6 +122,8 @@ async def frame(sweep_id: str, file: UploadFile):
     too_fast = s["prev_thumb"] is not None and float(np.mean(np.abs(thumb - s["prev_thumb"]))) > config.TOO_FAST_CHANGE
     s["prev_thumb"] = thumb
     for m in q.get("markers", []):
+        if m["id"] < 10:
+            s["current_unit"] = m["id"]
         if m["id"] < 10 and m["id"] not in s["units_seen"]:  # shelf markers 0-9 = shelving units A, B, ...
             s["units_seen"].append(m["id"])
             if len(s["units_seen"]) > 1:
@@ -124,6 +136,8 @@ async def frame(sweep_id: str, file: UploadFile):
             f.write(data)
         s["kept"] += 1
         s["last_thumb"] = thumb
+        s["last_frame"] = os.path.basename(path)
+        s["frame_unit"][s["last_frame"]] = s["current_unit"]
         s["futures"].append(_vision_pool.submit(_read_in_background, sweep_id, path))
         kept = True
     # Priority: a capture problem now > moving too fast > what the background reader has to say
@@ -137,6 +151,51 @@ async def frame(sweep_id: str, file: UploadFile):
         hint = q["hint"]  # e.g. no marker in view
     return {"kept": kept, "quality": {k: v for k, v in q.items() if k != "markers"}, "hint": hint,
             "inventory": inventory(sweep_id)}
+
+
+@app.post("/api/sweep/{sweep_id}/say")
+def say(sweep_id: str, body: SayIn):
+    """A voice correction. It applies to what the camera was on when it was spoken (the last kept frame)."""
+    s = SWEEPS.get(sweep_id)
+    if not s:
+        raise HTTPException(404, "unknown sweep")
+    c = voice.parse(body.text)
+    s["heard"].append({"text": body.text, "cmd": c["cmd"], "frame": s["last_frame"], "t": round(time.time() - s["started"], 1)})
+    frame_now = s["last_frame"]
+    if c["cmd"] == "skip_shelf":
+        if s["current_unit"] is not None:
+            s["excluded_units"].add(s["current_unit"])
+            return {"cmd": c["cmd"], "reply": f"Okay, I will leave shelving unit {unit_name(s['current_unit'])} out of the claim."}
+        if frame_now:
+            s["excluded_frames"].add(frame_now)
+            return {"cmd": c["cmd"], "reply": "Okay, I will leave the books in view out of the claim."}
+        return {"cmd": c["cmd"], "reply": "Point the camera at the shelf you want me to skip, then say it again."}
+    if c["cmd"] == "book_note":
+        if not frame_now:
+            return {"cmd": c["cmd"], "reply": "Point the camera at that book, then tell me again."}
+        s["book_notes"].setdefault(frame_now, []).append(c["note"])
+        return {"cmd": c["cmd"], "reply": f"Noted, {c['note']}. The book in the centre of the view goes to a human appraiser."}
+    if c["cmd"] in ("art_print", "art_original"):
+        target = s["art_frame"] or frame_now
+        if not target:
+            return {"cmd": c["cmd"], "reply": "Show me the picture first, please."}
+        s["art_print" if c["cmd"] == "art_print" else "art_original"].add(target)
+        return {"cmd": c["cmd"], "reply": "Thanks, I will price it as a print." if c["cmd"] == "art_print"
+                else "Understood. An original goes to a human appraiser, not priced automatically."}
+    if c["cmd"] == "locale":
+        s["country"], s["currency"] = c["country"], c["currency"]
+        return {"cmd": c["cmd"], "country": c["country"], "currency": c["currency"],
+                "reply": f"Switched to {c['country']}. Prices will be in {c['currency']}."}
+    if c["cmd"] == "yes":
+        return {"cmd": c["cmd"], "reply": "Great. Start at the first shelf and move slowly along it."}
+    return {"cmd": "unknown", "reply": None}
+
+
+def overrides_for(s):
+    """Voice corrections -> pipeline overrides, keyed by frame file name."""
+    excluded = set(s["excluded_frames"]) | {f for f, u in s["frame_unit"].items() if u in s["excluded_units"]}
+    return {"excluded_frames": excluded, "book_notes": s["book_notes"],
+            "art_print": s["art_print"] - s["art_original"], "art_original": s["art_original"]}
 
 
 @app.get("/api/sweep/{sweep_id}/inventory")
@@ -160,7 +219,9 @@ def finish(sweep_id: str):
     for fut in s["futures"]:
         fut.result()  # wait for the last frames still being read
     waited = time.time() - t0
-    packet, out_dir = pipeline.run_sweep(s["folder"], sweep_id, s["country"], s["currency"], device="phone browser")
+    packet, out_dir = pipeline.run_sweep(s["folder"], sweep_id, s["country"], s["currency"], device="phone browser",
+                                         overrides=overrides_for(s))
+    packet.telemetry["voice_corrections"] = s["heard"]
     packet.sweep.duration_s = round(t0 - s["started"], 1)
     packet.telemetry["after_sweep_wait_s"] = round(waited, 2)
     packet.telemetry["packet_ready_after_sweep_s"] = round(time.time() - t0, 2)
@@ -168,6 +229,9 @@ def finish(sweep_id: str):
         f.write(packet.model_dump_json(indent=2))
     write_report(packet, os.path.join(out_dir, "report.html"))
     t = packet.totals
-    return {"report": f"/runs/{sweep_id}/report.html", "packet": f"/runs/{sweep_id}/claim_packet.json",
+    summary = (f"Done. I counted {t.book_count} books, {t.books_identified} identified. "
+               f"Replacement value about {t.books_replacement_cost:,.0f} {s['currency']} for the books. "
+               f"{len(packet.review_queue)} lines need a human check.")
+    return {"summary": summary, "report": f"/runs/{sweep_id}/report.html", "packet": f"/runs/{sweep_id}/claim_packet.json",
             "books": t.book_count, "identified": t.books_identified, "review_items": len(packet.review_queue),
             "packet_ready_after_sweep_s": packet.telemetry["packet_ready_after_sweep_s"]}

@@ -80,3 +80,28 @@ def test_live_hints_too_fast_and_new_unit(tmp_path, monkeypatch):
     assert r["hint"] == "New shelving unit B. Logging it now." and r["inventory"]["shelving_units"] == ["A", "B"]
     r = post(_with_marker(_stripes(10), 1))                      # shelf view jumped a lot in 2 s -> too fast
     assert r["hint"].startswith("Slow down")
+
+
+
+def test_voice_skip_shelf_removes_it_from_the_claim(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path); (tmp_path / "runs").mkdir()
+    frame = V.FrameOut(spines=[V.SpineOut(box_2d=[100, 450, 900, 550], orientation="upright", text="ATOMIC HABITS",
+                                          title="ATOMIC HABITS", author="", legibility="clear", cut_off=False)],
+                       items=[V.ItemOut(box_2d=[0, 0, 500, 500], category="framed art", description="portrait", visible_text="")])
+    monkeypatch.setattr(S.vision, "analyze_frame", lambda b: (frame, {"cache_hit": True}))
+    ident = {"status": "identified", "confidence": 1.0, "volume": None,
+             "match": {"title": "Atomic Habits", "authors": ["James Clear"], "published": "2018"}}
+    monkeypatch.setattr(S.resolve, "resolve_spine", lambda s: ident)
+    monkeypatch.setattr(S.pipeline.price, "price_book", lambda *a, **k: {"status": "identified", "replacement": None, "used": None, "notes": []})
+    c = TestClient(S.app)
+    sid = c.post("/api/sweep/start", json={}).json()["sweep_id"]
+    say = lambda text: c.post(f"/api/sweep/{sid}/say", json={"text": text}).json()
+    assert "Point the camera" in say("that is a first edition")["reply"]     # nothing in view yet
+    c.post(f"/api/sweep/{sid}/frame", files={"file": ("f.jpg", _jpg(_with_marker(_stripes(), 0)), "image/jpeg")})
+    for fut in S.SWEEPS[sid]["futures"]:
+        fut.result()
+    assert any("original or a print" in a for a in S.SWEEPS[sid]["advice"])  # agent asks about the art
+    assert "unit A" in say("skip that shelf, those are not mine")["reply"]
+    assert say("hmm")["reply"] is None
+    done = c.post(f"/api/sweep/{sid}/finish").json()
+    assert done["books"] == 0 and "0 books" in done["summary"]               # skipped shelf is not in the claim

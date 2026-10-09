@@ -122,3 +122,30 @@ def test_cost_is_unknown_until_prices_are_set(monkeypatch):
     monkeypatch.setattr(PL.config, "SERPAPI_USD_PER_SEARCH", 0.01)
     c = PL.sweep_cost(t)
     assert (c["vision_input_usd"], c["vision_output_usd"], c["search_usd"], c["total_usd"]) == (1.0, 1.0, 0.1, 2.1)
+
+
+
+def test_voice_overrides_skip_shelf_first_edition_and_print(tmp_path, monkeypatch):
+    centre = V.SpineOut(box_2d=[100, 450, 900, 550], orientation="upright", text="NANSEN IN NACHT UND EIS",
+                        title="IN NACHT UND EIS", author="NANSEN", legibility="clear", cut_off=False)
+    edge = V.SpineOut(box_2d=[100, 0, 900, 50], orientation="upright", text="NANSEN IN NACHT UND EIS",
+                      title="IN NACHT UND EIS", author="NANSEN", legibility="clear", cut_off=False)
+    art = V.ItemOut(box_2d=[0, 0, 500, 500], category="framed art", description="portrait", visible_text="")
+    frame = V.FrameOut(spines=[edge, centre], items=[art])
+    monkeypatch.setattr(PL.item_price, "price_item", lambda *a: ({"low": 500.0, "high": 900.0, "currency": "INR",
+                                                                  "source": "t", "url": "u", "retrieved_at": "t"}, "range"))
+    ov = {"book_notes": {"a.jpg": ["first edition"]}, "art_print": {"a.jpg"}}
+    frames = tmp_path / "frames"; frames.mkdir()
+    cv2.imwrite(str(frames / "a.jpg"), np.full((400, 600, 3), 255, np.uint8))
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(PL.vision, "analyze_frame", lambda b: (frame, {"cache_hit": True}))
+    monkeypatch.setattr(PL.resolve, "resolve_spine", lambda s: {"status": "identified", "confidence": 1.0, "volume": None,
+        "match": {"title": "In Nacht und Eis", "authors": ["Fridtjof Nansen"], "published": "2012"}})
+    monkeypatch.setattr(PL.price, "price_book", lambda *a, **k: {"status": "identified", "used": None, "notes": [],
+        "replacement": {"amount": 300.0, "currency": "INR", "source": "A", "url": "x", "retrieved_at": "t", "converted": False}})
+    packet, _ = PL.run_sweep(str(frames), "v1", "IN", "INR", overrides=ov)
+    assert [b.status.value for b in packet.books] == ["identified", "needs_appraisal"]   # only the centre book
+    assert packet.items[0].status.value == "range" and packet.totals.items_replacement_cost_low == 500
+
+    packet2, _ = PL.run_sweep(str(frames), "v2", "IN", "INR", overrides={"excluded_frames": {"a.jpg"}})
+    assert packet2.totals.book_count == 0 and all(b.excluded_by_user for b in packet2.books)

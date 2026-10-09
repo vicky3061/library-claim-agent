@@ -160,12 +160,28 @@ def _make_item(item_id, frame_ref, it, cm_per_px, w, h):
                 brand_model=it.visible_text or None, material=getattr(it, "material", "") or None,
                 frame_ref=frame_ref, dimensions_cm=dims, status=status)
 
-def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=1000):
+def _centre_index(spines):
+    """The spine nearest the centre of the frame: the book the user is pointing the camera at."""
+    if not spines:
+        return None
+    def dist(sp):
+        y0, x0, y1, x1 = sp.box_2d
+        return ((x0 + x1) / 2 - 500) ** 2 + ((y0 + y1) / 2 - 500) ** 2
+    return min(range(len(spines)), key=lambda i: dist(spines[i]))
+
+
+def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=1000, overrides=None):
+    """overrides (from voice corrections), keyed by frame file name:
+    excluded_frames: {name}  -> books/items there are excluded_by_user ("skip that shelf")
+    book_notes: {name: [note]} -> the centre book gets the note ("first edition" -> appraisal)
+    art_print: {name} / art_original: {name} -> the user's answer to "original or print?" """
     out_dir = os.path.join("runs", sweep_id)
     frames_out = os.path.join(out_dir, "frames")
     os.makedirs(frames_out, exist_ok=True)
     telemetry = {"vision_s": 0.0, "identify_s": 0.0, "price_s": 0.0, "vision_tokens_in": 0,
                  "vision_tokens_out": 0, "vision_calls": 0, "vision_cache_hits": 0, "frames_failed": []}
+    ov = overrides or {}
+    excluded = set(ov.get("excluded_frames", ()))
     started = time.time()
     packet = ClaimPacket(sweep=Sweep(id=sweep_id, captured_at=datetime.now(timezone.utc).isoformat(),
                                      device=device, country=country, currency=currency))
@@ -173,7 +189,7 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
 
     # Stage 1 - vision, frame by frame (free-tier quota: one call at a time).
     # NOTE: each keyframe is treated as showing different books. Cross-frame de-duplication is Layer 9.
-    spines = []  # (frame_ref, position, spine, cm_per_px, w, h)
+    spines = []  # (frame_ref, position, spine, cm_per_px, w, h, frame_name, voice_notes)
     t_stage = time.time()
     for fi, path in enumerate(paths):
         frame_ref = f"frames/{fi:04d}_{os.path.basename(path)}"
@@ -190,21 +206,41 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
             telemetry["frames_failed"].append({"frame": frame_ref, "errors": tel.get("attempts", [])[-2:]})
             continue
         cm_per_px = _cm_per_px(image)
-        spines += [(frame_ref, si + 1, sp, cm_per_px, w, h) for si, sp in enumerate(res.spines)]
+        name = os.path.basename(path)
+        centre = _centre_index(res.spines)
+        notes = ov.get("book_notes", {}).get(name, [])
+        spines += [(frame_ref, si + 1, sp, cm_per_px, w, h, name, notes if si == centre else [])
+                   for si, sp in enumerate(res.spines)]
         for it in res.items:
-            packet.items.append(_make_item(f"i{len(packet.items) + 1:03d}", frame_ref, it, cm_per_px, w, h))
+            item = _make_item(f"i{len(packet.items) + 1:03d}", frame_ref, it, cm_per_px, w, h)
+            if item.status == ItemStatus.needs_appraisal and name in ov.get("art_print", ()):
+                item.status = ItemStatus.range  # policyholder says it is a print -> priced like any item
+                item.description = f"{item.description or item.category} (print, per policyholder)"
+            item.excluded_by_user = name in excluded
+            packet.items.append(item)
     telemetry["vision_s"] = time.time() - t_stage
 
     # Stage 2 - identify every readable spine in parallel (network-bound, so threads help).
     t_stage = time.time()
-    readable = [i for i, s in enumerate(spines) if _readable(s[2])]
+    readable = [i for i, s in enumerate(spines) if _readable(s[2]) and s[6] not in excluded]
     with ThreadPoolExecutor(max_workers=config.IDENTIFY_WORKERS) as ex:
         found = dict(zip(readable, ex.map(_safe_resolve, [spines[i][2] for i in readable])))
     telemetry["identify_s"] = time.time() - t_stage
 
     drafts = []
-    for i, (frame_ref, pos, sp, cm_per_px, w, h) in enumerate(spines):
+    for i, (frame_ref, pos, sp, cm_per_px, w, h, name, notes) in enumerate(spines):
         fields, status, wants_price = _book_fields(f"b{i + 1:03d}", frame_ref, pos, sp, cm_per_px, w, h, found.get(i))
+        if name in excluded:
+            fields["excluded_by_user"] = True  # "skip that shelf, those are not mine": not priced, not counted
+            wants_price = False
+        elif notes:
+            fields["review_notes"].append(f"Policyholder said '{', '.join(notes)}' with this book in the centre of the "
+                                          "frame; confirm it is the right book")
+            # Every phrase the voice parser accepts here (first edition, signed, rare...) means "do not auto-price".
+            # Not added to the spine keyword list on purpose: a title like "Rare Earth" must not trigger appraisal.
+            if status == BookStatus.identified:
+                fields["review_notes"].append(f"Needs appraisal: policyholder said '{', '.join(notes)}'")
+                status, wants_price = BookStatus.needs_appraisal, False
         drafts.append([fields, status, wants_price, sp])
 
     # Stage 3 - price in parallel. Same title+author is priced once (saves quota, avoids duplicate cache writes).
@@ -239,21 +275,9 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
                 fields["used_value"] = _book_price(pr["used"], UsedPrice)
         packet.books.append(Book(**fields, status=status))
 
-        t_stage = time.time()
-        todo = [it for it in packet.items if it.status == ItemStatus.range]
-        keys = list(dict.fromkeys((it.category, it.description or "", it.brand_model or "", country) for it in todo))[:price_limit]
-        with ThreadPoolExecutor(max_workers=config.PRICE_WORKERS) as ex:
-            item_results = dict(zip(keys, ex.map(_safe_item_price, keys)))
-            for it in todo:
-                found, how = item_results.get((it.category, it.description or "", it.brand_model or "", country), (None, None))
-                if found:
-                    it.replacement_cost = ItemPrice(**found)
-                    it.status = ItemStatus.priced if how == "priced" else ItemStatus.range
-            telemetry["item_price_s"] = time.time() - t_stage
-
     # Stage 4 - non-book items (art already went to appraisal). One search per distinct item, local market only.
     t_stage = time.time()
-    todo = [it for it in packet.items if it.status == ItemStatus.range]
+    todo = [it for it in packet.items if it.status == ItemStatus.range and not it.excluded_by_user]
     keys = list(dict.fromkeys((it.category, it.description or "", it.brand_model or "", country) for it in todo))[:price_limit]
     with ThreadPoolExecutor(max_workers=config.PRICE_WORKERS) as ex:
         item_results = dict(zip(keys, ex.map(_safe_item_price, keys)))
@@ -262,11 +286,9 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
         if found:
             it.replacement_cost = ItemPrice(**found)
             it.status = ItemStatus.priced if how == "priced" else ItemStatus.range
+    telemetry["item_price_s"] = time.time() - t_stage
 
-    telemetry["item_price_s"] = time.time() - t_stage   
-    
     packet.sweep.duration_s = None  # filled by the live app from the real sweep
-
     telemetry.update({k: round(v, 2) for k, v in telemetry.items() if isinstance(v, float)})
     telemetry.update(serpapi_searches=serp.stats["searches"], serpapi_cache_hits=serp.stats["cache_hits"],
                      catalogue_calls=http_client.cache_stats["calls"], catalogue_cache_hits=http_client.cache_stats["cache_hits"],

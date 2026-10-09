@@ -212,3 +212,5 @@ fallback scale (ask "how tall is this bookcase?") for rooms without markers.
 - Fix 2: German "ß" broke matching ("ambiguous") -> ß -> ss in normalisation -> 70% (14/20), 0 confidently wrong.
 - One spine changed answer between runs without a code change -> catalogue nondeterminism -> fixed later by disk cache.
 - Stopped tuning on the dev photo to avoid overfitting.
+
+Glare check flagged the white paper around printed markers as glare (found by a test). Fix: mask a ~1.8× box around each detected marker before measuring glare.
