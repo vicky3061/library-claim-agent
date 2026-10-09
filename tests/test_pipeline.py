@@ -111,3 +111,14 @@ def test_items_get_sourced_range_and_art_is_not_priced(tmp_path, monkeypatch):
     assert asked == ["shelving"]                                   # art never sent to pricing
     assert packet.totals.items_replacement_cost_low == 3000 and packet.totals.items_replacement_cost_high == 5000
     assert packet.totals.items_needs_appraisal == 1
+
+
+
+def test_cost_is_unknown_until_prices_are_set(monkeypatch):
+    t = {"vision_tokens_in": 2_000_000, "vision_tokens_out": 500_000, "serpapi_searches": 10}
+    assert PL.sweep_cost(t)["total_usd"] is None                      # never invent a cost
+    monkeypatch.setattr(PL.config, "VISION_USD_PER_M_INPUT", 0.5)
+    monkeypatch.setattr(PL.config, "VISION_USD_PER_M_OUTPUT", 2.0)
+    monkeypatch.setattr(PL.config, "SERPAPI_USD_PER_SEARCH", 0.01)
+    c = PL.sweep_cost(t)
+    assert (c["vision_input_usd"], c["vision_output_usd"], c["search_usd"], c["total_usd"]) == (1.0, 1.0, 0.1, 2.1)

@@ -62,6 +62,16 @@ def _year(text):
     m = re.search(r"\b(1[5-9]\d\d|20\d\d)\b", text or "")
     return int(m.group(1)) if m else None
 
+def sweep_cost(t):
+    """Cost per sweep from measured usage x list prices in config (USD). None for a price we have not set."""
+    def usd(n, rate):
+        return None if rate is None else round(n * rate, 4)
+    parts = {"vision_input_usd": usd(t.get("vision_tokens_in", 0) / 1e6, config.VISION_USD_PER_M_INPUT),
+             "vision_output_usd": usd(t.get("vision_tokens_out", 0) / 1e6, config.VISION_USD_PER_M_OUTPUT),
+             "search_usd": usd(t.get("serpapi_searches", 0), config.SERPAPI_USD_PER_SEARCH)}
+    known = [v for v in parts.values() if v is not None]
+    return {**parts, "total_usd": round(sum(known), 4) if len(known) == len(parts) else None,
+            "catalogue_and_fx_usd": 0.0, "price_basis": config.PRICE_BASIS}
 
 def _cm_per_px(image):
     """Simple scale from the frame's shelf marker (IDs 0-9). None if no shelf marker is visible."""
@@ -145,10 +155,10 @@ def _safe_item_price(args):
 def _make_item(item_id, frame_ref, it, cm_per_px, w, h):
     x1, y1, x2, y2 = vision.to_pixels(it.box_2d, w, h)
     dims = Dimensions(w=round((x2 - x1) * cm_per_px, 1), h=round((y2 - y1) * cm_per_px, 1)) if cm_per_px else Dimensions()
+    status = ItemStatus.needs_appraisal if is_art(f"{it.category} {it.description}") else ItemStatus.range
     return Item(id=item_id, category=it.category, description=it.description or None,
-                brand_model=it.visible_text or None, frame_ref=frame_ref, dimensions_cm=dims,
-                status=ItemStatus.needs_appraisal if is_art(f"{it.category} {it.description}") else ItemStatus.range)  # pricing: Layer 11
-
+                brand_model=it.visible_text or None, material=getattr(it, "material", "") or None,
+                frame_ref=frame_ref, dimensions_cm=dims, status=status)
 
 def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=1000):
     out_dir = os.path.join("runs", sweep_id)
@@ -261,6 +271,7 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
     telemetry.update(serpapi_searches=serp.stats["searches"], serpapi_cache_hits=serp.stats["cache_hits"],
                      catalogue_calls=http_client.cache_stats["calls"], catalogue_cache_hits=http_client.cache_stats["cache_hits"],
                      total_s=round(time.time() - started, 2))
+    telemetry["cost"] = sweep_cost(telemetry)
     packet.telemetry = telemetry
     finalize(packet)
     with open(os.path.join(out_dir, "claim_packet.json"), "w", encoding="utf-8") as f:

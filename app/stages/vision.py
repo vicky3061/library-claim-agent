@@ -27,8 +27,8 @@ exactly. Use "" for any part that is not printed on the spine. Never add words t
   "cloth_binding", "leather_binding", "gilt_lettering", "heavy_wear". Return [] if none or unsure.
 
 Also return every NON-BOOK item (shelving, furniture, lamps, framed art, electronics, decor, rugs):
-- box_2d as above, category (one or two words), description (short), visible_text (brand/model text you can read, else "").
-Report each piece of furniture ONCE: a bookcase with its shelves and side panels is one "shelving" item.
+- box_2d as above, category (one or two words), description (short), visible_text (brand/model text you can read, else ""),
+  material (main visible material: wood, metal, glass, fabric, plastic, ceramic, paper; "" if unsure).
 
 Do not invent items. If unsure whether something is a separate book, return it once."""
 
@@ -51,6 +51,7 @@ class ItemOut(BaseModel):
     category: str
     description: str
     visible_text: str
+    material: str = ""
 
 
 class FrameOut(BaseModel):

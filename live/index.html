@@ -1,0 +1,71 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Library claim sweep</title>
+<style>
+ body{font-family:sans-serif;margin:0;background:#111;color:#eee}
+ video{width:100%;max-height:60vh;background:#000;display:block}
+ .bar{padding:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+ button{font-size:18px;padding:10px 16px;border:0;border-radius:8px}
+ #start{background:#2e7d32;color:#fff} #finish{background:#c62828;color:#fff}
+ input{width:60px;font-size:16px;padding:6px}
+ #hint{font-size:20px;padding:10px;min-height:28px;color:#ffd54f}
+ #inv{padding:0 10px 10px;font-size:15px;line-height:1.5} a{color:#80cbc4}
+</style></head><body>
+<video id="v" autoplay playsinline muted></video>
+<div class="bar">Country <input id="country" value="IN"> Currency <input id="currency" value="INR">
+ <button id="start">Start sweep</button><button id="finish" disabled>Finish</button></div>
+<div id="hint">Point the camera at the first shelf, with a printed marker in view.</div>
+<div id="inv"></div>
+<script>
+const v = document.getElementById('v'), hintEl = document.getElementById('hint'), inv = document.getElementById('inv');
+let sweepId = null, timer = null, lastSpoken = {text: '', at: 0}, busy = false;
+const canvas = document.createElement('canvas');
+
+function say(text) {                        // browser voice for quality hints (Gemini Live voice comes next)
+  hintEl.textContent = text;
+  const now = Date.now();
+  if (!text || (text === lastSpoken.text && now - lastSpoken.at < 6000)) return;
+  lastSpoken = {text, at: now};
+  speechSynthesis.cancel(); speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+}
+
+function showInventory(i) {
+  inv.innerHTML = `Frames kept ${i.frames_kept}/${i.frames_seen} · read ${i.frames_read} · spines ${i.spines_seen}` +
+    ` · identified ${i.identified} · items ${i.items_seen} · ${i.elapsed_s}s<br>` +
+    (i.recent_titles.length ? 'Recent: ' + i.recent_titles.map(t => t.replace(/</g, '&lt;')).join(' · ') : '');
+}
+
+async function sendFrame() {
+  if (busy || !sweepId || !v.videoWidth) return;
+  busy = true;
+  try {
+    const w = Math.min(1600, v.videoWidth), h = Math.round(v.videoHeight * w / v.videoWidth);
+    canvas.width = w; canvas.height = h; canvas.getContext('2d').drawImage(v, 0, 0, w, h);
+    const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
+    const fd = new FormData(); fd.append('file', blob, 'frame.jpg');
+    const r = await (await fetch(`/api/sweep/${sweepId}/frame`, {method: 'POST', body: fd})).json();
+    say(r.hint || (r.kept ? 'Good. Keep moving slowly along the shelf.' : hintEl.textContent));
+    showInventory(r.inventory);
+  } catch (e) { hintEl.textContent = 'Connection problem: ' + e; }
+  busy = false;
+}
+
+document.getElementById('start').onclick = async () => {
+  const stream = await navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment', width: {ideal: 1920}}, audio: false});
+  v.srcObject = stream;
+  const body = JSON.stringify({country: country.value, currency: currency.value});
+  sweepId = (await (await fetch('/api/sweep/start', {method: 'POST', headers: {'Content-Type': 'application/json'}, body})).json()).sweep_id;
+  say(`Sweep started for ${country.value}, prices in ${currency.value}. Move slowly along each shelf.`);
+  timer = setInterval(sendFrame, 2000);
+  start.disabled = true; finish.disabled = false;
+};
+
+document.getElementById('finish').onclick = async () => {
+  clearInterval(timer); finish.disabled = true;
+  say('Sweep finished. Building the claim packet.');
+  const r = await (await fetch(`/api/sweep/${sweepId}/finish`, {method: 'POST'})).json();
+  inv.innerHTML += `<br><b>Packet ready ${r.packet_ready_after_sweep_s}s after the sweep:</b> ${r.books} books, ` +
+    `${r.identified} identified, ${r.review_items} review entries. <a href="${r.report}">Open report</a> · <a href="${r.packet}">JSON</a>`;
+  say(`Done. ${r.books} books, ${r.identified} identified. The report is ready.`);
+};
+</script></body></html>

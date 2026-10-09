@@ -55,3 +55,14 @@ PRICE_WORKERS = 4
 BLUR_MIN_VAR = 100.0      # variance of Laplacian at 640 px width; below = blurry
 GLARE_MAX_FRAC = 0.03     # share of pixels that are near-white and colourless; above = glare
 DARK_MAX_MEAN = 60.0      # mean brightness (0-255); below = too dark
+
+
+# Live sweep: keep a frame only if it is good AND shows something new
+KEYFRAME_MIN_CHANGE = 12.0  # mean abs difference (0-255) of 64x48 grey thumbnails vs the last kept frame
+
+# Cost per sweep = measured usage x list price. Fill these from the official pricing pages and write the date.
+# Left as None -> the packet reports usage counts and says the cost is unknown (no invented numbers).
+VISION_USD_PER_M_INPUT = None     # e.g. Gemini Flash input price per 1M tokens
+VISION_USD_PER_M_OUTPUT = None    # output price per 1M tokens
+SERPAPI_USD_PER_SEARCH = None     # your plan price / searches per month
+PRICE_BASIS = "not set: fill from provider pricing pages (state date)"
