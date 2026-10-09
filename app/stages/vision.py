@@ -23,9 +23,12 @@ For each spine:
 exactly. Use "" for any part that is not printed on the spine. Never add words that are not visible.
 - legibility: "clear", "partial" or "unreadable".
 - cut_off: true if the spine is cut off by the edge of the photo.
+- age_cues: list ONLY what you can actually see on this spine, chosen from: "blackletter" (Gothic/Fraktur typeface),
+  "cloth_binding", "leather_binding", "gilt_lettering", "heavy_wear". Return [] if none or unsure.
 
 Also return every NON-BOOK item (shelving, furniture, lamps, framed art, electronics, decor, rugs):
 - box_2d as above, category (one or two words), description (short), visible_text (brand/model text you can read, else "").
+Report each piece of furniture ONCE: a bookcase with its shelves and side panels is one "shelving" item.
 
 Do not invent items. If unsure whether something is a separate book, return it once."""
 
@@ -40,6 +43,7 @@ class SpineOut(BaseModel):
     volume: str = ""     # e.g. "I", "2", "Band 3"
     legibility: str
     cut_off: bool
+    age_cues: list[str] = []
 
 
 class ItemOut(BaseModel):

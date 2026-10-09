@@ -39,3 +39,10 @@ APPRAISAL_KEYWORDS = ("signed", "autographed", "first edition", "1st edition", "
 
 # vision: tried in order; verified with `python -m tools.probe_models` on 2026-10-09
 VISION_MODELS = ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash"]
+
+# Copy-age evidence (from what is visible on the spine, not the catalogue year of the work)
+AGE_CUES = ("blackletter", "cloth_binding", "leather_binding", "gilt_lettering", "heavy_wear")
+ANTIQUE_STRONG_CUES = ("blackletter", "leather_binding")  # one of these alone -> appraisal
+ANTIQUE_MIN_CUES = 2  # or at least this many cues together
+MAX_VOLUME_NUMBER = 30  # "vol. 30017" is a series/catalogue number, not a volume
+NOTE_NOT_PRICED = "Not priced in this run (price limit reached); excluded from totals"

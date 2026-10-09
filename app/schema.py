@@ -75,6 +75,8 @@ class Book(BaseModel):
     spine_text_raw: Optional[str] = None  # exact letters read: the evidence for the title
     orientation: Optional[str] = None     # "upright" or "flat"
     excluded_by_user: bool = False        # "skip that shelf, those are not mine"
+    age_cues: list[str] = Field(default_factory=list)      # visual evidence about THIS copy's age
+    review_notes: list[str] = Field(default_factory=list)  # reasons a stage wants a human to look
 
 
 class Dimensions(BaseModel):
@@ -112,7 +114,7 @@ class Totals(BaseModel):
     book_count: int = 0
     books_identified: int = 0
     books_unidentified: int = 0
-    shelf_run_m: float = 0.0
+    shelf_run_m: Optional[float] = None  # None = no upright spine measured (unknown, not zero)
     books_replacement_cost: float = 0.0
     books_used_value: float = 0.0
     items_replacement_cost_low: float = 0.0
@@ -120,6 +122,7 @@ class Totals(BaseModel):
     excluded_from_totals: int = 0
     # added
     books_needs_appraisal: int = 0
+    items_needs_appraisal: int = 0
 
 
 class ReviewEntry(BaseModel):
