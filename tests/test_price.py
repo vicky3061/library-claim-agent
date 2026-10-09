@@ -34,3 +34,14 @@ def test_only_other_languages_gives_no_price():
 
 def test_workbook_is_fine_when_the_book_is_the_workbook():
     assert reject_reason("The Atomic Habits Workbook", "The Atomic Habits Workbook") is None
+
+def test_zero_price_audiobook_is_rejected():
+    listings = [
+        {"title": "Atomic Habits", "extracted_price": 0.0, "rating": 4.8, "reviews": 200000,
+         "link": "https://www.amazon.com/Atomic-Habits-James-Clear-audiobook/dp/B07RFSSYBH/"},
+        {"title": "Atomic Habits: An Easy & Proven Way to Build Good Habits", "extracted_price": 14.5,
+         "rating": 4.8, "reviews": 150000, "link": "https://www.amazon.com/dp/0735211299/"},
+    ]
+    best, rejected = pick_canonical(listings, "Atomic Habits")
+    assert best["extracted_price"] == 14.5
+    assert rejected[0]["reason"] == "no physical-format price"

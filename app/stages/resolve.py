@@ -1,10 +1,12 @@
 import re
+import unicodedata
+from datetime import datetime, timezone
 
 from rapidfuzz import fuzz
 
 from app import config
-from datetime import datetime, timezone
 from app.http_client import get_json
+
 
 GOOGLE_BOOKS = "https://www.googleapis.com/books/v1/volumes"
 OPEN_LIBRARY = "https://openlibrary.org/search.json"
@@ -12,7 +14,8 @@ OPEN_LIBRARY = "https://openlibrary.org/search.json"
 
 
 def norm(text):
-    text = re.sub(r"[^a-z0-9 ]", " ", (text or "").lower())
+    text = unicodedata.normalize("NFKD", text or "").encode("ascii", "ignore").decode().lower()
+    text = re.sub(r"[^a-z0-9 ]", " ", text)
     return re.sub(r"\s+", " ", text).strip()
 
 
@@ -88,3 +91,4 @@ def resolve(spine_text):
     result["retrieved_at"] = datetime.now(timezone.utc).isoformat()
     result["errors"] = errors
     return result
+
