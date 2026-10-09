@@ -1,6 +1,5 @@
-from app.schema import BookStatus, ClaimPacket, ItemStatus, Totals
+from app.schema import BookStatus, ClaimPacket, ItemStatus, Totals,ReviewEntry
 from app import config
-from app.schema import ReviewEntry
 
 
 def compute_totals(p: ClaimPacket) -> Totals:
