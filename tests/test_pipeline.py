@@ -95,3 +95,19 @@ def test_same_book_is_priced_once(tmp_path, monkeypatch):
     frame = V.FrameOut(spines=[_spine(), _spine()], items=[])   # identical spines, e.g. two copies
     packet, calls = _run(tmp_path, monkeypatch, frame)
     assert len(calls) == 1 and packet.totals.books_replacement_cost == 2 * 2973.0
+
+
+
+
+def test_items_get_sourced_range_and_art_is_not_priced(tmp_path, monkeypatch):
+    frame = V.FrameOut(spines=[], items=[V.ItemOut(box_2d=[0, 0, 500, 500], category="shelving", description="bookcase", visible_text=""),
+                                         V.ItemOut(box_2d=[0, 0, 500, 500], category="framed art", description="oil painting", visible_text="")])
+    asked = []
+    def fake_item(category, description, brand_model, market):
+        asked.append(category)
+        return {"low": 3000.0, "high": 5000.0, "currency": "INR", "source": "test", "url": "u", "retrieved_at": "t"}, "range"
+    monkeypatch.setattr(PL.item_price, "price_item", fake_item)
+    packet, _ = _run(tmp_path, monkeypatch, frame)
+    assert asked == ["shelving"]                                   # art never sent to pricing
+    assert packet.totals.items_replacement_cost_low == 3000 and packet.totals.items_replacement_cost_high == 5000
+    assert packet.totals.items_needs_appraisal == 1

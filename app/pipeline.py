@@ -10,9 +10,8 @@ import cv2
 
 from app import config, http_client, serp
 from app.report import write_report
-from app.schema import (Book, BookPrice, BookStatus, ClaimPacket, Dimensions, Item, ItemStatus,
-                        Sweep, UsedPrice)
-from app.stages import price, resolve, scale, vision
+from app.schema import (Book, BookPrice, BookStatus, ClaimPacket, Dimensions, Item, ItemPrice, ItemStatus,Sweep, UsedPrice)
+from app.stages import item_price, price, resolve, scale, vision
 from app.totals import finalize
 
 ART_WORDS = ("art", "artwork", "painting", "portrait", "poster", "print", "picture", "sculpture", "framed")
@@ -136,7 +135,13 @@ def _book_fields(book_id, frame_ref, position, spine, cm_per_px, w, h, r):
                                  "so priced as a current edition. Confirm it is not an old printing")
     return f, BookStatus.identified, True
 
-
+def _safe_item_price(args):
+    category, description, brand_model, market = args
+    try:
+        return item_price.price_item(category, description, brand_model, market)
+    except Exception as e:
+        return None, f"pricing failed: {e}"
+    
 def _make_item(item_id, frame_ref, it, cm_per_px, w, h):
     x1, y1, x2, y2 = vision.to_pixels(it.box_2d, w, h)
     dims = Dimensions(w=round((x2 - x1) * cm_per_px, 1), h=round((y2 - y1) * cm_per_px, 1)) if cm_per_px else Dimensions()
@@ -224,7 +229,34 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
                 fields["used_value"] = _book_price(pr["used"], UsedPrice)
         packet.books.append(Book(**fields, status=status))
 
+        t_stage = time.time()
+        todo = [it for it in packet.items if it.status == ItemStatus.range]
+        keys = list(dict.fromkeys((it.category, it.description or "", it.brand_model or "", country) for it in todo))[:price_limit]
+        with ThreadPoolExecutor(max_workers=config.PRICE_WORKERS) as ex:
+            item_results = dict(zip(keys, ex.map(_safe_item_price, keys)))
+            for it in todo:
+                found, how = item_results.get((it.category, it.description or "", it.brand_model or "", country), (None, None))
+                if found:
+                    it.replacement_cost = ItemPrice(**found)
+                    it.status = ItemStatus.priced if how == "priced" else ItemStatus.range
+            telemetry["item_price_s"] = time.time() - t_stage
+
+    # Stage 4 - non-book items (art already went to appraisal). One search per distinct item, local market only.
+    t_stage = time.time()
+    todo = [it for it in packet.items if it.status == ItemStatus.range]
+    keys = list(dict.fromkeys((it.category, it.description or "", it.brand_model or "", country) for it in todo))[:price_limit]
+    with ThreadPoolExecutor(max_workers=config.PRICE_WORKERS) as ex:
+        item_results = dict(zip(keys, ex.map(_safe_item_price, keys)))
+    for it in todo:
+        found, how = item_results.get((it.category, it.description or "", it.brand_model or "", country), (None, None))
+        if found:
+            it.replacement_cost = ItemPrice(**found)
+            it.status = ItemStatus.priced if how == "priced" else ItemStatus.range
+
+    telemetry["item_price_s"] = time.time() - t_stage   
+    
     packet.sweep.duration_s = None  # filled by the live app from the real sweep
+
     telemetry.update({k: round(v, 2) for k, v in telemetry.items() if isinstance(v, float)})
     telemetry.update(serpapi_searches=serp.stats["searches"], serpapi_cache_hits=serp.stats["cache_hits"],
                      catalogue_calls=http_client.cache_stats["calls"], catalogue_cache_hits=http_client.cache_stats["cache_hits"],

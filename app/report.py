@@ -9,6 +9,12 @@ def _money(p, ccy):
     link = f' <a href="{escape(p.url)}">source</a>' if p.url else ""
     return f"{p.amount:,.2f} {escape(ccy)}{tag}{link}"
 
+def _range(p):
+    if not p or p.low is None:
+        return "—"
+    amount = f"{p.low:,.0f}" if p.high in (None, p.low) else f"{p.low:,.0f}–{p.high:,.0f}"
+    link = f' <a href="{escape(p.url)}">source</a>' if p.url else ""
+    return f"{amount} {escape(p.currency or '')}{link}"
 
 def write_report(packet, path):
     s, t, ccy = packet.sweep, packet.totals, packet.sweep.currency
@@ -22,7 +28,8 @@ def write_report(packet, path):
         f"<td><a href=\"{escape(b.frame_ref)}\">frame</a></td></tr>" for b in packet.books)
     items = "".join(
         f"<tr><td>{escape(i.id)}</td><td>{escape(i.category)}</td><td>{escape(i.description or '')}</td>"
-        f"<td>{escape(i.status.value)}</td><td><a href=\"{escape(i.frame_ref)}\">frame</a></td></tr>"
+        f"<td>{escape(i.status.value)}</td><td>{_range(i.replacement_cost)}</td>"
+        f"<td><a href=\"{escape(i.frame_ref)}\">frame</a></td></tr>"
         for i in packet.items)
     review = "".join(f"<li><b>{escape(r.ref_id)}</b>: {escape(r.reason)}</li>" for r in packet.review_queue)
     html = f"""<!doctype html><html><head><meta charset="utf-8"><title>Claim packet {escape(s.id)}</title>
@@ -38,7 +45,7 @@ td,th{{border:1px solid #ccc;padding:4px 6px;font-size:13px;text-align:left}}th{
 <li>Lines excluded from totals: {t.excluded_from_totals}</li></ul>
 <h2>Books</h2><table><tr><th>ID</th><th>Status</th><th>Title</th><th>Author</th><th>Edition</th>
 <th>Spine h × t (cm)</th><th>Replacement</th><th>Used</th><th>Evidence</th></tr>{rows}</table>
-<h2>Other items</h2><table><tr><th>ID</th><th>Category</th><th>Description</th><th>Status</th><th>Evidence</th></tr>{items}</table>
+<h2>Other items</h2><table><tr><th>ID</th><th>Category</th><th>Description</th><th>Status</th><th>Replacement</th><th>Evidence</th></tr>{items}</table>
 <h2>Run telemetry</h2><pre>{escape(json.dumps(packet.telemetry, indent=2))}</pre>
 <h2>Review queue ({len(packet.review_queue)})</h2><ul>{review}</ul></body></html>"""
     with open(path, "w", encoding="utf-8") as f:
