@@ -19,6 +19,8 @@ For each spine:
 - text: ONLY the letters and words you can actually read on that spine, exactly as printed
   (title, author, publisher, volume numbers). Do NOT guess or complete a title from memory.
   If you cannot read it, return "".
+- title, author, publisher, volume: split the SAME visible words into these fields, copying them
+exactly. Use "" for any part that is not printed on the spine. Never add words that are not visible.
 - legibility: "clear", "partial" or "unreadable".
 - cut_off: true if the spine is cut off by the edge of the photo.
 
@@ -31,7 +33,11 @@ Do not invent items. If unsure whether something is a separate book, return it o
 class SpineOut(BaseModel):
     box_2d: list[int]
     orientation: str
-    text: str
+    text: str            # everything readable on the spine, exactly as printed
+    title: str = ""      # the words that are the title, copied exactly; "" if not visible
+    author: str = ""
+    publisher: str = ""
+    volume: str = ""     # e.g. "I", "2", "Band 3"
     legibility: str
     cut_off: bool
 
