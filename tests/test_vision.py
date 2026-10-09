@@ -1,12 +1,18 @@
 import os
 
 import numpy as np
+import pytest
 
 from app.stages import vision as V
 
 FAKE = V.FrameOut(spines=[V.SpineOut(box_2d=[100, 50, 900, 120], orientation="upright",
                                      text="NANSEN IN NACHT UND EIS I", legibility="clear", cut_off=False)],
                   items=[])
+
+@pytest.fixture(autouse=True)
+def isolated_cache(tmp_path, monkeypatch):
+    # every test gets its own empty cache folder, so tests never share or pollute cached results
+    monkeypatch.setattr(V.config, "CACHE_DIR", str(tmp_path))
 
 
 def test_box_to_pixels():
@@ -80,3 +86,25 @@ def test_quota_exhausted_is_not_retried(monkeypatch):
     monkeypatch.setattr(V.time, "sleep", lambda s: None)
     V.analyze_frame(b"x")
     assert calls.count(V.config.VISION_MODELS[0]) == 1
+
+def test_second_call_uses_cache_and_spends_no_quota(monkeypatch):
+    calls = []
+    def fake(model, b):
+        calls.append(model)
+        return FAKE, {"input": 1, "output": 1}
+    monkeypatch.setattr(V, "_call_model", fake)
+    out1, tel1 = V.analyze_frame(b"same photo")
+    out2, tel2 = V.analyze_frame(b"same photo")
+    assert len(calls) == 1
+    assert tel1["cache_hit"] is False and tel2["cache_hit"] is True
+    assert out2.spines[0].text == out1.spines[0].text
+
+
+def test_failures_are_not_cached(monkeypatch):
+    def broken(model, b):
+        raise RuntimeError("503 UNAVAILABLE")
+    monkeypatch.setattr(V, "_call_model", broken)
+    monkeypatch.setattr(V.time, "sleep", lambda s: None)
+    assert V.analyze_frame(b"photo")[0] is None
+    monkeypatch.setattr(V, "_call_model", lambda model, b: (FAKE, {}))
+    assert V.analyze_frame(b"photo")[0] is not None

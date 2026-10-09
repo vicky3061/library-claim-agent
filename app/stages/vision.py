@@ -1,3 +1,6 @@
+import hashlib
+import json
+import os
 import time
 
 import cv2
@@ -68,8 +71,27 @@ def _call_model(model, image_bytes):
               "output": getattr(usage, "candidates_token_count", None)}
     return FrameOut.model_validate_json(resp.text), tokens
 
+def _cache_path(image_bytes):
+    # the prompt is part of the key: if we change the prompt, old answers are not reused
+    key = hashlib.sha1(image_bytes + PROMPT.encode()).hexdigest()[:16]
+    return os.path.join(config.CACHE_DIR, "vision", f"{key}.json")
+
 
 def analyze_frame(image_bytes, tries=3):
+    """Cached wrapper: the same photo + prompt is only ever sent to the model once."""
+    path = _cache_path(image_bytes)
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            saved = json.load(f)
+        return FrameOut.model_validate(saved["result"]), {**saved["telemetry"], "cache_hit": True}
+    out, telemetry = _analyze_uncached(image_bytes, tries)
+    if out is not None:  # failures are not cached, so they are retried next time
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump({"result": out.model_dump(), "telemetry": telemetry}, f, ensure_ascii=False)
+    return out, {**telemetry, "cache_hit": False}
+
+def _analyze_uncached(image_bytes, tries=3):
     """Returns (FrameOut or None, telemetry). Retries on overload, then tries the fallback model."""
     telemetry = {"attempts": [], "model": None}
     for model in config.VISION_MODELS:
