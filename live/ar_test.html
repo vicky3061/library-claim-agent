@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AR room test</title>
+<style>
+  body { font-family: sans-serif; margin: 16px; }
+  #overlay { position: fixed; inset: 0; display: none; }
+  #hud { position: absolute; top: 8px; left: 8px; right: 8px; padding: 8px;
+         background: rgba(0,0,0,.6); color: #fff; border-radius: 8px; white-space: pre-line; }
+  #cross { position: absolute; left: 50%; top: 50%; width: 24px; height: 24px;
+           margin: -12px; border: 2px solid #fff; border-radius: 50%; }
+  #btns { position: absolute; bottom: 32px; left: 0; right: 0; display: flex;
+          gap: 12px; justify-content: center; }
+  button { font-size: 18px; padding: 12px 18px; }
+</style>
+</head>
+<body>
+<h2>AR room test</h2>
+<p id="support">Checking AR support...</p>
+<button id="start" disabled>Start AR</button>
+<pre id="result"></pre>
+
+<div id="overlay">
+  <div id="hud"></div>
+  <div id="cross"></div>
+  <div id="btns"><button id="mark">Mark corner</button><button id="done">Done</button></div>
+</div>
+
+<script>
+const hud = document.getElementById("hud");
+const overlay = document.getElementById("overlay");
+const corners = [];      // floor corner points in metres
+let lastHit = null;      // where the centre of the screen touches the floor right now
+let session = null;
+
+// 1. Is AR available on this phone and browser?
+if (!navigator.xr) {
+  document.getElementById("support").textContent = "WebXR not available. Use Chrome on Android over HTTPS.";
+} else {
+  navigator.xr.isSessionSupported("immersive-ar").then(ok => {
+    document.getElementById("support").textContent = ok ? "AR supported" : "AR NOT supported here";
+    document.getElementById("start").disabled = !ok;
+  });
+}
+
+// 2. Start an AR session that can hit-test the floor
+document.getElementById("start").onclick = async () => {
+  session = await navigator.xr.requestSession("immersive-ar", {
+    requiredFeatures: ["hit-test", "local-floor"],
+    optionalFeatures: ["dom-overlay"],
+    domOverlay: { root: overlay },
+  });
+  overlay.style.display = "block";
+  overlay.addEventListener("beforexrselect", e => e.preventDefault());
+
+  const gl = document.createElement("canvas").getContext("webgl", { xrCompatible: true });
+  session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) });
+  const floorSpace = await session.requestReferenceSpace("local-floor");
+  const viewerSpace = await session.requestReferenceSpace("viewer");
+  const hitSource = await session.requestHitTestSource({ space: viewerSpace });
+
+  session.addEventListener("end", () => { overlay.style.display = "none"; report(); });
+
+  // 3. Every frame: find where the screen centre hits a real surface
+  const onFrame = (time, frame) => {
+    session.requestAnimationFrame(onFrame);
+    const layer = session.renderState.baseLayer;
+    gl.bindFramebuffer(gl.FRAMEBUFFER, layer.framebuffer);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    const hits = frame.getHitTestResults(hitSource);
+    if (hits.length > 0) {
+      const p = hits[0].getPose(floorSpace).transform.position;
+      lastHit = { x: p.x, y: p.y, z: p.z };
+    } else {
+      lastHit = null;
+    }
+    hud.textContent = status();
+  };
+  session.requestAnimationFrame(onFrame);
+};
+
+// 4. Buttons
+document.getElementById("mark").onclick = () => { if (lastHit) corners.push(lastHit); };
+document.getElementById("done").onclick = () => session && session.end();
+
+// 5. Maths: distances along the floor, and polygon area
+function floorDist(a, b) { return Math.hypot(a.x - b.x, a.z - b.z); }
+
+function polygonArea(pts) {
+  let s = 0;
+  for (let i = 0; i < pts.length; i++) {
+    const a = pts[i], b = pts[(i + 1) % pts.length];
+    s += a.x * b.z - b.x * a.z;
+  }
+  return Math.abs(s) / 2;
+}
+
+function status() {
+  let msg = lastHit ? "Floor found. Aim at a corner, tap Mark corner." : "No surface yet. Move the phone slowly.";
+  msg += `\nCorners marked: ${corners.length}`;
+  if (corners.length >= 2) {
+    msg += `\nLast side: ${floorDist(corners.at(-2), corners.at(-1)).toFixed(2)} m`;
+  }
+  return msg;
+}
+
+function report() {
+  if (corners.length < 3) {
+    document.getElementById("result").textContent = "Need at least 3 corners.";
+    return;
+  }
+  const sides = corners.map((c, i) => floorDist(c, corners[(i + 1) % corners.length]).toFixed(2));
+  const area = polygonArea(corners);
+  document.getElementById("result").textContent =
+    `Sides (m): ${sides.join(", ")}\nFloor area: ${area.toFixed(2)} m2 (${(area * 10.7639).toFixed(2)} ft2)`;
+}
+</script>
+</body>
+</html>
