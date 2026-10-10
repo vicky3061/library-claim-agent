@@ -214,3 +214,5 @@ fallback scale (ask "how tall is this bookcase?") for rooms without markers.
 - Stopped tuning on the dev photo to avoid overfitting.
 
 Glare check flagged the white paper around printed markers as glare (found by a test). Fix: mask a ~1.8× box around each detected marker before measuring glare.
+
+Voice: browser speech recognition + speech synthesis (en-IN fixed) instead of Gemini Live: real-time both ways, no live-API quota, works in Chrome on Android. Corrections parsed by rules (tested), tied to the frame on screen; “first edition” goes to the centre book only, with a review note to confirm. Found while integrating: an indentation slip would have announced “new shelving unit” on every frame. Caught by reviewing the file before running.
