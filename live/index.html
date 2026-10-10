@@ -22,6 +22,7 @@
 const v = document.getElementById('v'), hintEl = document.getElementById('hint'), inv = document.getElementById('inv'),
       heardEl = document.getElementById('heard');
 let sweepId = null, timer = null, lastSpoken = {text: '', at: 0}, busy = false, speaking = false, rec = null;
+let recentSpoken = [], spokeEndAt = 0;  // what the agent said lately: used to ignore its own voice coming back
 const canvas = document.createElement('canvas');
 
 // ---- voice out (browser speech). Recognition is paused while we speak so the agent does not hear itself.
@@ -31,11 +32,21 @@ function say(text, force) {
   const now = Date.now();
   if (!force && text === lastSpoken.text && now - lastSpoken.at < 6000) return;
   lastSpoken = {text, at: now};
+  recentSpoken = recentSpoken.concat([{text, at: now}]).filter(r => now - r.at < 20000).slice(-3);
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'en-IN';
   u.onstart = () => { speaking = true; try { rec && rec.stop(); } catch (e) {} };
-  u.onend = () => { speaking = false; listen(); };
+  u.onend = () => { speaking = false; spokeEndAt = Date.now(); listen(); };
   speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+
+// Real failure 10 Oct: the mic heard the agent's own hints ("I can't see a shelf marker...") as the user.
+// Ignore anything heard while speaking, just after speaking, or that is mostly the agent's own recent words.
+function soundsLikeMe(text) {
+  const mine = new Set(recentSpoken.map(r => r.text).join(' ').toLowerCase().match(/[a-z]+/g) || []);
+  const words = text.toLowerCase().match(/[a-z]+/g) || [];
+  if (words.length < 4 || !mine.size) return false;
+  return words.filter(w => mine.has(w)).length / words.length >= 0.6;
 }
 
 // ---- voice in (browser speech recognition; language fixed so one misheard word cannot switch it)
@@ -46,9 +57,11 @@ function listen() {
     rec = new SR(); rec.lang = 'en-IN'; rec.continuous = true; rec.interimResults = false;
     rec.onresult = async (e) => {
       const text = e.results[e.results.length - 1][0].transcript.trim();
+      if (speaking || Date.now() - spokeEndAt < 1200 || soundsLikeMe(text)) return;
       heardEl.textContent = 'You: ' + text;
       const r = await (await fetch(`/api/sweep/${sweepId}/say`, {method: 'POST',
         headers: {'Content-Type': 'application/json'}, body: JSON.stringify({text})})).json();
+      if (r.cmd === 'finish') { if (!finish.disabled) finish.click(); return; }
       if (r.cmd === 'locale') { country.value = r.country; currency.value = r.currency; }
       if (r.reply) say(r.reply, true);
     };
@@ -87,7 +100,7 @@ document.getElementById('start').onclick = async () => {
   start.disabled = true; finish.disabled = false;
   say(`Hi, I will inventory this room for your claim. I have ${country.value === 'IN' ? 'India, prices in rupees' : country.value + ', prices in ' + currency.value}. ` +
       `Say yes, or tell me your country. Then walk slowly along each shelf with the printed square in view. ` +
-      `Tell me if a shelf is not yours, or if a book is signed or a first edition.`, true);
+      `Tell me if a shelf is not yours, or if a book is signed or a first edition. Say finish when you are done.`, true);
 };
 
 document.getElementById('finish').onclick = async () => {

@@ -9,6 +9,8 @@ def parse(text):
     """Returns one command dict: skip_shelf | book_note | art_print | art_original | locale | yes | unknown."""
     t = " " + re.sub(r"[^a-z0-9 ]", " ", (text or "").lower()) + " "
     t = re.sub(r"\s+", " ", t)
+    if re.search(r" (finish|finished|wind up|wind it up|that s all|i m done|we re done|stop the sweep|end the sweep) ", t):
+        return {"cmd": "finish"}
     if re.search(r" (skip|ignore|exclude|don t count|do not count)\b.*\b(shelf|shelves|these|those|this|that)\b", t) \
             or " not mine " in t:
         return {"cmd": "skip_shelf"}

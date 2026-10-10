@@ -51,4 +51,5 @@ def check_frame(image, need_marker=True):
         issues.append("no_marker")
     return {"ok": not issues, "issues": issues, "hint": HINTS[issues[0]] if issues else None,
             "blur_var": round(blur_var, 1), "glare_frac": round(glare_frac, 4), "brightness": round(brightness, 1),
-            "markers": [{"id": m["id"], "px_per_cm": m["px_per_cm"]} for m in markers]}
+            "markers": [{"id": m["id"], "px_per_cm": m["px_per_cm"]} for m in markers],
+            "turns": scale.upright_turns(markers)}

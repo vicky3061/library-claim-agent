@@ -14,3 +14,11 @@ def test_corrections_from_the_brief():
 def test_unrelated_speech_changes_nothing():
     assert parse("hmm let me move the chair")["cmd"] == "unknown"
     assert parse("")["cmd"] == "unknown"
+
+
+
+def test_finish_by_voice():
+    from app.voice import parse
+    for said in ("finish", "okay finish the sweep", "wind it up", "that's all", "I'm done"):
+        assert parse(said)["cmd"] == "finish", said
+    assert parse("Finnish edition")["cmd"] != "finish"

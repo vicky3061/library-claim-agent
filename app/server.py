@@ -13,7 +13,7 @@ from pydantic import BaseModel
 
 from app import config, pipeline, voice
 from app.report import write_report
-from app.stages import quality, resolve, vision
+from app.stages import quality, resolve, scale, vision
 
 app = FastAPI(title="Library Contents Claim Agent")
 os.makedirs("runs", exist_ok=True)
@@ -116,6 +116,11 @@ async def frame(sweep_id: str, file: UploadFile):
     if image is None:
         raise HTTPException(400, "not an image")
     q = quality.check_frame(image)
+    if q.get("turns") is not None:
+        s["turns"] = q["turns"]  # frames between markers are held the same way: keep the last known turn
+    if s.get("turns"):
+        image = scale.rotate_upright(image, s["turns"])  # store upright, so vision and measuring see spines as printed
+        data = cv2.imencode(".jpg", image, [cv2.IMWRITE_JPEG_QUALITY, 92])[1].tobytes()
     s["seen"] += 1
     kept = False
     thumb = _thumb(image)
@@ -147,8 +152,8 @@ async def frame(sweep_id: str, file: UploadFile):
     with _lock:
         if not hint and s["advice"]:
             hint = s["advice"].pop(0)
-    if not hint:
-        hint = q["hint"]  # e.g. no marker in view
+    if not hint and not s["units_seen"]:
+        hint = q["hint"]  # "no marker in view": only until the first marker is found, then markers are only at shelf ends
     return {"kept": kept, "quality": {k: v for k, v in q.items() if k != "markers"}, "hint": hint,
             "inventory": inventory(sweep_id)}
 
@@ -186,6 +191,8 @@ def say(sweep_id: str, body: SayIn):
         s["country"], s["currency"] = c["country"], c["currency"]
         return {"cmd": c["cmd"], "country": c["country"], "currency": c["currency"],
                 "reply": f"Switched to {c['country']}. Prices will be in {c['currency']}."}
+    if c["cmd"] == "finish":
+        return {"cmd": c["cmd"], "reply": None}  # the phone presses Finish itself
     if c["cmd"] == "yes":
         return {"cmd": c["cmd"], "reply": "Great. Start at the first shelf and move slowly along it."}
     return {"cmd": "unknown", "reply": None}

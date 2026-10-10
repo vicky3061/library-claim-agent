@@ -105,3 +105,23 @@ def test_voice_skip_shelf_removes_it_from_the_claim(tmp_path, monkeypatch):
     assert say("hmm")["reply"] is None
     done = c.post(f"/api/sweep/{sid}/finish").json()
     assert done["books"] == 0 and "0 books" in done["summary"]               # skipped shelf is not in the claim
+
+
+
+
+def test_turned_frames_are_stored_upright_and_marker_tip_stops(tmp_path, monkeypatch):
+    # Real failures 10 Oct: shop frames arrived turned 90 degrees, and "I can't see a shelf marker" repeated all sweep
+    monkeypatch.chdir(tmp_path); (tmp_path / "runs").mkdir()
+    monkeypatch.setattr(S.vision, "analyze_frame", lambda b: (V.FrameOut(spines=[], items=[]), {}))
+    c = TestClient(S.app)
+    sid = c.post("/api/sweep/start", json={}).json()["sweep_id"]
+    post = lambda img: c.post(f"/api/sweep/{sid}/frame", files={"file": ("f.jpg", _jpg(img), "image/jpeg")}).json()
+    first = post(_stripes(3))
+    assert "marker" in first["hint"]                                    # before any marker: the tip is useful
+    upright = _with_marker(_stripes(), 0)
+    post(cv2.rotate(upright, cv2.ROTATE_90_CLOCKWISE))                  # phone sends the frame turned
+    saved = cv2.imread(str(tmp_path / S.SWEEPS[sid]["folder"] / "0001.jpg"))
+    assert saved.shape[:2] == upright.shape[:2]                         # stored the right way up
+    later = post(cv2.rotate(_stripes(8), cv2.ROTATE_90_CLOCKWISE))       # between markers, still held turned
+    assert later["hint"] is None or "marker" not in later["hint"]       # no nagging once a marker was seen
+    assert cv2.imread(str(tmp_path / S.SWEEPS[sid]["folder"] / "0002.jpg")).shape[:2] == upright.shape[:2]
