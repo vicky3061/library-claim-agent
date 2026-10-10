@@ -211,3 +211,20 @@ def test_same_item_category_in_two_photos_is_flagged_not_merged():
                Item(id="i2", category="Aquarium", frame_ref="frames/b.jpg", status=ItemStatus.range)]
     q = totals.build_review_queue(p)
     assert sum("also appears in another photo" in e.reason for e in q) == 2 and len(p.items) == 2
+
+
+
+def test_same_title_other_author_is_resolved_from_shelf_context():
+    # Real failure (Neptunes v3): 'Sisters' among Danielle Steel books was matched to Raina Telgemeier
+    from app.stages import resolve as R
+    ds = lambda t: {"title": t, "authors": ["Danielle Steel"]}
+    spines = [(None, k + 1, None, [], 0, 0, "f", [], 0) for k in range(4)]
+    found = {0: {"status": "identified", "match": ds("Wings")}, 1: {"status": "identified", "match": ds("Ransom")},
+             2: {"status": "identified", "match": {"title": "Sisters", "authors": ["Raina Telgemeier"]},
+                 "alternatives": [ds("Sisters")]},
+             3: {"status": "unidentified", "match": None}}
+    assert PL._author_from_shelf(spines, found) == 1
+    assert found[2]["match"]["authors"] == ["Danielle Steel"] and "shelf context" in found[2]["author_note"]
+    # resolve keeps same-title different-author candidates as alternatives
+    out = R._decide([(1.0, {"title": "Sisters", "authors": ["Raina Telgemeier"]}), (1.0, ds("Sisters"))])
+    assert out["status"] == "identified" and out["alternatives"][0]["authors"] == ["Danielle Steel"]

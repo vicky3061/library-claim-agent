@@ -72,7 +72,21 @@ def _decide(scored):
     for s, c in scored[1:]:
         if norm(c["title"]) != norm(best["title"]) and s >= best_score - config.ID_AMBIGUITY_MARGIN:
             return {"status": "unidentified", "confidence": best_score, "match": None, "reason": "ambiguous"}
-    return {"status": "identified", "confidence": best_score, "match": best, "reason": None}
+    alts = [c for s, c in scored[1:] if norm(c["title"]) == norm(best["title"]) and s >= best_score - config.ID_AMBIGUITY_MARGIN
+            and _surname(c) and _surname(c) != _surname(best)]
+    out = {"status": "identified", "confidence": best_score, "match": best, "reason": None}
+    if alts:
+        seen, uniq = {_surname(best)}, []
+        for c in alts:
+            if _surname(c) not in seen:
+                seen.add(_surname(c)); uniq.append(c)
+        out["alternatives"] = uniq
+    return out
+
+
+def _surname(cand):
+    names = _name_tokens((cand.get("authors") or [""])[0])
+    return names[-1] if names else ""
 
 
 def choose(spine_text, candidates):

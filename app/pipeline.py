@@ -130,6 +130,8 @@ def _book_fields(book_id, frame_ref, position, spine, markers, w, h, r):
         return f, BookStatus.unidentified, False
 
     m = r["match"]
+    if r.get("author_note"):
+        f["review_notes"].append(r["author_note"])
     authors = clean_authors(m.get("authors"))
     volume = clean_volume(r.get("volume"))
     age_cues = [c for c in getattr(spine, "age_cues", []) if c in config.AGE_CUES]
@@ -169,6 +171,30 @@ def _make_item(item_id, frame_ref, it, markers, w, h):
     return Item(id=item_id, category=it.category, description=it.description or None,
                 brand_model=it.visible_text or None, material=getattr(it, "material", "") or None,
                 frame_ref=frame_ref, dimensions_cm=dims, status=status)
+
+
+def _author_from_shelf(spines, found):
+    """Same title by several authors and no author readable on the spine: pick the author who is most common among
+    the other identified books in the same frame (shelves are grouped by author). Real failure (Neptunes v3):
+    Danielle Steel's 'Sisters' was priced as Raina Telgemeier's graphic novel, Sidney Sheldon's 'The Stars Shine
+    Down' as a book by Rachel Lawson. Returns how many were switched."""
+    switched = 0
+    for i, r in found.items():
+        if not r or r.get("status") != "identified" or not r.get("alternatives"):
+            continue
+        frame = spines[i][8]
+        counts = {}
+        for j, o in found.items():
+            if j != i and o and o.get("status") == "identified" and spines[j][8] == frame:
+                sn = resolve._surname(o["match"])
+                counts[sn] = counts.get(sn, 0) + 1
+        options = [r["match"]] + r["alternatives"]
+        best = max(options, key=lambda c: counts.get(resolve._surname(c), 0))
+        if best is not r["match"] and counts.get(resolve._surname(best), 0) > counts.get(resolve._surname(r["match"]), 0):
+            r["match"] = best
+            r["author_note"] = "Author chosen from shelf context: the same title exists by several authors"
+            switched += 1
+    return switched
 
 
 def _not_claimable(it, markers, w, h):
@@ -284,6 +310,7 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
     with ThreadPoolExecutor(max_workers=config.IDENTIFY_WORKERS) as ex:
         found = dict(zip(readable, ex.map(_safe_resolve, [spines[i][2] for i in readable])))
     telemetry["identify_s"] = time.time() - t_stage
+    telemetry["author_from_shelf_context"] = _author_from_shelf(spines, found)
 
     drafts = []
     for i, (frame_ref, pos, sp, markers, w, h, name, notes, _fi) in enumerate(spines):
