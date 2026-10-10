@@ -14,7 +14,7 @@ def search(params):
             return json.load(f)
     if not config.SERPAPI_KEY:
         raise RuntimeError("SERPAPI_KEY not set")
-    data = get_json(SERPAPI_URL, {**params, "api_key": config.SERPAPI_KEY}, timeout=30)
+    data = get_json(SERPAPI_URL, {**params, "api_key": config.SERPAPI_KEY}, timeout=30, tries=2)
     data.pop("search_parameters", None)   # never store the request (it contains the API key)
     stats["searches"] += 1
     try:  # best effort + atomic: parallel pricing must never see a half-written file

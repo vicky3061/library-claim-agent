@@ -53,7 +53,7 @@ NOTE_NOT_PRICED = "Not priced in this run (price limit reached); excluded from t
 
 # Parallel network work (catalogue + pricing are I/O bound). Lower these if a service starts returning 429.
 IDENTIFY_WORKERS = 4
-PRICE_WORKERS = 4
+PRICE_WORKERS = 8
 
 # Frame quality checks (code, not a model). Calibrate on real frames with tools/quality_report.py.
 BLUR_MIN_VAR = 40.0      # variance of Laplacian at 640 px width; below = blurry
@@ -79,3 +79,13 @@ STEP_CLOSER_MIN_SPINES = 3     # only judge frames with at least this many spine
 # Cross-frame de-duplication (Layer 9)
 DEDUP_MIN_INLIERS = 25   # RANSAC inliers needed to trust that two keyframes overlap
 DEDUP_IOU = 0.4          # mapped box overlap needed to call two spines the same book
+
+
+# Frames whose file name starts with this are for non-book items only (e.g. a sofa next to shelves outside the claim):
+# their spines are ignored, so books outside the claim scope are never counted.
+ITEMS_ONLY_PREFIX = "items_"
+# Live sweep: price each book as soon as it is identified, while the user is still filming, so Finish is fast.
+LIVE_PREFETCH_PRICES = True
+
+# Words that mark a detected "item" as one of our own measuring markers, not the policyholder's property
+NOT_ITEM_WORDS = ("aruco", "fiducial", "printed marker", "paper marker", "marker tag", "target code")

@@ -109,6 +109,18 @@ def build_review_queue(p: ClaimPacket) -> list[ReviewEntry]:
         elif i.status == ItemStatus.range:
             add(i.id, "Brand/model unknown; priced as a sourced range")
 
+        # The same object photographed twice would be claimed twice: flag, never auto-merge (two real chairs exist too)
+    by_cat = {}
+    for i in p.items:
+        if not i.excluded_by_user:
+            by_cat.setdefault(i.category.strip().lower(), []).append(i)
+    for cat, its in by_cat.items():
+        if len(its) > 1 and len({i.frame_ref for i in its}) > 1:
+            for i in its:
+                others = ", ".join(o.id for o in its if o is not i)
+                add(i.id, f"'{cat}' also appears in another photo ({others}); confirm it is a separate object, "
+                          "not the same one seen twice")
+
     if p.room.floor_area_m2 is None:
         add("room", "Room area could not be measured from this sweep")
     elif p.room.confidence is not None and p.room.confidence < 0.7:

@@ -21,6 +21,7 @@ app.mount("/runs", StaticFiles(directory="runs"), name="runs")  # report + frame
 
 _vision_pool = ThreadPoolExecutor(max_workers=config.VISION_WORKERS)
 _identify_pool = ThreadPoolExecutor(max_workers=config.IDENTIFY_WORKERS)
+_price_pool = ThreadPoolExecutor(max_workers=config.PRICE_WORKERS)
 SWEEPS = {}
 _lock = threading.Lock()
 
@@ -85,6 +86,13 @@ def _identify(sweep_id, spine):
     if r.get("status") == "identified":
         with _lock:
             SWEEPS[sweep_id]["titles"].append(r["match"]["title"])
+        age = [c for c in getattr(spine, "age_cues", []) if c in config.AGE_CUES]
+        if config.LIVE_PREFETCH_PRICES and not pipeline.copy_age_reason(age):
+            # Price now, while the user is still filming: same arguments as the final run, so it is a cache hit there.
+            # (Real failure 10 Oct: pricing after Finish took 475 s; the brief wants the packet within 5 minutes.)
+            authors = pipeline.clean_authors(r["match"].get("authors"))
+            _price_pool.submit(pipeline._safe_price, (r["match"]["title"], authors[0] if authors else "",
+                                                      SWEEPS[sweep_id]["country"], spine.text))
 
 
 @app.get("/")

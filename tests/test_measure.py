@@ -44,3 +44,23 @@ def test_strong_angle_inflates_thickness_documented_limitation():
     marker, box = _scene(((100, 120), (1500, 60), (1480, 700), (130, 640)))
     h, t, _ = M.spine_dims([marker], box)
     assert abs(h - 22.0) / 22.0 < 0.05 and t > 3.0 * 1.1
+
+
+
+def test_overlapping_boxes_do_not_inflate_thickness():
+    # Real failure (Neptunes v1): padded model boxes overlapped, thickness came out +30% to +135%
+    from app.stages.measure import thickness_factors
+    # 4 touching books, each truly 40 px thick, boxes padded to 60 px (overlapping neighbours)
+    boxes = [(100 + 40 * k - 10, 0, 100 + 40 * k + 50, 300) for k in range(4)]
+    f = thickness_factors(boxes, ["upright"] * 4)
+    assert all(abs(k - 0.75) < 1e-6 for k in f)   # span 180 px / sum 240 px: each padded 60 px box -> 45 px
+    # a real gap starts a new run; books with gaps are never enlarged
+    apart = [(0, 0, 40, 300), (200, 0, 240, 300)]
+    assert thickness_factors(apart, ["upright", "upright"]) == [1.0, 1.0]
+
+
+def test_flat_stack_is_corrected_vertically():
+    from app.stages.measure import thickness_factors
+    stack = [(0, 0, 300, 50), (5, 30, 305, 80), (0, 60, 300, 110)]   # 3 flat books, boxes overlap by 20 px
+    f = thickness_factors(stack, ["flat"] * 3)
+    assert f[0] == f[1] == f[2] and abs(f[0] - 110 / 150) < 1e-6

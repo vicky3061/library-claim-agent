@@ -171,6 +171,23 @@ def _make_item(item_id, frame_ref, it, markers, w, h):
                 frame_ref=frame_ref, dimensions_cm=dims, status=status)
 
 
+def _not_claimable(it, markers, w, h):
+    """Reason an item must not be claimed, else None. Real failure (Neptunes v2): our printed ArUco sheets were
+    listed as 'decor' items, and a book lying on the sofa was listed as an item (books are counted as books)."""
+    text = f"{it.category} {it.description}".lower()
+    if any(k in text for k in config.NOT_ITEM_WORDS):
+        return "measuring marker"
+    if re.fullmatch(r"\s*books?\s*", it.category.lower()):
+        return "book (counted with the books, not as an item)"
+    x1, y1, x2, y2 = vision.to_pixels(it.box_2d, w, h)
+    for m in markers:
+        cx, cy = m["corners_px"].mean(axis=0)
+        side = m["size_cm"] * m["px_per_cm"]
+        if x1 <= cx <= x2 and y1 <= cy <= y2 and (x2 - x1) * (y2 - y1) < 9 * side * side:
+            return "measuring marker"
+    return None
+
+
 def _centre_index(spines):
     """The spine nearest the centre of the frame: the book the user is pointing the camera at."""
     if not spines:
@@ -201,6 +218,7 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
     # Stage 1 - vision, frame by frame (free-tier quota: one call at a time).
     spines = []  # (frame_ref, position, spine, markers, w, h, frame_name, voice_notes, frame_index)
     reg_frames, walls = [], []  # small grey copies + boxes for de-duplication; wall measurements for the room
+    thick_factor = {}  # (frame index, position) -> overlap correction for spine thickness
     t_stage = time.time()
     for fi, path in enumerate(paths):
         frame_ref = f"frames/{fi:04d}_{os.path.basename(path)}"
@@ -218,15 +236,26 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
             continue
         markers = scale.detect_markers(image)
         name = os.path.basename(path)
-        centre = _centre_index(res.spines)
+        fspines = res.spines
+        if name.lower().startswith(config.ITEMS_ONLY_PREFIX):  # items-only frame: books here are outside the claim
+            telemetry.setdefault("items_only_frames", []).append(name)
+            fspines = []
+        centre = _centre_index(fspines)
         notes = ov.get("book_notes", {}).get(name, [])
         spines += [(frame_ref, si + 1, sp, markers, w, h, name, notes if si == centre else [], len(reg_frames))
-                   for si, sp in enumerate(res.spines)]
+                   for si, sp in enumerate(fspines)]
+        pboxes = [vision.to_pixels(sp.box_2d, w, h) for sp in fspines]
+        for si, k in enumerate(measure.thickness_factors(pboxes, [sp.orientation for sp in fspines])):
+            thick_factor[(len(reg_frames), si + 1)] = k
         small, s_ = dedup._gray_small(image)
-        reg_frames.append({"image": small, "texts": [sp.text for sp in res.spines],
-                           "boxes": [tuple(v * s_ for v in vision.to_pixels(sp.box_2d, w, h)) for sp in res.spines]})
+        reg_frames.append({"image": small, "texts": [sp.text for sp in fspines],
+                           "boxes": [tuple(v * s_ for v in b) for b in pboxes]})
         walls.append(room.measure_wall(markers, getattr(res, "wall", None), w, h))
         for it in res.items:
+            why = _not_claimable(it, markers, w, h)
+            if why:  # our own measuring markers and loose books are not contents to claim as items
+                telemetry.setdefault("items_dropped", []).append(f"{it.category}: {why}")
+                continue
             item = _make_item(f"i{len(packet.items) + 1:03d}", frame_ref, it, markers, w, h)
             if item.status == ItemStatus.needs_appraisal and name in ov.get("art_print", ()):
                 item.status = ItemStatus.range  # policyholder says it is a print -> priced like any item
@@ -259,6 +288,8 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
     drafts = []
     for i, (frame_ref, pos, sp, markers, w, h, name, notes, _fi) in enumerate(spines):
         fields, status, wants_price = _book_fields(f"b{i + 1:03d}", frame_ref, pos, sp, markers, w, h, found.get(i))
+        if fields.get("spine_thickness_cm"):
+            fields["spine_thickness_cm"] = round(fields["spine_thickness_cm"] * thick_factor.get((_fi, pos), 1.0), 1)
         if name in excluded:
             fields["excluded_by_user"] = True  # "skip that shelf, those are not mine": not priced, not counted
             wants_price = False

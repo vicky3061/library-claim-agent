@@ -173,3 +173,41 @@ def test_overlapping_keyframes_are_counted_once(tmp_path, monkeypatch):
     assert packet.telemetry["spines_seen"] == sum(len(c["boxes"]) for c in crops)
     assert abs(packet.totals.book_count - len(boxes)) <= 1                   # each real book once
     assert packet.telemetry["duplicates_removed"] > 0
+
+
+
+def test_items_only_frame_counts_items_not_books(tmp_path, monkeypatch):
+    # The sofa photo also shows shelves outside the claim: those books must not be counted
+    frames = tmp_path / "frames"; frames.mkdir()
+    img = np.full((400, 600, 3), 120, np.uint8)
+    cv2.imwrite(str(frames / "f1.jpg"), img); cv2.imwrite(str(frames / "items_sofa.jpg"), img)
+    book = V.SpineOut(box_2d=[100, 100, 900, 150], orientation="upright", text="", legibility="unreadable", cut_off=False)
+    sofa = V.ItemOut(box_2d=[0, 0, 500, 500], category="sofa", description="red sofa", visible_text="")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(PL.vision, "analyze_frame", lambda b: (V.FrameOut(spines=[book, book], items=[sofa]), {"cache_hit": True}))
+    monkeypatch.setattr(PL.item_price, "price_item", lambda *a: (None, "no price"))
+    packet, _ = PL.run_sweep(str(frames), "io", "IN", "INR")
+    assert packet.totals.book_count == 2                      # only f1.jpg's books
+    assert sum(1 for it in packet.items if it.category == "sofa") == 2
+    assert packet.telemetry["items_only_frames"] == ["items_sofa.jpg"]
+
+
+
+def test_markers_and_loose_books_are_not_claimed_as_items():
+    # Real failure (Neptunes v2): our ArUco sheets became 'decor' items; a book on the sofa became an item
+    marker = [{"id": 0, "size_cm": 10.0, "px_per_cm": 10.0, "corners_px": np.array([[100, 100], [200, 100], [200, 200], [100, 200]], np.float32)}]
+    item = lambda cat, desc, box: V.ItemOut(box_2d=box, category=cat, description=desc, visible_text="")
+    assert PL._not_claimable(item("decor", "ArUco marker tag attached with tape", [0, 0, 999, 999]), [], 1000, 1000)
+    assert PL._not_claimable(item("paper", "sheet", [80, 80, 220, 220]), marker, 1000, 1000) == "measuring marker"
+    assert PL._not_claimable(item("book", "book on the seat", [0, 0, 100, 100]), [], 1000, 1000)
+    assert PL._not_claimable(item("sofa", "red two-seater", [300, 300, 900, 900]), marker, 1000, 1000) is None
+
+
+def test_same_item_category_in_two_photos_is_flagged_not_merged():
+    from app import totals
+    from app.schema import ClaimPacket, Sweep, Item, ItemStatus
+    p = ClaimPacket(sweep=Sweep(id="d", captured_at="2026-10-10", country="IN", currency="INR"))
+    p.items = [Item(id="i1", category="aquarium", frame_ref="frames/a.jpg", status=ItemStatus.range),
+               Item(id="i2", category="Aquarium", frame_ref="frames/b.jpg", status=ItemStatus.range)]
+    q = totals.build_review_queue(p)
+    assert sum("also appears in another photo" in e.reason for e in q) == 2 and len(p.items) == 2

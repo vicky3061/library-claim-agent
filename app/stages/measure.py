@@ -33,3 +33,44 @@ def spine_dims(markers, box, orientation="upright"):
         return None, None, None
     long_cm, short_cm = box_size_cm(box, scale.image_to_plane(m), orientation)
     return round(long_cm, 1), round(short_cm, 1), m["id"]
+
+
+def thickness_factors(boxes, orientations):
+    """Books cannot overlap each other. Model boxes of neighbouring spines usually do (padding), which made every
+    thickness come out too big (Neptunes v1: 13 of 17 thicknesses +30% to +135%; heights were fine).
+    Within each run of touching upright spines, and within each stack of flat books, scale thickness by
+    span / sum-of-thicknesses, so the books exactly fill the space they occupy. Never enlarges (gaps are real)."""
+    f = [1.0] * len(boxes)
+
+    def shrink(run, lo, hi):
+        if len(run) < 2:
+            return
+        span = max(boxes[i][hi] for i in run) - min(boxes[i][lo] for i in run)
+        total = sum(boxes[i][hi] - boxes[i][lo] for i in run)
+        k = min(1.0, span / total) if total > 0 else 1.0
+        for i in run:
+            f[i] = k
+
+    up = sorted((i for i, o in enumerate(orientations) if o != "flat"), key=lambda i: boxes[i][0])
+    if up:
+        med = float(np.median([boxes[i][2] - boxes[i][0] for i in up]))
+        run = [up[0]]
+        for i in up[1:]:
+            if boxes[i][0] > max(boxes[j][2] for j in run) + 0.5 * med:  # a real gap: new run
+                shrink(run, 0, 2)
+                run = []
+            run.append(i)
+        shrink(run, 0, 2)
+    stacks = []
+    for i in sorted((i for i, o in enumerate(orientations) if o == "flat"), key=lambda i: boxes[i][0]):
+        for st in stacks:
+            j = st[0]
+            ov = min(boxes[i][2], boxes[j][2]) - max(boxes[i][0], boxes[j][0])
+            if ov > 0.5 * min(boxes[i][2] - boxes[i][0], boxes[j][2] - boxes[j][0]):
+                st.append(i)
+                break
+        else:
+            stacks.append([i])
+    for st in stacks:
+        shrink(st, 1, 3)
+    return f
