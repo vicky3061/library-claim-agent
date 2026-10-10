@@ -61,26 +61,32 @@ class FrameOut(BaseModel):
 
 RETRYABLE = ("503", "UNAVAILABLE", "429", "RESOURCE_EXHAUSTED", "500", "INTERNAL")
 _client = None
+_exhausted = set()       # models whose free DAILY quota is used up: skip them for the rest of this run
+_no_thinking_cfg = set()  # models that reject our thinking setting: call them without it
 
 
 def _get_client():
     global _client
     if _client is None:
-        _client = genai.Client()  # reads GOOGLE_API_KEY from the environment
+        # a timeout so one slow call can never block the live sweep for minutes (seen: 99.5 s per frame)
+        _client = genai.Client(http_options=types.HttpOptions(timeout=int(config.VISION_TIMEOUT_S * 1000)))
     return _client
 
 
 def _call_model(model, image_bytes):
+    cfg = dict(response_mime_type="application/json", response_schema=FrameOut, temperature=0)
+    if config.VISION_THINKING_LEVEL and model not in _no_thinking_cfg:
+        # reading spines is transcription, not reasoning: low thinking cut one frame from 99.5 s to 19.3 s
+        cfg["thinking_config"] = types.ThinkingConfig(thinking_level=config.VISION_THINKING_LEVEL)
     resp = _get_client().models.generate_content(
         model=model,
         contents=[types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg"), PROMPT],
-        config=types.GenerateContentConfig(
-            response_mime_type="application/json", response_schema=FrameOut, temperature=0),
-    )
+        config=types.GenerateContentConfig(**cfg))
     usage = resp.usage_metadata
-    tokens = {"input": getattr(usage, "prompt_token_count", None),
-              "output": getattr(usage, "candidates_token_count", None)}
+    tokens = {"input": getattr(usage, "prompt_token_count", None), "output": getattr(usage, "candidates_token_count", None),
+              "thinking": getattr(usage, "thoughts_token_count", None)}
     return FrameOut.model_validate_json(resp.text), tokens
+
 
 def _cache_path(image_bytes):
     # the prompt is part of the key: if we change the prompt, old answers are not reused
@@ -102,26 +108,44 @@ def analyze_frame(image_bytes, tries=3):
             json.dump({"result": out.model_dump(), "telemetry": telemetry}, f, ensure_ascii=False)
     return out, {**telemetry, "cache_hit": False}
 
+
 def _analyze_uncached(image_bytes, tries=3):
-    """Returns (FrameOut or None, telemetry). Retries on overload, then tries the fallback model."""
+    """Returns (FrameOut or None, telemetry).
+    Overload / per-minute limit -> wait and retry the same model. Daily quota used up -> skip that model from now on.
+    Model rejects the thinking setting -> retry it once without. Anything else -> next model in the list."""
     telemetry = {"attempts": [], "model": None}
     for model in config.VISION_MODELS:
+        if model in _exhausted:
+            continue
         delay = 2.0
-        for _ in range(tries):
+        attempt = 0
+        while attempt < tries:
+            attempt += 1
             t0 = time.time()
             try:
                 out, tokens = _call_model(model, image_bytes)
-                telemetry.update(model=model, tokens=tokens, latency_s=round(time.time() - t0, 2))
+                telemetry.update(model=model, tokens=tokens, latency_s=round(time.time() - t0, 2),
+                                 thinking=None if model in _no_thinking_cfg else config.VISION_THINKING_LEVEL)
                 return out, telemetry
             except Exception as e:
                 msg = str(e)
                 telemetry["attempts"].append({"model": model, "error": msg[:200]})
-                if "quota" in msg.lower() or not any(code in msg for code in RETRYABLE):
-                    break 
+                print(f"[vision] {model}: {msg[:160]}", flush=True)  # never fail silently again
+                if "400" in msg and "thinking" in msg.lower() and model not in _no_thinking_cfg:
+                    _no_thinking_cfg.add(model)
+                    attempt -= 1  # a settings problem, not a real attempt
+                    continue
+                if "PerDay" in msg:
+                    _exhausted.add(model)
+                    break
+                if "quota" in msg.lower() and "PerMinute" not in msg:
+                    break  # quota of unknown scope: don't burn time retrying, try the next model
+    
+                if not any(code in msg for code in RETRYABLE):
+                    break  # e.g. 404 retired model, timeout: retrying the same model won't help
                 time.sleep(delay)
                 delay *= 2
     return None, telemetry
-
 
 def to_pixels(box_2d, width, height):
     ymin, xmin, ymax, xmax = box_2d

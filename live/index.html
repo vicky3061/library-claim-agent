@@ -58,7 +58,7 @@ function listen() {
 }
 
 function showInventory(i) {
-  inv.innerHTML = `Units ${i.shelving_units.join(', ') || '-'} · frames kept ${i.frames_kept}/${i.frames_seen} · read ${i.frames_read}` +
+  inv.innerHTML = `Units ${i.shelving_units.join(', ') || '-'} · frames kept ${i.frames_kept}/${i.frames_seen} · read ${i.frames_read}` + (i.frames_failed ? ` · <b style="color:#ef5350">failed ${i.frames_failed}</b>` : '') +
     ` · spines ${i.spines_seen} · identified ${i.identified} · items ${i.items_seen} · ${i.elapsed_s}s<br>` +
     (i.recent_titles.length ? 'Recent: ' + i.recent_titles.map(t => t.replace(/</g, '&lt;')).join(' · ') : '');
 }

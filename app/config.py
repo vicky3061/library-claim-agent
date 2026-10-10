@@ -37,8 +37,12 @@ APPRAISAL_PRICE_LIMIT = {"INR": 5000.0, "USD": 60.0}
 APPRAISAL_PUBLISHED_BEFORE = 1960
 APPRAISAL_KEYWORDS = ("signed", "autographed", "first edition", "1st edition", "limited edition", "antiquarian")
 
-# vision: tried in order; verified with `python -m tools.probe_models` on 2026-10-09
-VISION_MODELS = ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash"]
+# Order measured on 10 Oct on one shop frame: 3.6 answered in 19.3 s (39 spines) with thinking LOW;
+# 3.8 took 99.5 s with default thinking and its free daily quota ran out; 3.7 / 3.5 returned 503 (busy).
+VISION_MODELS = ["gemini-3.6-flash", "gemini-3.7-flash", "gemini-3.5-flash", "gemini-3.8-flash"]
+VISION_THINKING_LEVEL = "LOW"   # None = model default. MINIMAL is rejected by 3.8 (400).
+VISION_TIMEOUT_S = 60           # one call longer than this is abandoned and the next model is tried
+VISION_WORKERS = 3              # live sweep: frames read in parallel (lower to 1 if per-minute 429s appear)
 
 # Copy-age evidence (from what is visible on the spine, not the catalogue year of the work)
 AGE_CUES = ("blackletter", "cloth_binding", "leather_binding", "gilt_lettering", "heavy_wear")
@@ -52,7 +56,7 @@ IDENTIFY_WORKERS = 4
 PRICE_WORKERS = 4
 
 # Frame quality checks (code, not a model). Calibrate on real frames with tools/quality_report.py.
-BLUR_MIN_VAR = 100.0      # variance of Laplacian at 640 px width; below = blurry
+BLUR_MIN_VAR = 40.0      # variance of Laplacian at 640 px width; below = blurry
 GLARE_MAX_FRAC = 0.03     # share of pixels that are near-white and colourless; above = glare
 DARK_MAX_MEAN = 60.0      # mean brightness (0-255); below = too dark
 

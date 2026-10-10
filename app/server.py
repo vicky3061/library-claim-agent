@@ -19,7 +19,7 @@ app = FastAPI(title="Library Contents Claim Agent")
 os.makedirs("runs", exist_ok=True)
 app.mount("/runs", StaticFiles(directory="runs"), name="runs")  # report + frames open in the browser
 
-_vision_pool = ThreadPoolExecutor(max_workers=1)  # free-tier vision quota: one call at a time
+_vision_pool = ThreadPoolExecutor(max_workers=config.VISION_WORKERS)
 _identify_pool = ThreadPoolExecutor(max_workers=config.IDENTIFY_WORKERS)
 SWEEPS = {}
 _lock = threading.Lock()
@@ -205,10 +205,10 @@ def inventory(sweep_id: str):
         raise HTTPException(404, "unknown sweep")
     with _lock:
         return {"frames_seen": s["seen"], "frames_kept": s["kept"], "frames_read": s["frames_read"],
+                "frames_failed": s["frames_failed"],
                 "spines_seen": s["spines_seen"], "identified": len(s["titles"]), "recent_titles": s["titles"][-5:],
                 "items_seen": len(s["items_seen"]),
                 "shelving_units": [unit_name(i) for i in s["units_seen"]], "elapsed_s": round(time.time() - s["started"], 1)}
-
 
 @app.post("/api/sweep/{sweep_id}/finish")
 def finish(sweep_id: str):

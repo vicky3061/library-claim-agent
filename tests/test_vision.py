@@ -13,6 +13,8 @@ FAKE = V.FrameOut(spines=[V.SpineOut(box_2d=[100, 50, 900, 120], orientation="up
 def isolated_cache(tmp_path, monkeypatch):
     # every test gets its own empty cache folder, so tests never share or pollute cached results
     monkeypatch.setattr(V.config, "CACHE_DIR", str(tmp_path))
+    V._exhausted.clear()        # per-run model state must not leak between tests
+    V._no_thinking_cfg.clear()
 
 
 def test_box_to_pixels():
@@ -108,3 +110,47 @@ def test_failures_are_not_cached(monkeypatch):
     assert V.analyze_frame(b"photo")[0] is None
     monkeypatch.setattr(V, "_call_model", lambda model, b: (FAKE, {}))
     assert V.analyze_frame(b"photo")[0] is not None
+
+
+
+def test_daily_quota_skips_that_model_for_the_rest_of_the_run(monkeypatch):
+    # Real failure 10 Oct: 429 GenerateRequestsPerDayPerProjectPerModel-FreeTier on the first model
+    calls = []
+    first = V.config.VISION_MODELS[0]
+    def fake(model, b):
+        calls.append(model)
+        if model == first:
+            raise RuntimeError("429 RESOURCE_EXHAUSTED quotaId: GenerateRequestsPerDayPerProjectPerModel-FreeTier")
+        return FAKE, {}
+    monkeypatch.setattr(V, "_call_model", fake)
+    monkeypatch.setattr(V.time, "sleep", lambda s: None)
+    V.analyze_frame(b"frame 1")
+    V.analyze_frame(b"frame 2")
+    assert calls.count(first) == 1  # tried once, never again
+
+
+def test_per_minute_limit_waits_and_retries_same_model(monkeypatch):
+    calls = []
+    def fake(model, b):
+        calls.append(model)
+        if len(calls) == 1:
+            raise RuntimeError("429 RESOURCE_EXHAUSTED GenerateRequestsPerMinutePerProjectPerModel-FreeTier")
+        return FAKE, {}
+    monkeypatch.setattr(V, "_call_model", fake)
+    monkeypatch.setattr(V.time, "sleep", lambda s: None)
+    out, tel = V.analyze_frame(b"x")
+    assert calls == [V.config.VISION_MODELS[0]] * 2 and tel["model"] == V.config.VISION_MODELS[0]
+
+
+def test_model_rejecting_thinking_setting_is_retried_without_it(monkeypatch):
+    # Real failure 10 Oct: 400 "Thinking level MINIMAL is not supported for this model"
+    seen = []
+    def fake(model, b):
+        seen.append(model in V._no_thinking_cfg)
+        if model not in V._no_thinking_cfg:
+            raise RuntimeError("400 INVALID_ARGUMENT Thinking level LOW is not supported for this model")
+        return FAKE, {}
+    monkeypatch.setattr(V, "_call_model", fake)
+    out, tel = V.analyze_frame(b"x")
+    assert out is not None and seen == [False, True]
+    assert tel["model"] == V.config.VISION_MODELS[0] and tel["thinking"] is None
