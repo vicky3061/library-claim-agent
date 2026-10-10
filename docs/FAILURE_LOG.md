@@ -21,7 +21,7 @@ Run under test: **Neptunes Books (AECS Layout, Bengaluru), top row of bookcases 
 ### 3. The live sweep in the shop read 0 frames
 - **What happened:** at Neptunes the phone kept frames (35/44, both shelf markers found) but showed **"read 0"**; the agent also heard its own voice, nagged "no marker" all sweep, and frames arrived rotated 90°.
 - **Root causes:** one vision call took **99.5 s** (model default "thinking") and frames were read **one at a time**; the free daily quota of that model then ran out; no timeout, and failures were not shown. Rotation: browser/phone orientation mismatch. Echo: speaker → microphone.
-- **Measured fix:** thinking level LOW and model order changed — **99.5 s → 19.3 s per frame** on the same shop frame (39 vs 41 spines found); 3 frames read in parallel; 60 s timeout; daily-quota models skipped; failures printed and shown in red. Frames are turned upright from the marker's printed orientation; speech that matches the agent's own recent words is ignored; the marker tip is spoken only until the first marker is seen. After the fix the same flow at home read frames within seconds and produced the packet live (see demo video).
+- **Measured fix:** thinking level LOW and model order changed — **99.5 s → 19.3 s per frame** on the same shop frame (39 vs 41 spines found); 3 frames read in parallel; 60 s timeout; daily-quota models skipped; failures printed and shown in red. Frames are turned upright from the marker's printed orientation; speech that matches the agent's own recent words is ignored; the marker tip is spoken only until the first marker is seen. After the fix the same flow at home read frames within seconds and produced the packet live, 87.4 s after Finish (`submission/demo/`).
 - **What I would change:** a streaming vision model for live hints, and the whole sweep re-tested in the shop (not possible: closed by the time the fix was ready).
 
 ## Other errors found and fixed
@@ -31,6 +31,7 @@ Run under test: **Neptunes Books (AECS Layout, Bengaluru), top row of bookcases 
 | Same object in two photos claimed twice (aquarium, chair) | flagged in the review queue, never auto-merged | — |
 | Pricing stalled (SerpAPI calls retried 4 × 30 s) | 2 tries, 8 workers, books priced live during the sweep | price stage 475 s → 62 s |
 | One confidently wrong title: *The MacGregors* for a spine reading *The Magic Home* | not fixed | 1/57 = 1.8% wrong (bar ≤3%) |
+| Demo sweep: one desk mat seen in three frames listed three times; the duplicate flag caught only two (worded differently) | not fixed; would match items across frames by position, not by words | 3 lines for 1 object |
 
 ## Known limits (not fixed)
 - **Room area not validated:** the shop did not permit room measurement; at home furniture covers the walls, so whole-wall photos with all corners were not possible. The room code (wall-marker homography) is built and unit-tested on synthetic rooms only.
@@ -39,8 +40,8 @@ Run under test: **Neptunes Books (AECS Layout, Bengaluru), top row of bookcases 
 ## Cost per sweep
 | Item | Neptunes run (cold) | Unit price | Cost |
 |---|---|---|---|
-|Vision row, Unit price: free tier (no charge); Cost: $0 billed|
-|SerpAPI row, Cost: $0 billed (free plan, 250 searches/month)|
+| Vision (Gemini Flash) | 6 frames (2 shelf keyframes + 4 item photos) | free tier (no charge) | $0 billed |
+| SerpAPI (Amazon, Google Shopping) | up to 25 book searches (`--price-limit 25`) + item searches | free plan, 250 searches/month | $0 billed |
 | Catalogue (Google Books, Open Library), FX | free APIs | $0 | $0 |
 
 Everything is cached on disk: re-running the same sweep costs nothing.
@@ -54,7 +55,8 @@ On paid tiers, cost = tokens x Google's per-token price + searches x SerpAPI pla
 | Identify | 0.1 | 0.1 | 0.2 |
 | Price books | **475.2** | 228.0 | 62.3 |
 | Total to packet | **604.5** | 456.9 | **63.2** |
-| 87.4 s from Finish to packet (live phone sweep, 2 books, prices fetched during the sweep) |
+
+Live phone sweep at home (2 books, prices fetched during the sweep): **87.4 s from Finish to packet**.
 
 One vision call: 99.5 s (gemini-3.8-flash, default thinking) → 19.3 s (gemini-3.6-flash, thinking LOW).
 
