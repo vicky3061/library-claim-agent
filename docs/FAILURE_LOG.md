@@ -54,7 +54,7 @@ On paid tiers, cost = tokens x Google's per-token price + searches x SerpAPI pla
 | Identify | 0.1 | 0.1 | 0.2 |
 | Price books | **475.2** | 228.0 | 62.3 |
 | Total to packet | **604.5** | 456.9 | **63.2** |
-| Live (home, demo) | — | — | packet ready *X s* after Finish |
+| 87.4 s from Finish to packet (live phone sweep, 2 books, prices fetched during the sweep) |
 
 One vision call: 99.5 s (gemini-3.8-flash, default thinking) → 19.3 s (gemini-3.6-flash, thinking LOW).
 

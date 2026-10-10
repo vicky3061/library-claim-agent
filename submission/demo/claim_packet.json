@@ -1,0 +1,279 @@
+{
+  "sweep": {
+    "id": "live_20261010_192716_bca7",
+    "captured_at": "2026-10-10T13:59:26.332995+00:00",
+    "device": "phone browser",
+    "duration_s": 46.4,
+    "country": "IN",
+    "currency": "INR"
+  },
+  "room": {
+    "length_m": null,
+    "width_m": null,
+    "height_m": null,
+    "floor_area_m2": null,
+    "wall_area_m2": null,
+    "shelved_wall_area_m2": null,
+    "scale_method": "aruco_marker_homography (18 cm wall markers) + vision-located wall corners",
+    "confidence": null,
+    "floor_area_ft2": null,
+    "wall_area_ft2": null,
+    "shape_note": "Measured walls []: need one wall from each pair (10 or 12, and 11 or 13) to get length and width; floor/wall area left empty",
+    "corner_points_m": []
+  },
+  "books": [
+    {
+      "id": "b001",
+      "shelf": "A",
+      "position": 1,
+      "frame_ref": "frames/0001_0001.jpg",
+      "status": "identified",
+      "title": "The 80/20 Principle",
+      "author": "Richard Koch",
+      "edition": null,
+      "isbn": null,
+      "spine_height_cm": 25.0,
+      "spine_thickness_cm": 6.8,
+      "id_confidence": 1.0,
+      "replacement_cost": {
+        "amount": 361.0,
+        "source": "Amazon (amazon.in) via SerpAPI",
+        "url": "https://www.amazon.in/80-20-Principle-Secret-Achieving/dp/0385491743/",
+        "retrieved_at": "2026-10-10T13:59:27.149761+00:00",
+        "converted": false,
+        "currency": "INR",
+        "original_amount": null,
+        "original_currency": null,
+        "fx_rate": null,
+        "fx_source": null
+      },
+      "used_value": {
+        "amount": 159.0,
+        "source": "Google Shopping (IN) via SerpAPI, seller: Buy Second Hand Books Online",
+        "url": "https://www.google.com/search?ibp=oshop&q=The 80/20 Principle Richard Koch used&prds=catalogid:10316666756519936330,productid:16998551805827678633,headlineOfferDocid:381874048965719531,imageDocid:12218855739418287227,rds:PC_12502253996318456651|PROD_PC_12502253996318456651,gpcid:12502253996318456651,pvt:hg&hl=en&gl=in&udm=28",
+        "retrieved_at": "2026-10-10T13:59:27.150078+00:00",
+        "converted": false,
+        "currency": "INR",
+        "original_amount": null,
+        "original_currency": null,
+        "fx_rate": null,
+        "fx_source": null,
+        "condition_assumed": "Good: used, complete, normal wear, no major damage"
+      },
+      "spine_text_raw": "RICHARD KOCH THE 80/20 PRINCIPLE FULLY REVISED 4TH EDITION nb",
+      "orientation": "upright",
+      "excluded_by_user": false,
+      "user_notes": [],
+      "age_cues": [],
+      "review_notes": []
+    },
+    {
+      "id": "b002",
+      "shelf": "A",
+      "position": 2,
+      "frame_ref": "frames/0003_0003.jpg",
+      "status": "unidentified",
+      "title": null,
+      "author": null,
+      "edition": null,
+      "isbn": null,
+      "spine_height_cm": 19.6,
+      "spine_thickness_cm": 2.8,
+      "id_confidence": 0.697,
+      "replacement_cost": {
+        "amount": null,
+        "source": null,
+        "url": null,
+        "retrieved_at": null,
+        "converted": false,
+        "currency": null,
+        "original_amount": null,
+        "original_currency": null,
+        "fx_rate": null,
+        "fx_source": null
+      },
+      "used_value": {
+        "amount": null,
+        "source": null,
+        "url": null,
+        "retrieved_at": null,
+        "converted": false,
+        "currency": null,
+        "original_amount": null,
+        "original_currency": null,
+        "fx_rate": null,
+        "fx_source": null,
+        "condition_assumed": null
+      },
+      "spine_text_raw": "The Concise M A S T E R Y ROBERT GREENE P",
+      "orientation": "upright",
+      "excluded_by_user": false,
+      "user_notes": [],
+      "age_cues": [],
+      "review_notes": []
+    }
+  ],
+  "items": [
+    {
+      "id": "i001",
+      "category": "mat",
+      "description": "Desk pad or playmat with colorful cartoon rabbit patterns",
+      "brand_model": null,
+      "frame_ref": "frames/0000_0000.jpg",
+      "dimensions_cm": {
+        "w": 36.7,
+        "h": 24.3,
+        "d": null
+      },
+      "status": "range",
+      "replacement_cost": {
+        "low": 289.0,
+        "high": 999.0,
+        "source": "Google Shopping (IN) via SerpAPI: 39 new listings for 'mat desk pad or playmat', 25th-75th percentile",
+        "url": "https://www.google.com/search?ibp=oshop&q=mat desk pad or playmat&prds=catalogid:18276460507675092447,productid:13988356948767830940,headlineOfferDocid:10795564552477140715,imageDocid:12269689053664009898,pvt:hg&hl=en&gl=in&udm=28",
+        "retrieved_at": "2026-10-10T13:59:30.226769+00:00",
+        "currency": "INR",
+        "sources": []
+      },
+      "confidence": null,
+      "material": "plastic",
+      "excluded_by_user": false,
+      "user_notes": []
+    },
+    {
+      "id": "i002",
+      "category": "mat",
+      "description": "Patterned desk mat or surface",
+      "brand_model": null,
+      "frame_ref": "frames/0001_0001.jpg",
+      "dimensions_cm": {
+        "w": 36.4,
+        "h": 24.2,
+        "d": null
+      },
+      "status": "range",
+      "replacement_cost": {
+        "low": 549.0,
+        "high": 1199.0,
+        "source": "Google Shopping (IN) via SerpAPI: 40 new listings for 'mat patterned desk mat or', 25th-75th percentile",
+        "url": "https://www.google.com/search?ibp=oshop&q=mat patterned desk mat or&prds=catalogid:17556064307670516617,productid:8965588074506723244,headlineOfferDocid:12131444653752089682,imageDocid:1627802218042500152,rds:PC_9884645951113871469|PROD_PC_9884645951113871469,gpcid:9884645951113871469,mid:576462889744172121,pvt:hg&hl=en&gl=in&udm=28",
+        "retrieved_at": "2026-10-10T13:59:29.592762+00:00",
+        "currency": "INR",
+        "sources": []
+      },
+      "confidence": null,
+      "material": null,
+      "excluded_by_user": false,
+      "user_notes": []
+    },
+    {
+      "id": "i003",
+      "category": "tabletop mat",
+      "description": "A patterned mat with character illustrations covering the desk or shelf surface",
+      "brand_model": null,
+      "frame_ref": "frames/0002_0002.jpg",
+      "dimensions_cm": {
+        "w": 37.5,
+        "h": 26.9,
+        "d": null
+      },
+      "status": "range",
+      "replacement_cost": {
+        "low": 399.0,
+        "high": 1732.52,
+        "source": "Google Shopping (IN) via SerpAPI: 40 new listings for 'tabletop mat a patterned mat character', 25th-75th percentile",
+        "url": "https://www.google.com/search?ibp=oshop&q=tabletop mat a patterned mat character&prds=productid:3113054724807747106,headlineOfferDocid:3113054724807747106,imageDocid:12127336334382631678,pvt:hg&hl=en&gl=in&udm=28",
+        "retrieved_at": "2026-10-10T13:59:30.109698+00:00",
+        "currency": "INR",
+        "sources": []
+      },
+      "confidence": null,
+      "material": "fabric",
+      "excluded_by_user": false,
+      "user_notes": []
+    }
+  ],
+  "totals": {
+    "book_count": 2,
+    "books_identified": 1,
+    "books_unidentified": 1,
+    "shelf_run_m": 0.1,
+    "books_replacement_cost": 361.0,
+    "books_used_value": 159.0,
+    "items_replacement_cost_low": 1237.0,
+    "items_replacement_cost_high": 3930.52,
+    "excluded_from_totals": 1,
+    "books_needs_appraisal": 0,
+    "items_needs_appraisal": 0
+  },
+  "review_queue": [
+    {
+      "ref_id": "b002",
+      "reason": "Spine not readable or no confident catalogue match; title left blank"
+    },
+    {
+      "ref_id": "i001",
+      "reason": "Brand/model unknown; priced as a sourced range"
+    },
+    {
+      "ref_id": "i002",
+      "reason": "Brand/model unknown; priced as a sourced range"
+    },
+    {
+      "ref_id": "i003",
+      "reason": "Brand/model unknown; priced as a sourced range"
+    },
+    {
+      "ref_id": "i001",
+      "reason": "'mat' also appears in another photo (i002); confirm it is a separate object, not the same one seen twice"
+    },
+    {
+      "ref_id": "i002",
+      "reason": "'mat' also appears in another photo (i001); confirm it is a separate object, not the same one seen twice"
+    },
+    {
+      "ref_id": "room",
+      "reason": "Room area could not be measured from this sweep"
+    }
+  ],
+  "telemetry": {
+    "vision_s": 0.26,
+    "identify_s": 0.03,
+    "price_s": 0.0,
+    "vision_tokens_in": 8040,
+    "vision_tokens_out": 2335,
+    "vision_calls": 0,
+    "vision_cache_hits": 5,
+    "frames_failed": [],
+    "items_dropped": [
+      "paper: measuring marker",
+      "paper: measuring marker",
+      "paper: measuring marker",
+      "paper sheet: measuring marker",
+      "paper: measuring marker"
+    ],
+    "spines_seen": 10,
+    "duplicates_removed": 8,
+    "frame_pairs_registered": 4,
+    "dedup_s": 0.52,
+    "author_from_shelf_context": 0,
+    "item_price_s": 3.08,
+    "walls_measured": 0,
+    "serpapi_searches": 11,
+    "serpapi_cache_hits": 15,
+    "catalogue_calls": 10,
+    "catalogue_cache_hits": 24,
+    "total_s": 3.89,
+    "cost": {
+      "vision_input_usd": null,
+      "vision_output_usd": null,
+      "search_usd": null,
+      "total_usd": null,
+      "catalogue_and_fx_usd": 0.0,
+      "price_basis": "not set: fill from provider pricing pages (state date)"
+    },
+    "voice_corrections": [],
+    "after_sweep_wait_s": 83.52,
+    "packet_ready_after_sweep_s": 87.42
+  }
+}
