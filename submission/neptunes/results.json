@@ -281,7 +281,7 @@
   },
   "prices": {
     "hand_priced_books": 15,
-    "prices_compared": 15,
+    "prices_compared": 14,
     "within_25pct": 8,
     "median_error_pct": 0.0,
     "pass": false,
@@ -325,8 +325,8 @@
         "title": "Secret Star",
         "kind": "replacement_cost",
         "true": 799.0,
-        "pred": 4000.0,
-        "error_pct": 400.6
+        "pred": 590.0,
+        "error_pct": 26.2
       },
       {
         "title": "Times Change",
@@ -376,13 +376,6 @@
         "true": 329.0,
         "pred": 2481.74,
         "error_pct": 654.3
-      },
-      {
-        "title": "Are You Afraid of the Dark?",
-        "kind": "replacement_cost",
-        "true": 1671.0,
-        "pred": 440.0,
-        "error_pct": 73.7
       },
       {
         "title": "Nothing Lasts Forever",

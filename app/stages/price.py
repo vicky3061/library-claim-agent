@@ -153,6 +153,10 @@ def physical_offer(listing, domain="www.amazon.com"):
         for o in opts:
             if (o.get("type") or "").lower() == fmt and (o.get("extracted_primary_price") or 0) > 0:
                 m = re.search(r"/(?:offer-listing|dp)/([A-Z0-9]{10})", o.get("more_buying_choices_link") or "")
+                if not m and is_non_physical(listing):
+                    # a paperback price shown on a Kindle/ebook page with no link of its own cannot be traced
+                    # to a physical listing (Neptunes v4: 3 books priced from ebook pages, 2 of them far off)
+                    continue
                 return {"format": fmt, "price": float(o["extracted_primary_price"]),
                         "list_price": o.get("extracted_old_primary_price"),
                         "url": f"https://{domain}/dp/{m.group(1)}" if m else None}

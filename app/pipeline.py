@@ -402,6 +402,9 @@ def main():
     ap.add_argument("--currency", default=config.CURRENCY)
     ap.add_argument("--price-limit", type=int, default=1000, help="price at most N books (saves search quota)")
     a = ap.parse_args()
+    if not (os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")):
+        raise SystemExit("GOOGLE_API_KEY is not set: copy .env.example to .env and add your Gemini key "
+                         "(aistudio.google.com). SERPAPI_KEY is needed for prices.")
     packet, out_dir = run_sweep(a.frames_dir, a.sweep_id, a.country, a.currency, price_limit=a.price_limit)
     t = packet.totals
     print(f"wrote {out_dir}: {t.book_count} books ({t.books_identified} identified, "
