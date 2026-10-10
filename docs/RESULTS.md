@@ -8,17 +8,17 @@
 - `items.csv` — **8 non-book items** with sizes and materials.
 - `room.csv` — bookcase sizes only; **room not tape-measured** (shop did not permit it).
 
-## System vs ground truth (run `neptunes_v4`, the final code)
+## System vs ground truth (run `neptunes_v5`, the final code)
 | Bar (from the brief) | Ground truth | System | Result |
 |---|---|---|---|
 | Book count ±5% | 73 | 73 (0.0% off) | **PASS** |
 | Titles ≥70% of legible, ≤3% confidently wrong | 50 legible | 84.0% correct, 1.8% wrong (1/57) | **PASS** |
 | Spine dims ±15% (20 books) | 20 books | 18/36 dims within, median 14.9% | FAIL |
-| Prices ±25% (15 books) | 15 books | 8/15 within, median 0.0% | FAIL |
+| Prices ±25% (15 books) | 15 books | 8/14 within, median 0.0% (1 routed to human appraisal) | FAIL |
 | Non-book items ≥80% | 8 | 8 (100%) | **PASS** |
 | Floor area ±10% | not measured | system estimate only | not scored |
 | Wall area ±15% | not measured | system estimate only | not scored |
-| Packet < 5 min after sweep | — | 63 s (warm cache); 604 s first cold run | see failure log |
+| Packet < 5 min after sweep | — | 221.6 s with 65 fresh price searches (v5); 87.4 s live phone sweep; 604 s first cold run (v1) | **PASS** (v5) |
 
 Full per-book rows: `submission/neptunes/results.md` and `results.json` (spine rows, price rows, wrong titles).
 
@@ -29,6 +29,7 @@ Full per-book rows: `submission/neptunes/results.md` and `results.json` (spine r
 | v2 | thickness overlap fix + item photos | 73 | 84% / 1.8% | 18/36 | 8/8 | 457 s |
 | v3 | markers/loose books not items, duplicate-item flag | 73 | 84% / 1.8% | 18/36 | 8/8 (16 items) | 65 s |
 | v4 | same-title author from shelf context | 73 | 84% / 1.8% | 18/36 | 8/8 | 63 s |
+| v5 | no paperback price taken from an ebook page without its own link; all identified books priced (28 → 54) | 73 | 84% / 1.8% | 18/36 | 8/8 | 222 s (65 new searches) |
 
 ## Hand-checked prices vs system (INR, Amazon.in)
 | Book | Hand | System | Within 25% |
@@ -36,7 +37,7 @@ Full per-book rows: `submission/neptunes/results.md` and `results.json` (spine r
 | The Stars Shine Down | 5129 | 141.58 | no |
 | Morning, Noon & Night | 368 | 368 | yes |
 | Nothing Lasts Forever | 643.13 | 141.58 | no |
-| Are You Afraid of the Dark? | 1671 | 440 | no |
+| Are You Afraid of the Dark? | 1671 | needs appraisal (paperback ₹5,035 > ₹5,000 threshold; v4 took ₹440 from an ebook page) | not compared |
 | A Stranger in the Mirror | 329 | 2481.74 | no |
 | Jewels of the Sun | 475.11 | 475.11 | yes |
 | Dance of the Gods | 693 | 693 | yes |
@@ -44,7 +45,7 @@ Full per-book rows: `submission/neptunes/results.md` and `results.json` (spine r
 | The Collector | 672 | 672 | yes |
 | The Next Always | 487.05 | 487.05 | yes |
 | Times Change | 1627 | 1627 | yes |
-| Secret Star | 799 | 4000 | no |
+| Secret Star | 799 | 590 (v4: 4000 from an ebook page) | no (26.2%) |
 | Blood Magick | 828 | 828 | yes |
 | Honest Illusions | 826 | 826 | yes |
 | A Perfect Life | 530 | 314.21 | no |
@@ -56,8 +57,8 @@ Native amazon.com listings, not converted (`converted: false`).
 | The Stars Shine Down | 141.58 | 8.62 | amazon.com/dp/0446364762 |
 | Morning, Noon & Night | 368.00 | 6.25 | amazon.com/dp/0688084923 |
 | Nothing Lasts Forever | 141.58 | 8.70 | amazon.com/dp/0446354732 |
-| Angel of the Dark | 1085.00 | 7.99 | amazon.com/dp/0062073451 |
-| Are You Afraid of the Dark? | 440.00 | 5.05 | amazon.com/dp/0060559349 |
+| Angel of the Dark | 773.97 (converted from amazon.com, labelled) | 7.99 | amazon.com/dp/0062073451 |
+| Are You Afraid of the Dark? | needs appraisal (> ₹5,000) | 5.05 | amazon.com/dp/0060559349 |
 | A Stranger in the Mirror | 2481.74 | 25.62 | amazon.com/dp/0062967320 |
 | Jewels of the Sun | 475.11 | 7.82 | amazon.com/dp/0425271587 |
 | Dance of the Gods | 693.00 | 3.99 | amazon.com/dp/0515141666 |

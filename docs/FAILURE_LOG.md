@@ -12,10 +12,11 @@ Run under test: **Neptunes Books (AECS Layout, Bengaluru), top row of bookcases 
 - **Measured fix (v2):** books cannot overlap, so within each run of touching spines (and each flat stack) thicknesses are scaled so the books exactly fill the span they occupy (`measure.thickness_factors`). Result: 17/36 → **18/36** within, median 15.5% → **14.9%**. Real but small.
 - **What I would change:** stand the marker **on the shelf, flush with the spines** (a capture-protocol fix, not a code fix); detect spine edges with image gradients inside each box instead of trusting the model's box; report a per-book size confidence.
 
-### 2. Book prices fail the ±25% bar (8 of 15 within; median error 0%)
+### 2. Book prices fail the ±25% bar (v5: 8 of 14 within, 1 sent to appraisal; median error 0%)
 - **What happened:** 8 books match the hand check exactly (same Amazon.in listing); 7 are far off in both directions, e.g. *A Stranger in the Mirror* ₹2,482 vs ₹329 hand-checked, *Secret Star* ₹4,000 vs ₹799, *The Stars Shine Down* ₹142 vs ₹5,129.
 - **Root cause:** Amazon lists the same title as many editions (₹300 Indian reprint, ₹2,000+ import, omnibus, collectible). The picker takes **one** listing; the human took another. The same two titles are outliers in the **US run too** (*A Stranger in the Mirror* $25.62, *Born in Fire* $20.98 vs $4–10 for the rest), so it is the edition choice, not the market. Related: **same title, different author** — *Sisters* (Danielle Steel) was priced as Raina Telgemeier's graphic novel; *The Stars Shine Down* as a book by Rachel Lawson.
 - **Measured fix (v4):** when the catalogue returns the same title by several authors, the author most common among the other books **in the same frame** is chosen (shelves are grouped by author). *The Stars Shine Down* (4 copies) moved from Rachel Lawson to Sidney Sheldon. *Sisters* was **not** fixed: Danielle Steel's book was never among the catalogue candidates.
+- **Measured fix (v5):** 3 books had been priced from a **Kindle page** whose "paperback" option had no link of its own, so the price could not be traced to a physical listing. Rule: such a price is not used (`price.physical_offer`, 2 tests). *Secret Star* ₹4,000 → ₹590 (hand ₹799: error 401% → 26.2%); *Are You Afraid of the Dark?* ₹440 → its real paperback ₹5,035, above the ₹5,000 threshold, so now **human appraisal**; *Angel of the Dark* now converted from amazon.com and labelled. Bar result 8/15 → 8/14, still FAIL: the remaining misses are edition choice. The same run priced **all 54 identified books** (v4 priced 28 because of a search cap).
 - **What I would change:** price the **median of all matching new paperback listings** and send a wide spread to review instead of picking one; re-query the catalogue with the shelf's dominant author when the spine author is unreadable; reject listings whose title contains omnibus/set words.
 
 ### 3. The live sweep in the shop read 0 frames
@@ -49,12 +50,12 @@ Everything is cached on disk: re-running the same sweep costs nothing.
 On paid tiers, cost = tokens x Google's per-token price + searches x SerpAPI plan price; usage counts per sweep are in each packet's telemetry.
 
 ## Latency per stage (seconds)
-| Stage | v1 (cold) | v2 (4 new frames, model busy 503) | v4 (warm cache) |
-|---|---|---|---|
-| Vision | cached | 98.8 | 0.4 |
-| Identify | 0.1 | 0.1 | 0.2 |
-| Price books | **475.2** | 228.0 | 62.3 |
-| Total to packet | **604.5** | 456.9 | **63.2** |
+| Stage | v1 (cold) | v2 (4 new frames, model busy 503) | v4 (warm cache) | v5 (65 new price searches) |
+|---|---|---|---|---|
+| Vision | cached | 98.8 | 0.4 | 0.3 |
+| Identify | 0.1 | 0.1 | 0.2 | 0.1 |
+| Price books | **475.2** | 228.0 | 62.3 | 221.0 |
+| Total to packet | **604.5** | 456.9 | **63.2** | **221.6** (< 5 min) |
 
 Live phone sweep at home (2 books, prices fetched during the sweep): **87.4 s from Finish to packet**.
 

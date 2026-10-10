@@ -13,7 +13,7 @@ Real space: **Neptunes Books, Bengaluru (with the owner's permission)** — top 
 | Titles ≥70% correct, ≤3% wrong | **PASS** — 84% correct, 1.8% wrong |
 | Non-book items ≥80% | **PASS** — 8 / 8 |
 | Spine dims ±15% | FAIL — 18/36 within (explained) |
-| Prices ±25% | FAIL — 8/15 within (explained) |
+| Prices ±25% | FAIL — 8/14 within, 1 sent to appraisal (explained) |
 | Floor / wall area | not scored (room not tape-measured; see Deviations) |
 
 Details: [`docs/RESULTS.md`](docs/RESULTS.md) · root causes and fixes: [`docs/FAILURE_LOG.md`](docs/FAILURE_LOG.md) · pipeline: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) · packets: [`submission/`](submission/)
