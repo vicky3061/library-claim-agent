@@ -74,3 +74,8 @@ PRICE_BASIS = "not set: fill from provider pricing pages (state date)"
 TOO_FAST_CHANGE = 60.0         # thumbnail change between two consecutive frames (2 s apart) above this = moving too fast
 STEP_CLOSER_UNREADABLE = 0.6   # share of spines in a frame that are partial/unreadable -> ask to step closer
 STEP_CLOSER_MIN_SPINES = 3     # only judge frames with at least this many spines
+
+
+# Cross-frame de-duplication (Layer 9)
+DEDUP_MIN_INLIERS = 25   # RANSAC inliers needed to trust that two keyframes overlap
+DEDUP_IOU = 0.4          # mapped box overlap needed to call two spines the same book

@@ -30,6 +30,11 @@ Also return every NON-BOOK item (shelving, furniture, lamps, framed art, electro
 - box_2d as above, category (one or two words), description (short), visible_text (brand/model text you can read, else ""),
   material (main visible material: wood, metal, glass, fabric, plastic, ceramic, paper; "" if unsure).
 
+
+WALL: if a large printed black-and-white square marker is fixed on a wall in this photo, set wall.visible=true and
+give the four corners of THAT wall's surface, each as [y, x] scaled 0-1000: top_left and top_right (where the wall
+meets the ceiling and the neighbouring walls), bottom_right and bottom_left (where it meets the floor and the
+neighbouring walls). Use [] for any corner outside the photo or hidden. No such marker on a wall: wall.visible=false.
 Do not invent items. If unsure whether something is a separate book, return it once."""
 
 
@@ -53,10 +58,17 @@ class ItemOut(BaseModel):
     visible_text: str
     material: str = ""
 
+class WallOut(BaseModel):
+    visible: bool = False
+    top_left: list[int] = []
+    top_right: list[int] = []
+    bottom_right: list[int] = []
+    bottom_left: list[int] = []
 
 class FrameOut(BaseModel):
     spines: list[SpineOut]
     items: list[ItemOut]
+    wall: WallOut = WallOut()
 
 
 RETRYABLE = ("503", "UNAVAILABLE", "429", "RESOURCE_EXHAUSTED", "500", "INTERNAL")

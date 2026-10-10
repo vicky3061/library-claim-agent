@@ -1,3 +1,12 @@
+"""Claim packet schema.
+
+Mirrors the output contract in the brief exactly. We only ADD fields, never drop.
+
+Design rule: unknown = None (serialised as null), never 0 or "".
+A 0 or "" could be mistaken for a measured/priced value; null cannot.
+"""
+from __future__ import annotations
+
 from enum import Enum
 from typing import Optional
 
@@ -18,11 +27,11 @@ class ItemStatus(str, Enum):
 
 class Sweep(BaseModel):
     id: str
-    captured_at: str                    # ISO time, e.g. 2026-10-10T18:30:00+05:30
+    captured_at: str  # ISO 8601
     device: Optional[str] = None
     duration_s: Optional[float] = None
-    country: str                        # e.g. "IN"
-    currency: str                       # e.g. "INR"
+    country: str  # ISO 3166 alpha-2, e.g. "IN"
+    currency: str  # ISO 4217, e.g. "INR"
 
 
 class Room(BaseModel):
@@ -32,24 +41,27 @@ class Room(BaseModel):
     floor_area_m2: Optional[float] = None
     wall_area_m2: Optional[float] = None
     shelved_wall_area_m2: Optional[float] = None
-    scale_method: Optional[str] = None  # e.g. "webxr_arcore" or "aruco_marker"
+    scale_method: Optional[str] = None  # e.g. "webxr_arcore", "aruco_marker"
     confidence: Optional[float] = None
     # added fields
     floor_area_ft2: Optional[float] = None
     wall_area_ft2: Optional[float] = None
-    shape_note: Optional[str] = None    # how a non-rectangular room was handled
+    shape_note: Optional[str] = None  # how a non-rectangular room was handled
+    corner_points_m: list[list[float]] = Field(default_factory=list)
+
 
 class BookPrice(BaseModel):
     amount: Optional[float] = None
-    source: Optional[str] = None          # e.g. "Google Books API"
-    url: Optional[str] = None             # link an adjuster can open
-    retrieved_at: Optional[str] = None    # when we looked it up
-    converted: bool = False               # True if from another market's currency
+    source: Optional[str] = None
+    url: Optional[str] = None
+    retrieved_at: Optional[str] = None
+    converted: bool = False
     # added fields
     currency: Optional[str] = None
     original_amount: Optional[float] = None
     original_currency: Optional[str] = None
-    fx_rate: Optional[float] = None       # exchange rate used for conversion
+    fx_rate: Optional[float] = None
+    fx_source: Optional[str] = None
 
 
 class UsedPrice(BookPrice):
@@ -60,7 +72,7 @@ class Book(BaseModel):
     id: str
     shelf: Optional[str] = None
     position: Optional[int] = None
-    frame_ref: str                        # required: every book must point to a saved frame
+    frame_ref: str  # must point to a saved frame we can open
     status: BookStatus
     title: Optional[str] = None
     author: Optional[str] = None
@@ -72,10 +84,11 @@ class Book(BaseModel):
     replacement_cost: BookPrice = Field(default_factory=BookPrice)
     used_value: UsedPrice = Field(default_factory=UsedPrice)
     # added fields
-    spine_text_raw: Optional[str] = None  # exact letters read: the evidence for the title
-    orientation: Optional[str] = None     # "upright" or "flat"
-    excluded_by_user: bool = False        # "skip that shelf, those are not mine"
-    age_cues: list[str] = Field(default_factory=list)      # visual evidence about THIS copy's age
+    spine_text_raw: Optional[str] = None  # verbatim transcription, the evidence for the match
+    orientation: Optional[str] = None  # "upright" | "flat"
+    excluded_by_user: bool = False  # "skip that shelf, those are not mine"
+    user_notes: list[str] = Field(default_factory=list)
+    age_cues: list[str] = Field(default_factory=list)  # visual evidence about THIS copy's age
     review_notes: list[str] = Field(default_factory=list)  # reasons a stage wants a human to look
 
 
@@ -93,6 +106,7 @@ class ItemPrice(BaseModel):
     retrieved_at: Optional[str] = None
     # added
     currency: Optional[str] = None
+    sources: list[dict] = Field(default_factory=list)  # every listing behind a range
 
 
 class Item(BaseModel):
@@ -108,6 +122,7 @@ class Item(BaseModel):
     # added
     material: Optional[str] = None
     excluded_by_user: bool = False
+    user_notes: list[str] = Field(default_factory=list)
 
 
 class Totals(BaseModel):
@@ -137,5 +152,5 @@ class ClaimPacket(BaseModel):
     items: list[Item] = Field(default_factory=list)
     totals: Totals = Field(default_factory=Totals)
     review_queue: list[ReviewEntry] = Field(default_factory=list)
-    # added: cost and latency per stage, needed for the failure log
+    # added: cost and latency per stage, required for the failure log
     telemetry: dict = Field(default_factory=dict)

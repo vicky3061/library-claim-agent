@@ -1,0 +1,9 @@
+measurement,value_m,notes
+room_length,,longest wall floor-to-floor
+room_width,,
+ceiling_height,,
+shape,,rectangle or describe (L-shape etc.)
+shelf_unit_A_width,,
+shelf_unit_A_height,,
+shelf_unit_B_width,,
+shelf_unit_B_height,,

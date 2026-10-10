@@ -1,5 +1,6 @@
-from html import escape
+"""Human-readable HTML report rendered from the packet itself, so the two can never disagree."""
 import json
+from html import escape
 
 
 def _money(p, ccy):
@@ -9,6 +10,7 @@ def _money(p, ccy):
     link = f' <a href="{escape(p.url)}">source</a>' if p.url else ""
     return f"{p.amount:,.2f} {escape(ccy)}{tag}{link}"
 
+
 def _range(p):
     if not p or p.low is None:
         return "—"
@@ -16,8 +18,17 @@ def _range(p):
     link = f' <a href="{escape(p.url)}">source</a>' if p.url else ""
     return f"{amount} {escape(p.currency or '')}{link}"
 
+
 def write_report(packet, path):
     s, t, ccy = packet.sweep, packet.totals, packet.sweep.currency
+    r = packet.room
+    v = lambda x, unit: f"{x} {unit}" if x is not None else "not measured"
+    room = (f"<ul><li>Length × width × height: {v(r.length_m, 'm')} × {v(r.width_m, 'm')} × {v(r.height_m, 'm')}</li>"
+            f"<li>Floor area: {v(r.floor_area_m2, 'm²')} ({v(r.floor_area_ft2, 'ft²')})</li>"
+            f"<li>Wall area (gross): {v(r.wall_area_m2, 'm²')} ({v(r.wall_area_ft2, 'ft²')})</li>"
+            f"<li>Wall area covered by shelving: {v(r.shelved_wall_area_m2, 'm²')}</li>"
+            f"<li>Method: {escape(r.scale_method or '—')} · confidence {r.confidence if r.confidence is not None else '—'}</li>"
+            f"<li>Shape: {escape(r.shape_note or '—')}</li></ul>")
     shelf_run = f"{t.shelf_run_m} m" if t.shelf_run_m is not None else "not measured (no metric scale in frames)"
     rows = "".join(
         f"<tr><td>{escape(b.id)}</td><td>{escape(b.status.value)}</td><td>{escape(b.title or '—')}</td>"
@@ -43,6 +54,7 @@ td,th{{border:1px solid #ccc;padding:4px 6px;font-size:13px;text-align:left}}th{
 <li>Books replacement cost: {t.books_replacement_cost:,.2f} {escape(ccy)} · used value: {t.books_used_value:,.2f} {escape(ccy)}</li>
 <li>Items: {t.items_replacement_cost_low:,.2f}–{t.items_replacement_cost_high:,.2f} {escape(ccy)}</li>
 <li>Lines excluded from totals: {t.excluded_from_totals}</li></ul>
+<h2>Room</h2>{room}
 <h2>Books</h2><table><tr><th>ID</th><th>Status</th><th>Title</th><th>Author</th><th>Edition</th>
 <th>Spine h × t (cm)</th><th>Replacement</th><th>Used</th><th>Evidence</th></tr>{rows}</table>
 <h2>Other items</h2><table><tr><th>ID</th><th>Category</th><th>Description</th><th>Status</th><th>Replacement</th><th>Evidence</th></tr>{items}</table>

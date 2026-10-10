@@ -149,3 +149,27 @@ def test_voice_overrides_skip_shelf_first_edition_and_print(tmp_path, monkeypatc
 
     packet2, _ = PL.run_sweep(str(frames), "v2", "IN", "INR", overrides={"excluded_frames": {"a.jpg"}})
     assert packet2.totals.book_count == 0 and all(b.excluded_by_user for b in packet2.books)
+
+
+
+def test_overlapping_keyframes_are_counted_once(tmp_path, monkeypatch):
+    import sys; sys.path.insert(0, str(__import__("pathlib").Path(__file__).parent))
+    from test_dedup import _shelf, _crop
+    img, boxes = _shelf()
+    crops = [_crop(img, boxes, 0, 1200), _crop(img, boxes, 800, 2000), _crop(img, boxes, 1600, 2400)]
+    frames = tmp_path / "frames"; frames.mkdir()
+    outs = []
+    for k, c in enumerate(crops):
+        cv2.imwrite(str(frames / f"{k}.png"), c["image"])                     # png: no compression artefacts
+        h, w = c["image"].shape[:2]
+        outs.append(V.FrameOut(spines=[V.SpineOut(box_2d=[round(y1 / h * 1000), round(x1 / w * 1000), round(y2 / h * 1000),
+                                                         round(x2 / w * 1000)], orientation="upright", text="",
+                                                  legibility="unreadable", cut_off=False)
+                                       for x1, y1, x2, y2 in c["boxes"]], items=[]))
+    it = iter(outs)
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(PL.vision, "analyze_frame", lambda b: (next(it), {"cache_hit": True}))
+    packet, _ = PL.run_sweep(str(frames), "d1", "IN", "INR")
+    assert packet.telemetry["spines_seen"] == sum(len(c["boxes"]) for c in crops)
+    assert abs(packet.totals.book_count - len(boxes)) <= 1                   # each real book once
+    assert packet.telemetry["duplicates_removed"] > 0

@@ -1,3 +1,5 @@
+"""Run all stages over a folder of keyframes and write claim_packet.json + report.html.
+Every number in the packet comes from a stage output; totals come from app.totals (code, never a model)."""
 import argparse
 import os
 import re
@@ -10,8 +12,9 @@ import cv2
 
 from app import config, http_client, serp
 from app.report import write_report
-from app.schema import (Book, BookPrice, BookStatus, ClaimPacket, Dimensions, Item, ItemPrice, ItemStatus,Sweep, UsedPrice)
-from app.stages import item_price, price, resolve, scale, vision
+from app.schema import (Book, BookPrice, BookStatus, ClaimPacket, Dimensions, Item, ItemPrice, ItemStatus,
+                        Room, Sweep, UsedPrice)
+from app.stages import dedup, item_price, measure, price, resolve, room, scale, vision
 from app.totals import finalize
 
 ART_WORDS = ("art", "artwork", "painting", "portrait", "poster", "print", "picture", "sculpture", "framed")
@@ -62,6 +65,7 @@ def _year(text):
     m = re.search(r"\b(1[5-9]\d\d|20\d\d)\b", text or "")
     return int(m.group(1)) if m else None
 
+
 def sweep_cost(t):
     """Cost per sweep from measured usage x list prices in config (USD). None for a price we have not set."""
     def usd(n, rate):
@@ -73,11 +77,6 @@ def sweep_cost(t):
     return {**parts, "total_usd": round(sum(known), 4) if len(known) == len(parts) else None,
             "catalogue_and_fx_usd": 0.0, "price_basis": config.PRICE_BASIS}
 
-def _cm_per_px(image):
-    """Simple scale from the frame's shelf marker (IDs 0-9). None if no shelf marker is visible."""
-    shelf = [m for m in scale.detect_markers(image) if m["size_cm"] == config.SHELF_MARKER_CM]
-    return (1.0 / shelf[0]["px_per_cm"]) if shelf else None
-
 
 def _book_price(p, cls):
     if not p:
@@ -86,12 +85,15 @@ def _book_price(p, cls):
     return cls(**fields)
 
 
-def _measure(spine, cm_per_px, w, h):
-    x1, y1, x2, y2 = vision.to_pixels(spine.box_2d, w, h)
-    long_px, short_px = (x2 - x1, y2 - y1) if spine.orientation == "flat" else (y2 - y1, x2 - x1)
-    if not cm_per_px:
-        return None, None
-    return round(long_px * cm_per_px, 1), round(short_px * cm_per_px, 1)
+def _measure(spine, markers, w, h):
+    """Spine height/thickness on the nearest shelf marker's plane (perspective corrected). None without a marker."""
+    box = vision.to_pixels(spine.box_2d, w, h)
+    height, thick, marker_id = measure.spine_dims(markers, box, spine.orientation)
+    return height, thick, marker_id
+
+
+def unit_letter(marker_id):
+    return chr(ord("A") + marker_id) if marker_id is not None and 0 <= marker_id < 10 else None
 
 
 def _readable(spine):
@@ -114,10 +116,10 @@ def _safe_price(args):
         return {"status": "error", "reason": str(e), "replacement": None, "used": None, "notes": []}
 
 
-def _book_fields(book_id, frame_ref, position, spine, cm_per_px, w, h, r):
+def _book_fields(book_id, frame_ref, position, spine, markers, w, h, r):
     """Everything about a book except its price. Returns (fields, status, wants_price)."""
-    height, thick = _measure(spine, cm_per_px, w, h)
-    f = dict(id=book_id, shelf=None, position=position, frame_ref=frame_ref, spine_text_raw=spine.text or None,
+    height, thick, marker_id = _measure(spine, markers, w, h)
+    f = dict(id=book_id, shelf=unit_letter(marker_id), position=position, frame_ref=frame_ref, spine_text_raw=spine.text or None,
              orientation=spine.orientation, spine_height_cm=height, spine_thickness_cm=thick, review_notes=[])
     if r is None:  # not readable: counted, measured, never guessed
         return f, BookStatus.unidentified, False
@@ -145,20 +147,29 @@ def _book_fields(book_id, frame_ref, position, spine, cm_per_px, w, h, r):
                                  "so priced as a current edition. Confirm it is not an old printing")
     return f, BookStatus.identified, True
 
+
 def _safe_item_price(args):
     category, description, brand_model, market = args
     try:
         return item_price.price_item(category, description, brand_model, market)
     except Exception as e:
         return None, f"pricing failed: {e}"
-    
-def _make_item(item_id, frame_ref, it, cm_per_px, w, h):
-    x1, y1, x2, y2 = vision.to_pixels(it.box_2d, w, h)
-    dims = Dimensions(w=round((x2 - x1) * cm_per_px, 1), h=round((y2 - y1) * cm_per_px, 1)) if cm_per_px else Dimensions()
+
+
+def _make_item(item_id, frame_ref, it, markers, w, h):
+    box = vision.to_pixels(it.box_2d, w, h)
+    m = (measure.nearest_marker(markers, box, config.SHELF_MARKER_CM)
+         or measure.nearest_marker(markers, box, config.WALL_MARKER_CM))
+    if m:
+        width_cm, height_cm = measure.box_size_cm(box, scale.image_to_plane(m), "flat")  # (horizontal, vertical)
+        dims = Dimensions(w=round(width_cm, 1), h=round(height_cm, 1))
+    else:
+        dims = Dimensions()
     status = ItemStatus.needs_appraisal if is_art(f"{it.category} {it.description}") else ItemStatus.range
     return Item(id=item_id, category=it.category, description=it.description or None,
                 brand_model=it.visible_text or None, material=getattr(it, "material", "") or None,
                 frame_ref=frame_ref, dimensions_cm=dims, status=status)
+
 
 def _centre_index(spines):
     """The spine nearest the centre of the frame: the book the user is pointing the camera at."""
@@ -188,8 +199,8 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
     paths = sorted(os.path.join(frames_dir, n) for n in os.listdir(frames_dir) if n.lower().endswith(IMAGE_EXT))
 
     # Stage 1 - vision, frame by frame (free-tier quota: one call at a time).
-    # NOTE: each keyframe is treated as showing different books. Cross-frame de-duplication is Layer 9.
-    spines = []  # (frame_ref, position, spine, cm_per_px, w, h, frame_name, voice_notes)
+    spines = []  # (frame_ref, position, spine, markers, w, h, frame_name, voice_notes, frame_index)
+    reg_frames, walls = [], []  # small grey copies + boxes for de-duplication; wall measurements for the room
     t_stage = time.time()
     for fi, path in enumerate(paths):
         frame_ref = f"frames/{fi:04d}_{os.path.basename(path)}"
@@ -205,14 +216,18 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
         if res is None:
             telemetry["frames_failed"].append({"frame": frame_ref, "errors": tel.get("attempts", [])[-2:]})
             continue
-        cm_per_px = _cm_per_px(image)
+        markers = scale.detect_markers(image)
         name = os.path.basename(path)
         centre = _centre_index(res.spines)
         notes = ov.get("book_notes", {}).get(name, [])
-        spines += [(frame_ref, si + 1, sp, cm_per_px, w, h, name, notes if si == centre else [])
+        spines += [(frame_ref, si + 1, sp, markers, w, h, name, notes if si == centre else [], len(reg_frames))
                    for si, sp in enumerate(res.spines)]
+        small, s_ = dedup._gray_small(image)
+        reg_frames.append({"image": small, "texts": [sp.text for sp in res.spines],
+                           "boxes": [tuple(v * s_ for v in vision.to_pixels(sp.box_2d, w, h)) for sp in res.spines]})
+        walls.append(room.measure_wall(markers, getattr(res, "wall", None), w, h))
         for it in res.items:
-            item = _make_item(f"i{len(packet.items) + 1:03d}", frame_ref, it, cm_per_px, w, h)
+            item = _make_item(f"i{len(packet.items) + 1:03d}", frame_ref, it, markers, w, h)
             if item.status == ItemStatus.needs_appraisal and name in ov.get("art_print", ()):
                 item.status = ItemStatus.range  # policyholder says it is a print -> priced like any item
                 item.description = f"{item.description or item.category} (print, per policyholder)"
@@ -220,16 +235,30 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
             packet.items.append(item)
     telemetry["vision_s"] = time.time() - t_stage
 
+    # Stage 1b - the same book seen in two overlapping keyframes is counted once (Layer 9).
+    t_stage = time.time()
+    groups, registered = dedup.duplicate_groups(reg_frames)
+    index = {(s_[8], s_[1] - 1): k for k, s_ in enumerate(spines)}
+    keep = []
+    for g in groups:
+        members = [index[m] for m in g if m in index]
+        # representative: a readable member with the longest text (best evidence), else the first seen
+        best = max(members, key=lambda k: (_readable(spines[k][2]), len(spines[k][2].text), -k))
+        keep.append(best)
+    telemetry.update(spines_seen=len(spines), duplicates_removed=len(spines) - len(keep),
+                     frame_pairs_registered=registered, dedup_s=round(time.time() - t_stage, 2))
+    spines = [spines[k] for k in sorted(keep)]
+
     # Stage 2 - identify every readable spine in parallel (network-bound, so threads help).
     t_stage = time.time()
-    readable = [i for i, s in enumerate(spines) if _readable(s[2]) and s[6] not in excluded]
+    readable = [i for i, sp in enumerate(spines) if _readable(sp[2]) and sp[6] not in excluded]
     with ThreadPoolExecutor(max_workers=config.IDENTIFY_WORKERS) as ex:
         found = dict(zip(readable, ex.map(_safe_resolve, [spines[i][2] for i in readable])))
     telemetry["identify_s"] = time.time() - t_stage
 
     drafts = []
-    for i, (frame_ref, pos, sp, cm_per_px, w, h, name, notes) in enumerate(spines):
-        fields, status, wants_price = _book_fields(f"b{i + 1:03d}", frame_ref, pos, sp, cm_per_px, w, h, found.get(i))
+    for i, (frame_ref, pos, sp, markers, w, h, name, notes, _fi) in enumerate(spines):
+        fields, status, wants_price = _book_fields(f"b{i + 1:03d}", frame_ref, pos, sp, markers, w, h, found.get(i))
         if name in excluded:
             fields["excluded_by_user"] = True  # "skip that shelf, those are not mine": not priced, not counted
             wants_price = False
@@ -287,6 +316,11 @@ def run_sweep(frames_dir, sweep_id, country, currency, device=None, price_limit=
             it.replacement_cost = ItemPrice(**found)
             it.status = ItemStatus.priced if how == "priced" else ItemStatus.range
     telemetry["item_price_s"] = time.time() - t_stage
+
+    # Room (Layer 10): wall markers + vision-located wall corners, measured in code. Same sweep, no extra pass.
+    shelving = [it for it in packet.items if "shelv" in it.category.lower() or "bookcase" in it.category.lower()]
+    packet.room = Room(**room.room_from_walls(room.best_per_wall(walls), shelving))
+    telemetry["walls_measured"] = len(room.best_per_wall(walls))
 
     packet.sweep.duration_s = None  # filled by the live app from the real sweep
     telemetry.update({k: round(v, 2) for k, v in telemetry.items() if isinstance(v, float)})
