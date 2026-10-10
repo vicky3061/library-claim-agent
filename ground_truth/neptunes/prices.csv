@@ -1,1 +1,16 @@
-title,author,isbn,country,new_price,new_currency,new_source,new_url,used_price,used_currency,used_source,used_url,condition,checked_at
+title,author,isbn,country,new_price,new_currency,new_source,new_url,used_price,used_currency,used_source,used_url,condition,checked_at,notes
+The Stars Shine Down,Sidney Sheldon,,IN,5129,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/0007645775,,,,,new,2026-10-10,
+"Morning, Noon & Night",Sidney Sheldon,,IN,368,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/8172234848,,,,,new,2026-10-10,
+Nothing Lasts Forever,Sidney Sheldon,,IN,643.13,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/0006476589,,,,,new,2026-10-10,
+Are You Afraid of the Dark?,Sidney Sheldon,,IN,1671,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/0007165161,,,,,new,2026-10-10,re-searched
+A Stranger in the Mirror,Sidney Sheldon,,IN,329,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/8172234813,,,,,new,2026-10-10,
+Jewels of the Sun,Nora Roberts,,IN,475.11,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/0515126772,,,,,new,2026-10-10,
+Dance of the Gods,Nora Roberts,,IN,693.0,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/0749957557,,,,,new,2026-10-10,
+Born in Fire,Nora Roberts,,IN,473.0,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/0515114693,,,,,new,2026-10-10,
+The Collector,Nora Roberts,,IN,672,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/0749959320,,,,,new,2026-10-10,re-searched
+The Next Always,Nora Roberts,,IN,487.05,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/0515151491,,,,,new,2026-10-10,
+Times Change,Nora Roberts,,IN,1627,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/0263923681,,,,,new,2026-10-10,re-searched
+Secret Star,Nora Roberts,,IN,799,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/B0FCSJ8GGV,,,,,new,2026-10-10,re-searched; listing title reads 'Nora Roberts Secret ... Thriller Novels': verify it is the single book
+Blood Magick,Nora Roberts,,IN,828,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/0425259870,,,,,new,2026-10-10,
+Honest Illusions,Nora Roberts,,IN,826,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/0349408084,,,,,new,2026-10-10,
+A Perfect Life,Danielle Steel,,IN,530,INR,Amazon.in (hand-checked by Vignesh),https://www.amazon.in/dp/0552165883,,,,,new,2026-10-10,re-searched

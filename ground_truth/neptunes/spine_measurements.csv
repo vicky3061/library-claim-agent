@@ -1,1 +1,21 @@
-shelf_unit,shelf_row,position,title,height_cm,thickness_cm
+﻿shelf_unit,shelf_row,position,title,height_cm,thickness_cm,notes
+A,1,1,The Phoenix,19.5,2.5,
+A,1,6,Nothing Lasts Forever,17.7,1.9,
+A,1,9,Are You Afraid of the Dark?,17.8,2.0,CHECK: same title also listed as illegible #4
+A,1,15,Born in Fire,17.1,2.4,dictated '17.1 ... 1 cm is the length' - CHECK height
+A,1,22,The Next Always,19.7,2.2,
+A,1,25,Secret Star,19.7,1.7,
+A,1,27,Obsession,19.7,3.0,
+A,1,28,Blood Magick,21.0,2.0,
+A,1,30,Honest Illusions,23.3,3.5,
+A,1,32,The Collector,19.5,2.5,flat #2
+B,1,1,A Perfect Life,23.2,2.0,
+B,1,6,Wings,17.7,3.0,
+B,1,10,Special Delivery,17.7,2.0,
+B,1,13,44 Charles Street,17.7,2.0,
+B,1,18,Big Girl,17.7,2.5,
+B,1,22,Mirror Image,17.7,3.0,
+B,1,27,Fine Things,17.0,2.5,
+B,1,29,Country,17.7,2.5,
+B,1,31,The Promise,17.4,1.5,flat #2
+B,1,37,Flying Angels,19.6,1.8,flat #8

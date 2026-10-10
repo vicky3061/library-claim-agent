@@ -1,55 +1,40 @@
-# Architecture: Library Contents Claim Agent
+# Architecture (one page)
 
-Principle: models see; code and databases decide.** A vision model reads what is visible.
-Titles come from book catalogues, prices from retrievable listings, sizes from printed markers,
-totals from Python. Anything without evidence stays empty and goes to the review queue.
+**Principle: models see; code and databases decide.** The vision model only reports what is visible on each spine/item. Titles come from catalogues, prices from live listings with URLs, sizes from printed markers, totals from code. Anything uncertain goes to the review queue with a reason.
 
 ```
- Phone browser (camera + mic)                         Server (FastAPI, Python)
- ┌──────────────────────────┐   frame every 2 s   ┌───────────────────────────────────────────────┐
- │ live/index.html          │ ──────────────────▶ │ Quality check (code): blur, glare, dark,       │
- │  - camera preview        │                     │   marker in view  ──▶ spoken hint back         │
- │  - spoken hints          │ ◀────────────────── │ Keyframe filter: keep good AND new views       │
- │  - live inventory panel  │   hint + inventory  │        │                                       │
- └──────────────────────────┘                     │        ▼  (background, DURING the sweep)       │
-   TODO slice 2: Gemini Live voice in/out,        │ 1. Vision (Gemini Flash): spines + items,      │
-   corrections, art question                      │    visible letters only, age cues, material    │
-                                                  │ 2. Scale (OpenCV ArUco): marker → cm/px        │
-                                                  │ 3. Identify: Google Books + Open Library,      │
-                                                  │    field-wise fuzzy match, ambiguity margin    │
-                                                  │        │                                       │
-                                                  │        ▼  on Finish                            │
-                                                  │ 4. Price books: Amazon IN/US (SerpAPI),        │
-                                                  │    used: Google Shopping, FX: open.er-api      │
-                                                  │ 5. Price items: brand price or sourced range   │
-                                                  │ 6. Totals + review queue (pure Python)         │
-                                                  │        ▼                                       │
-                                                  │ claim_packet.json + report.html + frames/      │
-                                                  └───────────────────────────────────────────────┘
+ Phone browser (camera + Web Speech in/out)
+        │ frame every 2 s                ▲ spoken hints / summary
+        ▼                                │
+ FastAPI live server ── quality check (blur, glare, dark, marker) ── keyframe? ── turn upright (marker)
+        │ background, per keyframe (3 parallel)
+        ├─► 1 VISION      Gemini Flash: spines {box, text, upright/flat, legibility}, items, wall corners
+        ├─► 2 IDENTIFY    Google Books + Open Library, fuzzy match, ambiguity → unidentified; shelf-context author
+        └─► 3 PRICE       SerpAPI Amazon (new) + Google Shopping (used), fallback market + FX, rare → appraisal
+        │ on "Finish"
+        ▼
+ PIPELINE (same code offline: python -m app.pipeline <frames>)
+   dedup across keyframes (ORB + RANSAC homography, IoU; never merge conflicting titles)
+   MEASURE spines/items/walls on marker planes (ArUco homography)
+   ITEM PRICING (brand → median listing; unknown → 25–75th percentile range)
+   TOTALS + REVIEW QUEUE in code → claim_packet.json + report.html + saved frames
+        │
+        ▼
+ EVALUATE (tools/evaluate.py): packet vs hand ground truth → PASS/FAIL per pass bar
 ```
 
-## Which model / service does what
-| Stage | Tool | Why |
+| Stage | What does it | Model? |
 |---|---|---|
-| Spine + item detection, spine text | Gemini Flash (fallback list in `app/config.py`), JSON schema output, temperature 0 | Reads text well; told to transcribe only, never complete a title |
-| Title / author / edition | Google Books API + Open Library (cached) | A catalogue decides, not the model → no invented titles |
-| New price | Amazon.in / Amazon.com via SerpAPI | Retrievable URL + date; physical formats only |
-| Used price | Google Shopping pre-owned listings via SerpAPI | Capped at the new price |
-| Currency conversion | open.er-api.com (dated rate stored per price) | Only when no local listing exists; labelled "converted" |
-| Quality checks, scale, totals, review queue | Python + OpenCV | Deterministic, testable, free |
+| Spine/item reading | Gemini Flash (3.6, fallbacks 3.7/3.5/3.8), structured JSON, thinking LOW, cached by image+prompt | pretrained, hosted |
+| Voice in/out | Browser Web Speech API (en-IN); rule-based command parser (`app/voice.py`) | pretrained (browser) |
+| Identification | Google Books + Open Library; rapidfuzz token coverage; thresholds in config | no |
+| Metric scale | Printed ArUco markers (10 cm shelf, 18 cm wall); homography gives cm on the marker plane; marker orientation turns frames upright | no (OpenCV) |
+| Dedup | ORB features + RANSAC homography between keyframes; union-find | no (OpenCV) |
+| Prices | SerpAPI Amazon / Google Shopping; every price has source, URL, retrieval date, condition; FX via open.er-api.com, labelled converted | no |
+| Totals, review queue, report | Python (`app/totals.py`, `app/report.py`) | no |
 
-## Where metric scale comes from
-Printed ArUco markers (`tools/make_markers.py`): 10 cm on shelves (IDs 0–9), 18 cm on walls (IDs 10–19).
-The marker's 4 corners give a homography from pixels to centimetres on the marker's plane.
-Measured on a real wall: ~1.1–1.5% error. No marker in view → sizes stay empty + review entry.
-TODO: room dimensions from wall markers (Layer 10); fallback scale from a known shelf height.
+**Where metric scale comes from:** only from printed markers of known size. Shelf marker → spine height/thickness and item sizes; wall markers + model-located wall corners → room length/width/height. No marker in view → size left empty and flagged, never estimated by the model.
 
-## Where prices come from, and what is never auto-priced
-Every price stores amount, currency, source, URL, retrieval time, and (if converted) the original amount and FX rate.
-Not auto-priced → "needs appraisal": antiquarian appearance on the spine (blackletter, leather, or 2+ age cues),
-"signed / first edition / limited" on the spine or from the policyholder, replacement above ₹5,000 / $60, art.
+**Where prices come from:** live marketplace listings via SerpAPI (Amazon for new, Google Shopping for used), local market first, then a fallback market converted with a dated FX rate. The model never produces a price. Rare/signed/antiquarian cues, "first edition" said by the user, art and items above a threshold go to human appraisal.
 
-## Latency and cost (measured, dev photo)
-Identification 125.9 s → 29.1 s for 14 spines after parallel calls + catalogue cache (warm: 0.3 s).
-Vision runs during the sweep. Cost per sweep = measured tokens and searches × list prices (`telemetry.cost`).
-TODO: full-sweep numbers from the library run.
+**Separate, testable stages:** each stage has its own module and tests (112 pytest tests); every external call is cached on disk; keys only in `.env`.

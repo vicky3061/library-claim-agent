@@ -1,2 +1,74 @@
-shelf_unit,shelf_row,position,orientation,legible,title,author,publisher,notes
-A,1,1,upright,yes,,,,
+﻿shelf_unit,shelf_row,position,orientation,legible,title,author,publisher,notes
+A,1,1,upright,yes,The Phoenix,Sidney Sheldon,,
+A,1,2,upright,yes,Sidney Sheldon's Reckless,Sidney Sheldon,,
+A,1,3,upright,yes,The Stars Shine Down,Sidney Sheldon,,
+A,1,4,upright,no,Are You Afraid of the Dark?,,,
+A,1,5,upright,yes,"Morning, Noon and Night",Sidney Sheldon,,
+A,1,6,upright,yes,Nothing Lasts Forever,Sidney Sheldon,,
+A,1,7,upright,yes,Sidney Sheldon's Angel of the Dark,Tilly Bagshawe,,
+A,1,8,upright,yes,The Stars Shine Down,Sidney Sheldon,,
+A,1,9,upright,yes,Are You Afraid of the Dark?,Sidney Sheldon,,CHECK: same title also listed as illegible #4
+A,1,10,upright,yes,A Stranger in the Mirror,Sidney Sheldon,,
+A,1,11,upright,yes,"Morning, Noon and Night",Sidney Sheldon,,
+A,1,12,upright,no,Moon Shadows,Nora Roberts,,
+A,1,13,upright,no,Jewels of the Sun,Nora Roberts,,
+A,1,14,upright,yes,Dance of the Gods,Nora Roberts,,
+A,1,15,upright,yes,Born in Fire,Nora Roberts,,dictated '17.1 ... 1 cm is the length' - CHECK height
+A,1,16,upright,yes,Catching Snowflakes,Nora Roberts,,dictated 'Showflakes'
+A,1,17,upright,no,The Pagan Stone,Nora Roberts,,
+A,1,18,upright,no,Moon Shadows,Nora Roberts,,
+A,1,19,upright,yes,The Collector,Nora Roberts,,
+A,1,20,upright,yes,Nightwork,Nora Roberts,,
+A,1,21,upright,yes,Inner Harbour,Nora Roberts,,dictated 'Inner Arbor'
+A,1,22,upright,yes,The Next Always,Nora Roberts,,
+A,1,23,upright,yes,Times Change,Nora Roberts,,dictated 'Times Changes'
+A,1,24,upright,no,,Nora Roberts,,"spine shows only the author name, no title: counted, title not legible"
+A,1,25,upright,yes,Secret Star,Nora Roberts,,
+A,1,26,upright,yes,The Magic Home,Nora Roberts,,CHECK title as dictated
+A,1,27,upright,yes,Obsession,Nora Roberts,,
+A,1,28,upright,yes,Blood Magick,Nora Roberts,,
+A,1,29,upright,no,Shadow Spell,Nora Roberts,,
+A,1,30,upright,yes,Honest Illusions,Nora Roberts,,
+A,1,31,flat,no,The Stars Shine Down,Sidney Sheldon,,flat #1
+A,1,32,flat,yes,The Collector,Nora Roberts,,flat #2; flat #2
+B,1,1,upright,yes,A Perfect Life,Danielle Steel,,
+B,1,2,upright,yes,Family Ties,Danielle Steel,,
+B,1,3,upright,no,The Ranch,Danielle Steel,,
+B,1,4,upright,yes,Summer's End,Danielle Steel,,
+B,1,5,upright,no,Sisters,Danielle Steel,,
+B,1,6,upright,yes,Wings,Danielle Steel,,
+B,1,7,upright,yes,Lightning,Danielle Steel,,
+B,1,8,upright,no,Bungalow 2,Danielle Steel,,
+B,1,9,upright,no,Answered Prayers,Danielle Steel,,
+B,1,10,upright,yes,Special Delivery,Danielle Steel,,
+B,1,11,upright,no,Second Chance,Danielle Steel,,
+B,1,12,upright,yes,A Good Woman,Danielle Steel,,
+B,1,13,upright,yes,44 Charles Street,Danielle Steel,,
+B,1,14,upright,yes,Summer's End,Danielle Steel,,
+B,1,15,upright,no,No Greater Love,Danielle Steel,,
+B,1,16,upright,yes,Leap of Faith,Danielle Steel,,
+B,1,17,upright,no,Happy Birthday,Danielle Steel,,
+B,1,18,upright,yes,Big Girl,Danielle Steel,,
+B,1,19,upright,no,Winners,Danielle Steel,,
+B,1,20,upright,yes,Vanished,Danielle Steel,,
+B,1,21,upright,yes,Ransom,Danielle Steel,,
+B,1,22,upright,yes,Mirror Image,Danielle Steel,,
+B,1,23,upright,yes,A Perfect Stranger,Danielle Steel,,
+B,1,24,upright,no,Heartbeat,Danielle Steel,,
+B,1,25,upright,no,Once in a Lifetime,Danielle Steel,,
+B,1,26,upright,no,Secrets,Danielle Steel,,
+B,1,27,upright,yes,Fine Things,Danielle Steel,,
+B,1,28,upright,no,Granny Dan,Danielle Steel,,
+B,1,29,upright,yes,Country,Danielle Steel,,
+B,1,30,flat,yes,Bright Eyes,Caroline Anderson,,flat #1
+B,1,31,flat,yes,The Promise,Danielle Steel,,flat #2; flat #2
+B,1,32,flat,yes,The Apartment,Danielle Steel,,flat #3
+B,1,33,flat,no,The Gift,Danielle Steel,,flat #4
+B,1,34,flat,yes,Precious Gift,Danielle Steel,,flat #5
+B,1,35,flat,no,Accidental Heroes,Danielle Steel,,flat #6
+B,1,36,flat,yes,Suspects,Danielle Steel,,flat #7
+B,1,37,flat,yes,Flying Angels,Danielle Steel,,flat #8; flat #8
+B,1,38,flat,no,44 Charles Street,Danielle Steel,,flat #9
+B,1,39,flat,yes,Chasing Harry Winston,,,flat #10
+B,1,40,flat,yes,Chasing Harry Winston,,,flat #11
+B,1,41,flat,yes,Everyone Worth Knowing,,,flat #12

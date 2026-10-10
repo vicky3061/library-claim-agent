@@ -1,1 +1,9 @@
 item_no,category,description,material,brand_model,w_cm,h_cm,d_cm,is_art,print_or_original,notes
+1,bookcase,"Bookcase F-6, blue, custom-made",wood,,90,178.5,,no,,F-6/F-7 hall; no brand
+2,bookcase,"Bookcase F-7, blue, custom-made",wood,,90,178.5,,no,,F-6/F-7 hall; no brand
+3,bookcase,"Bookcase IN-R1, yellow, custom-made",wood,,91,178,,no,,no brand
+4,bookcase,"Bookcase IN-R2, green, custom-made",wood,,91,178,,no,,no brand
+5,chair,"Small wooden chair, blue painted seat",wood,,29.5,59,,no,,"qty 1; orange area; notebook breadth 59 / length 29.5, read as W 29.5 x H 59"
+6,aquarium,Glass fish tank (aquarium),glass,,47.5,31.5,,no,,orange area
+7,table,"Fish tank stand / table, black steel frame on castors",steel,,65,36,,no,,orange area; notebook breadth 65 / length 36; orientation not confirmed
+8,sofa,"Two-seater sofa, red fabric, wooden arms","fabric, wood",,73,117.5,,no,,notebook breadth 73 / length 117.5; probably 117.5 wide x 73 high - CHECK

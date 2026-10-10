@@ -1,9 +1,9 @@
 measurement,value_m,notes
-room_length,,longest wall floor-to-floor
+room_length,,not measured: shop did not permit room measurement
 room_width,,
 ceiling_height,,
-shape,,rectangle or describe (L-shape etc.)
-shelf_unit_A_width,,
-shelf_unit_A_height,,
-shelf_unit_B_width,,
-shelf_unit_B_height,,
+shape,,not measured
+shelf_unit_A_width,0.9,F-6
+shelf_unit_A_height,1.785,F-6
+shelf_unit_B_width,0.9,F-7
+shelf_unit_B_height,1.785,F-7

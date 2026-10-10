@@ -1,0 +1,403 @@
+{
+  "count": {
+    "true": 73,
+    "pred": 73,
+    "error_pct": 0.0,
+    "pass": true
+  },
+  "titles": {
+    "legible": 50,
+    "named_by_system": 57,
+    "correct": 42,
+    "correct_pct": 84.0,
+    "confidently_wrong": 1,
+    "wrong_pct": 1.8,
+    "wrong_titles": [
+      "The MacGregors"
+    ],
+    "pass": true
+  },
+  "spines": {
+    "measured_books": 20,
+    "dimensions_compared": 36,
+    "within_15pct": 18,
+    "median_error_pct": 14.9,
+    "pass": false,
+    "rows": [
+      {
+        "title": "Flying Angels",
+        "dim": "height_cm",
+        "true": 19.6,
+        "pred": 20.6,
+        "error_pct": 5.1
+      },
+      {
+        "title": "Flying Angels",
+        "dim": "thickness_cm",
+        "true": 1.8,
+        "pred": 2.2,
+        "error_pct": 22.2
+      },
+      {
+        "title": "The Promise",
+        "dim": "height_cm",
+        "true": 17.4,
+        "pred": 16.7,
+        "error_pct": 4.0
+      },
+      {
+        "title": "The Promise",
+        "dim": "thickness_cm",
+        "true": 1.5,
+        "pred": 2.1,
+        "error_pct": 40.0
+      },
+      {
+        "title": "Country",
+        "dim": "height_cm",
+        "true": 17.7,
+        "pred": 16.0,
+        "error_pct": 9.6
+      },
+      {
+        "title": "Country",
+        "dim": "thickness_cm",
+        "true": 2.5,
+        "pred": 4.1,
+        "error_pct": 64.0
+      },
+      {
+        "title": "Fine Things",
+        "dim": "height_cm",
+        "true": 17.0,
+        "pred": 15.7,
+        "error_pct": 7.6
+      },
+      {
+        "title": "Fine Things",
+        "dim": "thickness_cm",
+        "true": 2.5,
+        "pred": 3.3,
+        "error_pct": 32.0
+      },
+      {
+        "title": "Mirror Image",
+        "dim": "height_cm",
+        "true": 17.7,
+        "pred": 16.0,
+        "error_pct": 9.6
+      },
+      {
+        "title": "Mirror Image",
+        "dim": "thickness_cm",
+        "true": 3.0,
+        "pred": 3.1,
+        "error_pct": 3.3
+      },
+      {
+        "title": "Big Girl",
+        "dim": "height_cm",
+        "true": 17.7,
+        "pred": 16.1,
+        "error_pct": 9.0
+      },
+      {
+        "title": "Big Girl",
+        "dim": "thickness_cm",
+        "true": 2.5,
+        "pred": 3.1,
+        "error_pct": 24.0
+      },
+      {
+        "title": "44 Charles Street",
+        "dim": "height_cm",
+        "true": 17.7,
+        "pred": 16.4,
+        "error_pct": 7.3
+      },
+      {
+        "title": "44 Charles Street",
+        "dim": "thickness_cm",
+        "true": 2.0,
+        "pred": 2.4,
+        "error_pct": 20.0
+      },
+      {
+        "title": "Special Delivery",
+        "dim": "height_cm",
+        "true": 17.7,
+        "pred": 16.4,
+        "error_pct": 7.3
+      },
+      {
+        "title": "Special Delivery",
+        "dim": "thickness_cm",
+        "true": 2.0,
+        "pred": 2.1,
+        "error_pct": 5.0
+      },
+      {
+        "title": "Wings",
+        "dim": "height_cm",
+        "true": 17.7,
+        "pred": 16.7,
+        "error_pct": 5.6
+      },
+      {
+        "title": "Wings",
+        "dim": "thickness_cm",
+        "true": 3.0,
+        "pred": 3.6,
+        "error_pct": 20.0
+      },
+      {
+        "title": "A Perfect Life",
+        "dim": "height_cm",
+        "true": 23.2,
+        "pred": 23.5,
+        "error_pct": 1.3
+      },
+      {
+        "title": "A Perfect Life",
+        "dim": "thickness_cm",
+        "true": 2.0,
+        "pred": 4.3,
+        "error_pct": 115.0
+      },
+      {
+        "title": "The Collector",
+        "dim": "height_cm",
+        "true": 19.5,
+        "pred": 18.5,
+        "error_pct": 5.1
+      },
+      {
+        "title": "The Collector",
+        "dim": "thickness_cm",
+        "true": 2.5,
+        "pred": 3.5,
+        "error_pct": 40.0
+      },
+      {
+        "title": "Honest Illusions",
+        "dim": "height_cm",
+        "true": 23.3,
+        "pred": 20.8,
+        "error_pct": 10.7
+      },
+      {
+        "title": "Honest Illusions",
+        "dim": "thickness_cm",
+        "true": 3.5,
+        "pred": 4.1,
+        "error_pct": 17.1
+      },
+      {
+        "title": "Blood Magick",
+        "dim": "height_cm",
+        "true": 21.0,
+        "pred": 18.1,
+        "error_pct": 13.8
+      },
+      {
+        "title": "Blood Magick",
+        "dim": "thickness_cm",
+        "true": 2.0,
+        "pred": 3.4,
+        "error_pct": 70.0
+      },
+      {
+        "title": "Secret Star",
+        "dim": "height_cm",
+        "true": 19.7,
+        "pred": 16.6,
+        "error_pct": 15.7
+      },
+      {
+        "title": "Secret Star",
+        "dim": "thickness_cm",
+        "true": 1.7,
+        "pred": 2.6,
+        "error_pct": 52.9
+      },
+      {
+        "title": "The Next Always",
+        "dim": "height_cm",
+        "true": 19.7,
+        "pred": 16.8,
+        "error_pct": 14.7
+      },
+      {
+        "title": "The Next Always",
+        "dim": "thickness_cm",
+        "true": 2.2,
+        "pred": 3.0,
+        "error_pct": 36.4
+      },
+      {
+        "title": "Born in Fire",
+        "dim": "height_cm",
+        "true": 17.1,
+        "pred": 14.1,
+        "error_pct": 17.5
+      },
+      {
+        "title": "Born in Fire",
+        "dim": "thickness_cm",
+        "true": 2.4,
+        "pred": 2.3,
+        "error_pct": 4.2
+      },
+      {
+        "title": "Are You Afraid of the Dark?",
+        "dim": "height_cm",
+        "true": 17.8,
+        "pred": 15.1,
+        "error_pct": 15.2
+      },
+      {
+        "title": "Are You Afraid of the Dark?",
+        "dim": "thickness_cm",
+        "true": 2.0,
+        "pred": 1.6,
+        "error_pct": 20.0
+      },
+      {
+        "title": "Nothing Lasts Forever",
+        "dim": "height_cm",
+        "true": 17.7,
+        "pred": 14.7,
+        "error_pct": 16.9
+      },
+      {
+        "title": "Nothing Lasts Forever",
+        "dim": "thickness_cm",
+        "true": 1.9,
+        "pred": 1.7,
+        "error_pct": 10.5
+      }
+    ],
+    "note": "a book counts only if the system identified it AND measured it"
+  },
+  "prices": {
+    "hand_priced_books": 15,
+    "prices_compared": 15,
+    "within_25pct": 8,
+    "median_error_pct": 0.0,
+    "pass": false,
+    "rows": [
+      {
+        "title": "A Perfect Life",
+        "kind": "replacement_cost",
+        "true": 530.0,
+        "pred": 314.21,
+        "error_pct": 40.7
+      },
+      {
+        "title": "The Stars Shine Down",
+        "kind": "replacement_cost",
+        "true": 5129.0,
+        "pred": 141.58,
+        "error_pct": 97.2
+      },
+      {
+        "title": "The Collector",
+        "kind": "replacement_cost",
+        "true": 672.0,
+        "pred": 672.0,
+        "error_pct": 0.0
+      },
+      {
+        "title": "Honest Illusions",
+        "kind": "replacement_cost",
+        "true": 826.0,
+        "pred": 826.0,
+        "error_pct": 0.0
+      },
+      {
+        "title": "Blood Magick",
+        "kind": "replacement_cost",
+        "true": 828.0,
+        "pred": 828.0,
+        "error_pct": 0.0
+      },
+      {
+        "title": "Secret Star",
+        "kind": "replacement_cost",
+        "true": 799.0,
+        "pred": 4000.0,
+        "error_pct": 400.6
+      },
+      {
+        "title": "Times Change",
+        "kind": "replacement_cost",
+        "true": 1627.0,
+        "pred": 1627.0,
+        "error_pct": 0.0
+      },
+      {
+        "title": "The Next Always",
+        "kind": "replacement_cost",
+        "true": 487.05,
+        "pred": 487.05,
+        "error_pct": 0.0
+      },
+      {
+        "title": "Born in Fire",
+        "kind": "replacement_cost",
+        "true": 473.0,
+        "pred": 2563.0,
+        "error_pct": 441.9
+      },
+      {
+        "title": "Dance of the Gods",
+        "kind": "replacement_cost",
+        "true": 693.0,
+        "pred": 693.0,
+        "error_pct": 0.0
+      },
+      {
+        "title": "Jewels of the Sun",
+        "kind": "replacement_cost",
+        "true": 475.11,
+        "pred": 475.11,
+        "error_pct": 0.0
+      },
+      {
+        "title": "Morning, Noon & Night",
+        "kind": "replacement_cost",
+        "true": 368.0,
+        "pred": 368.0,
+        "error_pct": 0.0
+      },
+      {
+        "title": "A Stranger in the Mirror",
+        "kind": "replacement_cost",
+        "true": 329.0,
+        "pred": 2481.74,
+        "error_pct": 654.3
+      },
+      {
+        "title": "Are You Afraid of the Dark?",
+        "kind": "replacement_cost",
+        "true": 1671.0,
+        "pred": 440.0,
+        "error_pct": 73.7
+      },
+      {
+        "title": "Nothing Lasts Forever",
+        "kind": "replacement_cost",
+        "true": 643.13,
+        "pred": 141.58,
+        "error_pct": 78.0
+      }
+    ]
+  },
+  "items": {
+    "true": 8,
+    "found": 8,
+    "found_pct": 100.0,
+    "pass": true,
+    "note": "category-word match is lenient; check items by eye in the report"
+  }
+}

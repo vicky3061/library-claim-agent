@@ -56,7 +56,7 @@ IDENTIFY_WORKERS = 4
 PRICE_WORKERS = 8
 
 # Frame quality checks (code, not a model). Calibrate on real frames with tools/quality_report.py.
-BLUR_MIN_VAR = 40.0      # variance of Laplacian at 640 px width; below = blurry
+BLUR_MIN_VAR = 35.0      # variance of Laplacian at 640 px width; below = blurry
 GLARE_MAX_FRAC = 0.03     # share of pixels that are near-white and colourless; above = glare
 DARK_MAX_MEAN = 60.0      # mean brightness (0-255); below = too dark
 
